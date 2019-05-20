@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041FAC3C228E47C1006BFE57 /* MMTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FAC3B228E47C1006BFE57 /* MMTimer.swift */; };
 		04E7275022884AA900727D44 /* MMLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7274622884AA900727D44 /* MMLibrary.framework */; };
 		04E7275522884AA900727D44 /* MMLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7275422884AA900727D44 /* MMLibraryTests.swift */; };
 		04E7275722884AA900727D44 /* MMLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E7274922884AA900727D44 /* MMLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -29,7 +30,6 @@
 		04F1756422892B4D0025999B /* DispatchSemaphore+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1756322892B4D0025999B /* DispatchSemaphore+Extension.swift */; };
 		04F1756622892C7C0025999B /* NSObject+ClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1756522892C7C0025999B /* NSObject+ClassName.swift */; };
 		04F1756822892D4F0025999B /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1756722892D4F0025999B /* NSObject+Extension.swift */; };
-		04F1756C228931F80025999B /* MMTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1756B228931F80025999B /* MMTimer.swift */; };
 		04F1756E228949660025999B /* MMDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1756D228949660025999B /* MMDate.swift */; };
 		04F17570228949CA0025999B /* MMDateFormatterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1756F228949CA0025999B /* MMDateFormatterFactory.swift */; };
 		04F1757322894BAF0025999B /* MMNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1757222894BAF0025999B /* MMNotification.swift */; };
@@ -67,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041FAC3B228E47C1006BFE57 /* MMTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTimer.swift; sourceTree = "<group>"; };
 		04E7274622884AA900727D44 /* MMLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MMLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E7274922884AA900727D44 /* MMLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMLibrary.h; sourceTree = "<group>"; };
 		04E7274A22884AA900727D44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,7 +99,6 @@
 		04F1756322892B4D0025999B /* DispatchSemaphore+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchSemaphore+Extension.swift"; sourceTree = "<group>"; };
 		04F1756522892C7C0025999B /* NSObject+ClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+ClassName.swift"; sourceTree = "<group>"; };
 		04F1756722892D4F0025999B /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
-		04F1756B228931F80025999B /* MMTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTimer.swift; sourceTree = "<group>"; };
 		04F1756D228949660025999B /* MMDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMDate.swift; sourceTree = "<group>"; };
 		04F1756F228949CA0025999B /* MMDateFormatterFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMDateFormatterFactory.swift; sourceTree = "<group>"; };
 		04F1757222894BAF0025999B /* MMNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMNotification.swift; sourceTree = "<group>"; };
@@ -253,6 +253,7 @@
 		04E7279922884E5C00727D44 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
+				041FAC3B228E47C1006BFE57 /* MMTimer.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -286,7 +287,6 @@
 			isa = PBXGroup;
 			children = (
 				04E727A4228853CF00727D44 /* MMFoundationGlobalDefine.swift */,
-				04F1756B228931F80025999B /* MMTimer.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -608,7 +608,7 @@
 				04E7279F2288512500727D44 /* MMLanguage.swift in Sources */,
 				04F1758222894EB70025999B /* MMSqlite.swift in Sources */,
 				04F1756822892D4F0025999B /* NSObject+Extension.swift in Sources */,
-				04F1756C228931F80025999B /* MMTimer.swift in Sources */,
+				041FAC3C228E47C1006BFE57 /* MMTimer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -820,6 +820,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MMLibrary/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -847,6 +848,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MMLibrary/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -139,7 +139,7 @@ public extension NSObject {
     ///
     /// - Parameter key: key值
     /// - Returns: 获取的value
-    func YLSafeValue(forKey key: String) -> Any? {
+    func MMsafeValue(forKey key: String) -> Any? {
         let copy = Mirror(reflecting: self)
         
         for child in copy.children.makeIterator() {

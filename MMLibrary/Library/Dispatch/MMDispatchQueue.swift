@@ -29,18 +29,7 @@ open class MMDispatchQueue: NSObject {
     }
     private var atomicAllOperationQueueDictionary: MMAtomicVar<[String: MMOperationQueue]> = MMAtomicVar([:])
     
-    //线程锁
-//    private static var _lock: NSRecursiveLock = NSRecursiveLock()
-    
-//    /// 锁住
-//    open class func lock() {
-//        YLBasicDispatchManager._lock.lock()
-//    }
-//
-//    /// 解锁
-//    open class func unlock() {
-//        YLBasicDispatchManager._lock.unlock()
-//    }
+
     //    private let _dispatchQueue = getOperationQueue(withName: "YLBasicDispatchQueue", maxCount: 1)
     public class func getOperationQueue(withName name: String, maxCount: Int, finishBlock: @escaping (_ queue: MMOperationQueue) -> Void) {
         MMexecuteOnMainThread {
@@ -64,16 +53,16 @@ open class MMDispatchQueue: NSObject {
     ///   - name: queue的名字
     ///   - maxCount: Queue的最大并发数
     ///   - isFreeQuque: 是否是即时队列
-    /// - Returns: YLOperationQueue实例
+    /// - Returns: OperationQueue实例
     public class func getOperationQueue(withName name: String, maxCount: Int, isFreeQuque: Bool = false) -> MMOperationQueue {
-        //        _ = YLBasicDispatchManager.shared.semaphore.wait()
+        //        _ = MMBasicDispatchManager.shared.semaphore.wait()
         if let queue = shared.allOperationQueueDictionary[name] {
             //            shared.semaphore.signal()
             return queue
         }
         else {
             //            if Thread.isMainThread == false {
-            //                YLLOG.info("getOperationQueue方法必须放在主线程中! name = \(name)")
+            //                MMLOG.info("getOperationQueue方法必须放在主线程中! name = \(name)")
             //                assert(Thread.isMainThread, "getOperationQueue方法必须放在主线程中! name = \(name)")
             //            }
             let queue = MMOperationQueue(maxCount: maxCount)
@@ -88,9 +77,9 @@ open class MMDispatchQueue: NSObject {
     //    func checkFreeQueue() {
     //        Timer.scheduledTimerYL(withTimeInterval: 30, repeats: true, block: { (timer) in
     //            ExecuteOnMainThread {
-    //                for (key, value) in YLBasicDispatchManager.shared.allOperationQueueDictionary {
+    //                for (key, value) in MMBasicDispatchManager.shared.allOperationQueueDictionary {
     //                    if value.operationCount == 0 {
-    //                        YLBasicDispatchManager.shared.allOperationQueueDictionary[key] = nil
+    //                        MMBasicDispatchManager.shared.allOperationQueueDictionary[key] = nil
     //                    }
     //                }
     //            }

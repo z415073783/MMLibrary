@@ -24,7 +24,7 @@ public extension DispatchQueue {
 /// - Parameters:
 ///   - queueName: 执行的队列名
 ///   - block: 执行的block
-func MMexecuteNoRepeat(queueName: String, block: @escaping () -> Swift.Void) {
+public func MMexecuteNoRepeat(queueName: String, block: @escaping () -> Swift.Void) {
     MMexecuteOnMainThread {
         let queue = MMDispatchQueue.getOperationQueue(withName: queueName, maxCount: 1)
         for operation in queue.operations {
@@ -42,7 +42,7 @@ func MMexecuteNoRepeat(queueName: String, block: @escaping () -> Swift.Void) {
 /// 在主线程中执行
 ///
 /// - Parameter block: 执行的block
-func MMexecuteOnMainThread(execute block: @escaping () -> Swift.Void) {
+public func MMexecuteOnMainThread(execute block: @escaping () -> Swift.Void) {
     if Thread.isMainThread {
         block()
     } else {

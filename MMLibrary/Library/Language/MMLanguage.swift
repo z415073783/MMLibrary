@@ -37,7 +37,7 @@ public extension MMLanguage {
     ///
     /// - Parameter key: 默认语言
     /// - Returns: 当前语言
-    func localized(_ key: String?,_ identifity: String? = shared.identifityStr, _ selectLanguage: LanguageType? = nil) -> String {
+    static func localized(_ key: String?,_ identifity: String? = shared.identifityStr, _ selectLanguage: LanguageType? = nil) -> String {
         guard let key = key else {
             return ""
         }
@@ -45,7 +45,7 @@ public extension MMLanguage {
         if selectLanguage != nil { //设置指定语言
             currentLanguage = selectLanguage?.rawValue
         }
-        let newIdentifity = identifity ?? identifityStr
+        let newIdentifity = identifity ?? shared.identifityStr
         guard let plist = MMLanguage.shared.languagePlistDic[newIdentifity] else {
             MMLOG.error("未获取到\(String(describing: identifity))对应的plist数据")
             return key
