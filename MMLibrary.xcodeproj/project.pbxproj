@@ -8,16 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		041FAC3C228E47C1006BFE57 /* MMTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FAC3B228E47C1006BFE57 /* MMTimer.swift */; };
-		04E7275022884AA900727D44 /* MMLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7274622884AA900727D44 /* MMLibrary.framework */; };
-		04E7275522884AA900727D44 /* MMLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7275422884AA900727D44 /* MMLibraryTests.swift */; };
 		04E7275722884AA900727D44 /* MMLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E7274922884AA900727D44 /* MMLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		04E7276722884D6300727D44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7276622884D6300727D44 /* AppDelegate.swift */; };
-		04E7276922884D6300727D44 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7276822884D6300727D44 /* ViewController.swift */; };
-		04E7276C22884D6300727D44 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E7276A22884D6300727D44 /* Main.storyboard */; };
-		04E7276E22884D6500727D44 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04E7276D22884D6500727D44 /* Assets.xcassets */; };
-		04E7277122884D6500727D44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E7276F22884D6500727D44 /* LaunchScreen.storyboard */; };
-		04E7277C22884D6500727D44 /* MMLibraryDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7277B22884D6500727D44 /* MMLibraryDemoTests.swift */; };
-		04E7278722884D6500727D44 /* MMLibraryDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7278622884D6500727D44 /* MMLibraryDemoUITests.swift */; };
 		04E7279F2288512500727D44 /* MMLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7279E2288512500727D44 /* MMLanguage.swift */; };
 		04E727A22288524300727D44 /* MMLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E727A12288524300727D44 /* MMLog.swift */; };
 		04E727A5228853CF00727D44 /* MMFoundationGlobalDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E727A4228853CF00727D44 /* MMFoundationGlobalDefine.swift */; };
@@ -42,51 +33,11 @@
 		04F17588228950860025999B /* UIImage+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F17587228950860025999B /* UIImage+Common.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		04E7275122884AA900727D44 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 04E7273D22884AA900727D44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 04E7274522884AA900727D44;
-			remoteInfo = MMLibrary;
-		};
-		04E7277822884D6500727D44 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 04E7273D22884AA900727D44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 04E7276322884D6300727D44;
-			remoteInfo = MMLibraryDemo;
-		};
-		04E7278322884D6500727D44 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 04E7273D22884AA900727D44 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 04E7276322884D6300727D44;
-			remoteInfo = MMLibraryDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		041FAC3B228E47C1006BFE57 /* MMTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTimer.swift; sourceTree = "<group>"; };
 		04E7274622884AA900727D44 /* MMLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MMLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E7274922884AA900727D44 /* MMLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMLibrary.h; sourceTree = "<group>"; };
 		04E7274A22884AA900727D44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04E7274F22884AA900727D44 /* MMLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MMLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		04E7275422884AA900727D44 /* MMLibraryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLibraryTests.swift; sourceTree = "<group>"; };
-		04E7275622884AA900727D44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04E7276422884D6300727D44 /* MMLibraryDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMLibraryDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		04E7276622884D6300727D44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		04E7276822884D6300727D44 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		04E7276B22884D6300727D44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		04E7276D22884D6500727D44 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		04E7277022884D6500727D44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		04E7277222884D6500727D44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04E7277722884D6500727D44 /* MMLibraryDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MMLibraryDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		04E7277B22884D6500727D44 /* MMLibraryDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLibraryDemoTests.swift; sourceTree = "<group>"; };
-		04E7277D22884D6500727D44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04E7278222884D6500727D44 /* MMLibraryDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MMLibraryDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		04E7278622884D6500727D44 /* MMLibraryDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLibraryDemoUITests.swift; sourceTree = "<group>"; };
-		04E7278822884D6500727D44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04E7279E2288512500727D44 /* MMLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLanguage.swift; sourceTree = "<group>"; };
 		04E727A12288524300727D44 /* MMLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLog.swift; sourceTree = "<group>"; };
 		04E727A4228853CF00727D44 /* MMFoundationGlobalDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMFoundationGlobalDefine.swift; sourceTree = "<group>"; };
@@ -121,35 +72,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		04E7274C22884AA900727D44 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				04E7275022884AA900727D44 /* MMLibrary.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04E7276122884D6300727D44 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04E7277422884D6500727D44 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04E7277F22884D6500727D44 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -157,10 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				04E7274822884AA900727D44 /* MMLibrary */,
-				04E7275322884AA900727D44 /* MMLibraryTests */,
-				04E7276522884D6300727D44 /* MMLibraryDemo */,
-				04E7277A22884D6500727D44 /* MMLibraryDemoTests */,
-				04E7278522884D6500727D44 /* MMLibraryDemoUITests */,
 				04E7274722884AA900727D44 /* Products */,
 				04F1757C22894E400025999B /* Frameworks */,
 			);
@@ -170,10 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				04E7274622884AA900727D44 /* MMLibrary.framework */,
-				04E7274F22884AA900727D44 /* MMLibraryTests.xctest */,
-				04E7276422884D6300727D44 /* MMLibraryDemo.app */,
-				04E7277722884D6500727D44 /* MMLibraryDemoTests.xctest */,
-				04E7278222884D6500727D44 /* MMLibraryDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -186,46 +100,6 @@
 				04E7274A22884AA900727D44 /* Info.plist */,
 			);
 			path = MMLibrary;
-			sourceTree = "<group>";
-		};
-		04E7275322884AA900727D44 /* MMLibraryTests */ = {
-			isa = PBXGroup;
-			children = (
-				04E7275422884AA900727D44 /* MMLibraryTests.swift */,
-				04E7275622884AA900727D44 /* Info.plist */,
-			);
-			path = MMLibraryTests;
-			sourceTree = "<group>";
-		};
-		04E7276522884D6300727D44 /* MMLibraryDemo */ = {
-			isa = PBXGroup;
-			children = (
-				04E7276622884D6300727D44 /* AppDelegate.swift */,
-				04E7276822884D6300727D44 /* ViewController.swift */,
-				04E7276A22884D6300727D44 /* Main.storyboard */,
-				04E7276D22884D6500727D44 /* Assets.xcassets */,
-				04E7276F22884D6500727D44 /* LaunchScreen.storyboard */,
-				04E7277222884D6500727D44 /* Info.plist */,
-			);
-			path = MMLibraryDemo;
-			sourceTree = "<group>";
-		};
-		04E7277A22884D6500727D44 /* MMLibraryDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				04E7277B22884D6500727D44 /* MMLibraryDemoTests.swift */,
-				04E7277D22884D6500727D44 /* Info.plist */,
-			);
-			path = MMLibraryDemoTests;
-			sourceTree = "<group>";
-		};
-		04E7278522884D6500727D44 /* MMLibraryDemoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				04E7278622884D6500727D44 /* MMLibraryDemoUITests.swift */,
-				04E7278822884D6500727D44 /* Info.plist */,
-			);
-			path = MMLibraryDemoUITests;
 			sourceTree = "<group>";
 		};
 		04E7279222884DDC00727D44 /* Library */ = {
@@ -418,77 +292,6 @@
 			productReference = 04E7274622884AA900727D44 /* MMLibrary.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		04E7274E22884AA900727D44 /* MMLibraryTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 04E7275D22884AA900727D44 /* Build configuration list for PBXNativeTarget "MMLibraryTests" */;
-			buildPhases = (
-				04E7274B22884AA900727D44 /* Sources */,
-				04E7274C22884AA900727D44 /* Frameworks */,
-				04E7274D22884AA900727D44 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				04E7275222884AA900727D44 /* PBXTargetDependency */,
-			);
-			name = MMLibraryTests;
-			productName = MMLibraryTests;
-			productReference = 04E7274F22884AA900727D44 /* MMLibraryTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		04E7276322884D6300727D44 /* MMLibraryDemo */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 04E7278922884D6500727D44 /* Build configuration list for PBXNativeTarget "MMLibraryDemo" */;
-			buildPhases = (
-				04E7276022884D6300727D44 /* Sources */,
-				04E7276122884D6300727D44 /* Frameworks */,
-				04E7276222884D6300727D44 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MMLibraryDemo;
-			productName = MMLibraryDemo;
-			productReference = 04E7276422884D6300727D44 /* MMLibraryDemo.app */;
-			productType = "com.apple.product-type.application";
-		};
-		04E7277622884D6500727D44 /* MMLibraryDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 04E7278C22884D6500727D44 /* Build configuration list for PBXNativeTarget "MMLibraryDemoTests" */;
-			buildPhases = (
-				04E7277322884D6500727D44 /* Sources */,
-				04E7277422884D6500727D44 /* Frameworks */,
-				04E7277522884D6500727D44 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				04E7277922884D6500727D44 /* PBXTargetDependency */,
-			);
-			name = MMLibraryDemoTests;
-			productName = MMLibraryDemoTests;
-			productReference = 04E7277722884D6500727D44 /* MMLibraryDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		04E7278122884D6500727D44 /* MMLibraryDemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 04E7278F22884D6500727D44 /* Build configuration list for PBXNativeTarget "MMLibraryDemoUITests" */;
-			buildPhases = (
-				04E7277E22884D6500727D44 /* Sources */,
-				04E7277F22884D6500727D44 /* Frameworks */,
-				04E7278022884D6500727D44 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				04E7278422884D6500727D44 /* PBXTargetDependency */,
-			);
-			name = MMLibraryDemoUITests;
-			productName = MMLibraryDemoUITests;
-			productReference = 04E7278222884D6500727D44 /* MMLibraryDemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -502,20 +305,6 @@
 					04E7274522884AA900727D44 = {
 						CreatedOnToolsVersion = 10.2.1;
 						LastSwiftMigration = 1020;
-					};
-					04E7274E22884AA900727D44 = {
-						CreatedOnToolsVersion = 10.2.1;
-					};
-					04E7276322884D6300727D44 = {
-						CreatedOnToolsVersion = 10.2.1;
-					};
-					04E7277622884D6500727D44 = {
-						CreatedOnToolsVersion = 10.2.1;
-						TestTargetID = 04E7276322884D6300727D44;
-					};
-					04E7278122884D6500727D44 = {
-						CreatedOnToolsVersion = 10.2.1;
-						TestTargetID = 04E7276322884D6300727D44;
 					};
 				};
 			};
@@ -533,47 +322,12 @@
 			projectRoot = "";
 			targets = (
 				04E7274522884AA900727D44 /* MMLibrary */,
-				04E7274E22884AA900727D44 /* MMLibraryTests */,
-				04E7276322884D6300727D44 /* MMLibraryDemo */,
-				04E7277622884D6500727D44 /* MMLibraryDemoTests */,
-				04E7278122884D6500727D44 /* MMLibraryDemoUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		04E7274422884AA900727D44 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04E7274D22884AA900727D44 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04E7276222884D6300727D44 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				04E7277122884D6500727D44 /* LaunchScreen.storyboard in Resources */,
-				04E7276E22884D6500727D44 /* Assets.xcassets in Resources */,
-				04E7276C22884D6300727D44 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04E7277522884D6500727D44 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04E7278022884D6500727D44 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -612,77 +366,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		04E7274B22884AA900727D44 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				04E7275522884AA900727D44 /* MMLibraryTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04E7276022884D6300727D44 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				04E7276922884D6300727D44 /* ViewController.swift in Sources */,
-				04E7276722884D6300727D44 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04E7277322884D6500727D44 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				04E7277C22884D6500727D44 /* MMLibraryDemoTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		04E7277E22884D6500727D44 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				04E7278722884D6500727D44 /* MMLibraryDemoUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		04E7275222884AA900727D44 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 04E7274522884AA900727D44 /* MMLibrary */;
-			targetProxy = 04E7275122884AA900727D44 /* PBXContainerItemProxy */;
-		};
-		04E7277922884D6500727D44 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 04E7276322884D6300727D44 /* MMLibraryDemo */;
-			targetProxy = 04E7277822884D6500727D44 /* PBXContainerItemProxy */;
-		};
-		04E7278422884D6500727D44 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 04E7276322884D6300727D44 /* MMLibraryDemo */;
-			targetProxy = 04E7278322884D6500727D44 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		04E7276A22884D6300727D44 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				04E7276B22884D6300727D44 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		04E7276F22884D6500727D44 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				04E7277022884D6500727D44 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		04E7275822884AA900727D44 /* Debug */ = {
@@ -862,162 +546,6 @@
 			};
 			name = Release;
 		};
-		04E7275E22884AA900727D44 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8KKN2L2KK;
-				INFOPLIST_FILE = MMLibraryTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zlm.MMLibraryTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		04E7275F22884AA900727D44 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8KKN2L2KK;
-				INFOPLIST_FILE = MMLibraryTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zlm.MMLibraryTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		04E7278A22884D6500727D44 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8KKN2L2KK;
-				INFOPLIST_FILE = MMLibraryDemo/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zlm.MMLibraryDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		04E7278B22884D6500727D44 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8KKN2L2KK;
-				INFOPLIST_FILE = MMLibraryDemo/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zlm.MMLibraryDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		04E7278D22884D6500727D44 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8KKN2L2KK;
-				INFOPLIST_FILE = MMLibraryDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zlm.MMLibraryDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MMLibraryDemo.app/MMLibraryDemo";
-			};
-			name = Debug;
-		};
-		04E7278E22884D6500727D44 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8KKN2L2KK;
-				INFOPLIST_FILE = MMLibraryDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zlm.MMLibraryDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MMLibraryDemo.app/MMLibraryDemo";
-			};
-			name = Release;
-		};
-		04E7279022884D6500727D44 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8KKN2L2KK;
-				INFOPLIST_FILE = MMLibraryDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zlm.MMLibraryDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MMLibraryDemo;
-			};
-			name = Debug;
-		};
-		04E7279122884D6500727D44 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8KKN2L2KK;
-				INFOPLIST_FILE = MMLibraryDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zlm.MMLibraryDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MMLibraryDemo;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1035,42 +563,6 @@
 			buildConfigurations = (
 				04E7275B22884AA900727D44 /* Debug */,
 				04E7275C22884AA900727D44 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		04E7275D22884AA900727D44 /* Build configuration list for PBXNativeTarget "MMLibraryTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				04E7275E22884AA900727D44 /* Debug */,
-				04E7275F22884AA900727D44 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		04E7278922884D6500727D44 /* Build configuration list for PBXNativeTarget "MMLibraryDemo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				04E7278A22884D6500727D44 /* Debug */,
-				04E7278B22884D6500727D44 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		04E7278C22884D6500727D44 /* Build configuration list for PBXNativeTarget "MMLibraryDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				04E7278D22884D6500727D44 /* Debug */,
-				04E7278E22884D6500727D44 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		04E7278F22884D6500727D44 /* Build configuration list for PBXNativeTarget "MMLibraryDemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				04E7279022884D6500727D44 /* Debug */,
-				04E7279122884D6500727D44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
