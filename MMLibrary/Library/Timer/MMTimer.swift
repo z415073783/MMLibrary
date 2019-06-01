@@ -35,7 +35,7 @@ public class MMTimer: NSObject {
 }
 
 public extension Timer {
-    @discardableResult class func MMscheduledTimer(withTimeInterval: Double, repeats: Bool, block:@escaping ((_ timer: MMTimer)->Void))->MMTimer {
+    @discardableResult class func mm_scheduledTimer(withTimeInterval: Double, repeats: Bool, block:@escaping ((_ timer: MMTimer)->Void))->MMTimer {
         let target = MMTimer()
         target.block = block
         target.timer = Timer.scheduledTimer(timeInterval: withTimeInterval, target: target, selector: #selector(target.timerBlockInvoke(timer:)), userInfo: nil, repeats: repeats)

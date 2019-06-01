@@ -151,7 +151,7 @@ public extension MMLanguage {
             return
         }
         
-        let list = path?.MMsplit("/")
+        let list = path?.mm_split("/")
         
         let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         guard let path = paths.first, let name = list?.last else { return }

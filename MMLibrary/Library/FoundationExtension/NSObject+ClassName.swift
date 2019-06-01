@@ -13,7 +13,7 @@ extension NSObject {
     /// 获取对象实例的id，类似指针
     ///
     /// - Returns: 对象实例的id
-    public func MMgetAddressIdentifity() -> String {
+    public func mm_getAddressIdentifity() -> String {
         let address: CVarArg = self as CVarArg
         let targetDes = String(format: "%018p", address)
         return targetDes
@@ -22,7 +22,7 @@ extension NSObject {
     /// 获取对象类名
     ///
     /// - Returns: 类名
-    public class func MMclassName() -> String {
+    public class func mm_className() -> String {
         return String(describing: self)
     }
     
@@ -30,7 +30,7 @@ extension NSObject {
     /// 获取实例类名
     ///
     /// - Returns: 类名
-    public func MMclassName() -> String {
+    public func mm_className() -> String {
         return String(describing: type(of: self))
     }
     
@@ -38,7 +38,7 @@ extension NSObject {
     ///
     /// - Parameter className: className
     /// - Returns: Class
-    public class func MMswiftClass(fromClassName className: String) -> AnyClass? {
+    public class func mm_swiftClass(fromClassName className: String) -> AnyClass? {
         /// get namespace
         if let namespace = Bundle.main.infoDictionary?["CFBundleExecutable"] as? String {
             var fixedNamespace = namespace.replacingOccurrences(of: " ", with: "_")

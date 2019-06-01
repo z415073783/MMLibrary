@@ -17,13 +17,13 @@ extension DispatchSemaphore {
     ///   - lineNumber: 代码行号
     /// - Returns: 等待超时结果
     @discardableResult
-    public func MMwait(_ timeoutMillisecond: Int,
+    public func mm_wait(_ timeoutMillisecond: Int,
                         functionName: String = #function,
                         fileName: String = #file,
                         lineNumber: Int = #line) -> DispatchTimeoutResult {
         let result = wait(timeout: DispatchTime.now() + .milliseconds(timeoutMillisecond))
         if result == .timedOut {
-            let lastFileName = fileName.MMsplit(".").last ?? ""
+            let lastFileName = fileName.mm_split(".").last ?? ""
             let callInfo = "[\(lastFileName):\(functionName):\(lineNumber)]"
             MMLOG.error("信号量等待超时\(timeoutMillisecond)ms：\(callInfo)")
         }

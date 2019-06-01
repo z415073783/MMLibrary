@@ -88,8 +88,8 @@ public class MMSystem: NSObject {
     
     //比较两个版本,如果版本1大于版本2,则返回greater,如果小于版本less,则返回0,如果版本相等,则返回equal
     public class func compareVersion(version1: String, version2: String) -> CompareVersion {
-        let version1List = version1.MMsplit(".")
-        let version2List = version2.MMsplit(".")
+        let version1List = version1.mm_split(".")
+        let version2List = version2.mm_split(".")
         
         if version1List[0] > version2List[0]  {
             return .greater
@@ -116,7 +116,7 @@ public class MMSystem: NSObject {
         let sysVersion = UIDevice.current.systemVersion //获取系统版本 例如：9.2
         let deviceUUID = UIDevice.current.identifierForVendor?.uuid  //获取设备唯一标识符 例如：FBF2306E-A0D8-4F4B-BDED-9333B627D3E6
         let deviceModel = UIDevice.current.model //获取设备的型号 例如：iPhone
-        let deviceModelName = UIDevice.current.MMmodelName //机型
+        let deviceModelName = UIDevice.current.mm_modelName //机型
         
         let result = "设备名称:\(deviceName) 系统名称:\(sysName) 系统版本:\(sysVersion) 设备标识:\(String(describing: deviceUUID)) 设备型号:\(deviceModel) 机型:\(deviceModelName) 客户端版本号:\(getVersion())"
         return result
@@ -126,7 +126,7 @@ public class MMSystem: NSObject {
 // MARK: - UIDevice延展
 public extension UIDevice {
     
-    var MMmodelName: String {
+    var mm_modelName: String {
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)

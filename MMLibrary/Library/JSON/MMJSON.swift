@@ -106,7 +106,7 @@ public class MMJSON {
             guard !newOperation.isCancelled else { return }
             getDataSync(name: name, input: input, bodyClass: bodyClass, block: { (body, result) in
                 guard !newOperation.isCancelled else { return }
-                MMexecuteOnMainThread {
+                mm_executeOnMainThread {
                     block(body, result)
                 }
             })
@@ -132,7 +132,7 @@ public class MMJSON {
             let newOperation = BlockOperation()
             newOperation.addExecutionBlock {
                 getDataSync(name: name, input: input, bodyClass: bodyClass, block: { (body, result) in
-                    MMexecuteOnMainThread {
+                    mm_executeOnMainThread {
                         block(body, result)
                     }
                 })
@@ -169,7 +169,7 @@ public class MMJSON {
         let newOperation = BlockOperation()
         newOperation.addExecutionBlock {
             getDataSync(name: name, input: input, bodyClass: bodyClass, block: { (body, result) in
-                MMexecuteOnMainThread {
+                mm_executeOnMainThread {
                     block(body, result)
                 }
             })

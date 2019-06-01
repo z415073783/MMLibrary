@@ -114,7 +114,7 @@ open class MMFileData: NSObject {
         //        let account = UCPersonalInterface.getMyInfo().m_UserData.m_id.components(separatedBy: "@")[0]
         //        NSString *uuid = [[NSUUID UUID] UUIDString];
         //        var path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
-        let newImage = image.MMcompressSize()
+        let newImage = image.mm_compressSize()
         
         let data = newImage.jpegData(compressionQuality: 1)
         

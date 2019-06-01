@@ -23,7 +23,7 @@ public extension String {
     ///
     /// - Parameter spellType: 拼音类型
     /// - Returns: 拼音字符串
-    func MMtransformSpell(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
+    func mm_transformSpell(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
         let str: CFMutableString = NSMutableString(string:self) as CFMutableString
         var pinyin: String = ""
         if CFStringTransform(str, nil, kCFStringTransformMandarinLatin, false)==true {
@@ -33,7 +33,7 @@ public extension String {
                     pinyin = pinyinNew.replacingOccurrences(of: " ", with: "", options: NSString.CompareOptions.literal, range: nil)
                 } else if spellType == MMTransformSpellType.name {
                     let spellArr = pinyinNew.components(separatedBy: " ")
-                    pinyin = MMspellCheck(spellArr: spellArr)
+                    pinyin = mm_spellCheck(spellArr: spellArr)
                 } else if spellType  == MMTransformSpellType.firtword {
                     let spellArr = pinyinNew.components(separatedBy: " ")
                     var firstWord = ""
@@ -70,8 +70,8 @@ public extension String {
     ///
     /// - Parameter spellType: 拼音类型
     /// - Returns: 拼音 小写
-    func MMtransformSpellWithLowercased(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
-        let spell = MMtransformSpell(spellType: spellType)
+    func mm_transformSpellWithLowercased(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
+        let spell = mm_transformSpell(spellType: spellType)
         return spell.lowercased()
     }
     
@@ -79,8 +79,8 @@ public extension String {
     ///
     /// - Parameter spellType: 拼音类型
     /// - Returns: 拼音 大写
-    func MMtransformSpellWithUppercased(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
-        let spell = MMtransformSpell(spellType: spellType)
+    func mm_transformSpellWithUppercased(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
+        let spell = mm_transformSpell(spellType: spellType)
         return spell.uppercased()
     }
     
@@ -88,7 +88,7 @@ public extension String {
     ///
     /// - Parameter spellArr: 拼音
     /// - Returns: 纠正后的拼音字符串 该接口有修改，未验证
-    func MMspellCheck(spellArr: [String]) -> String {
+    func mm_spellCheck(spellArr: [String]) -> String {
         if self.count == 0 {
             return ""
         }
@@ -115,7 +115,7 @@ public extension String {
     ///   - attributes: attributes
     ///   - context: 上下文
     /// - Returns: 所需的rect
-    func MMboundingRect(with: CGSize, options: NSStringDrawingOptions, attributes: [NSAttributedString.Key : Any]?, context: NSStringDrawingContext?) -> CGRect {
+    func mm_boundingRect(with: CGSize, options: NSStringDrawingOptions, attributes: [NSAttributedString.Key : Any]?, context: NSStringDrawingContext?) -> CGRect {
         let str: NSString = NSString(string: self)
         return str.boundingRect(with: with, options: options, attributes: attributes, context: context)
     }
@@ -127,7 +127,7 @@ public extension String {
     ///   - width: 指定宽度
     ///   - font: 字体
     /// - Returns: 自适应高度
-    func MMgetStringHeight(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+    func mm_getStringHeight(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
         
@@ -140,7 +140,7 @@ public extension String {
     ///   - height: 指定高度
     ///   - font: 字体
     /// - Returns: 自适应宽度
-    func MMgetStringWidth(withConstraintedHeight height: CGFloat, font: UIFont) -> CGFloat {
+    func mm_getStringWidth(withConstraintedHeight height: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
         
@@ -150,7 +150,7 @@ public extension String {
     /// 判断是否有特殊字符
     ///
     /// - Returns: true 是 false 否
-    func MMhasInAlphabet() -> Bool {
+    func mm_hasInAlphabet() -> Bool {
         if !isEmpty {
             let string: NSString = self as NSString
             let c: unichar = string.character(at: 0)
@@ -164,7 +164,7 @@ public extension String {
     /// 判断字符串是否含有中文，中文符号不包含在内
     ///
     /// - Returns: true 是 false 否
-    func MMhasChineseWord() -> Bool {
+    func mm_hasChineseWord() -> Bool {
         let string: NSString = self as NSString
         let count: Int = string.length
         for i in 0 ..< count {
@@ -179,7 +179,7 @@ public extension String {
     /// 从有汉字的字符串中抽取出所有汉字
     ///
     /// - Returns: 抽取出的汉字
-    func MMgetChineseWord() -> String {
+    func mm_getChineseWord() -> String {
         let string: NSString = self as NSString
         var newStr: String = ""
         let count: Int = string.length
@@ -202,7 +202,7 @@ public extension String {
     /// 是否为纯数字
     ///
     /// - Returns: true 是 false 否
-    func MMisNumberText() -> Bool {
+    func mm_isNumberText() -> Bool {
         let regex: String = "^[0-9]+$"
         let pred: NSPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let isMatch: Bool = pred.evaluate(with: self)
@@ -212,7 +212,7 @@ public extension String {
     /// 是否为纯字母
     ///
     /// - Returns: true 是 false 否
-    func MMisABCCharText() -> Bool {
+    func mm_isABCCharText() -> Bool {
         let regex: String = "^[a-zA-Z]+$"
         let pred: NSPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let isMatch: Bool = pred.evaluate(with: self)
@@ -224,7 +224,7 @@ public extension String {
     /// - Parameters:
     ///   - pattern: 表达式
     /// - Returns: 结果列表
-    func MMregularExpressionData(pattern: String) -> [NSTextCheckingResult] {
+    func mm_regularExpressionData(pattern: String) -> [NSTextCheckingResult] {
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
             
@@ -242,27 +242,27 @@ public extension String {
     /// 判断是否是ip地址 匹配ipv4,ipv6,域名
     ///
     /// - Returns: true 是 false 否
-    func MMcheckIfIpAddress() -> Bool {
+    func mm_checkIfIpAddress() -> Bool {
         if self.count == 0 {
             return true
         }
         
         var addressRegex = "^((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)$"
-        var result = MMregularExpressionData(pattern: addressRegex)
+        var result = mm_regularExpressionData(pattern: addressRegex)
         
         if result.count > 0 {
             return true
         }
         
         addressRegex = "^((([0-9a-fA-F]){1,4}:)){7}([0-9a-fA-F]){1,4}$"
-        result = MMregularExpressionData(pattern: addressRegex)
+        result = mm_regularExpressionData(pattern: addressRegex)
         
         if result.count > 0 {
             return true
         }
         
         addressRegex = "^((http://)|(https://))|(.{1,})"
-        result = MMregularExpressionData(pattern: addressRegex)
+        result = mm_regularExpressionData(pattern: addressRegex)
         
         if result.count > 0 {
             let list = self.components(separatedBy: ".")
@@ -276,7 +276,7 @@ public extension String {
     /// 判断是否是端口
     ///
     /// - Returns: true 是 false 否
-    func MMcheckIfPort() -> Bool {
+    func mm_checkIfPort() -> Bool {
         if self.count > 0 {
             guard let intSelf = Int(self) else { return false }
             if intSelf >= 0 && intSelf <= 65535 {
@@ -289,7 +289,7 @@ public extension String {
     /// 判断负载均衡值是否正确
     ///
     /// - Returns: true 是 false 否
-    func MMcheckLoad() -> Bool {
+    func mm_checkLoad() -> Bool {
         if self.count > 0 {
             guard let intSelf = Int(self) else { return false }
             if intSelf >= 96 && intSelf <= 127 {
@@ -303,7 +303,7 @@ public extension String {
     /// 判断是否符合字符限制，不包含!&:;<>[]?%
     ///
     /// - Returns: true 是 false 不是
-    func MMcheckSpecialCharacters() -> Bool {
+    func mm_checkSpecialCharacters() -> Bool {
         let specialCharactersSet = CharacterSet(charactersIn: "!&:;<>[]?%")
         
         if let _ = rangeOfCharacter(from: specialCharactersSet) {
@@ -317,7 +317,7 @@ public extension String {
     ///
     /// - Parameter separator: 分隔符
     /// - Returns: 分割的字符串数组
-    func MMsplit(_ separator: Character) -> [String] {
+    func mm_split(_ separator: Character) -> [String] {
         return self.split { $0 == separator }.map(String.init)
     }
 }

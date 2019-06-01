@@ -16,8 +16,8 @@ public extension NSObject {
      
      - returns: 属性的值
      */
-    func MMgetValueOfProperty(_ property: String) -> AnyObject? {
-        let allPropertys = MMgetAllPropertys()
+    func mm_getValueOfProperty(_ property: String) -> AnyObject? {
+        let allPropertys = mm_getAllPropertys()
         
         if(allPropertys.contains(property)) {
             return value(forKey: property) as AnyObject?
@@ -35,8 +35,8 @@ public extension NSObject {
      
      - returns: 是否设置成功
      */
-    func MMsetValueOfProperty(_ property: String, value: AnyObject) -> Bool {
-        let allPropertys = MMgetAllPropertys()
+    func mm_setValueOfProperty(_ property: String, value: AnyObject) -> Bool {
+        let allPropertys = mm_getAllPropertys()
         if(allPropertys.contains(property)) {
             setValue(value, forKey: property)
             return true
@@ -51,7 +51,7 @@ public extension NSObject {
      
      - returns: 属性名称数组
      */
-    func MMgetAllPropertys() -> [String] {
+    func mm_getAllPropertys() -> [String] {
         
         var result = [String]()
         let count = UnsafeMutablePointer<UInt32>.allocate(capacity: 0)
@@ -73,7 +73,7 @@ public extension NSObject {
     /// 字典转对象
     ///
     /// - Parameter sender: 传入字典
-    func MMtranslateObject(_ sender: NSMutableDictionary) {
+    func mm_translateObject(_ sender: NSMutableDictionary) {
         for (key, value) in sender {
             if let k = key as? String {
                 setValue(value, forKey: k)
@@ -84,7 +84,7 @@ public extension NSObject {
     /// 对象转字符串
     ///
     /// - Returns: 生成的字符串
-    func MMgetString() -> String {
+    func mm_getString() -> String {
         var str: String = ""
         if let arr = self as? NSArray {
             if arr.count != 0 {
@@ -98,7 +98,7 @@ public extension NSObject {
                     } else if let v = value as? Bool {
                         str += String(v)
                     } else if let v = value as? NSObject {
-                        str += v.MMgetString()
+                        str += v.mm_getString()
                     }
                     if i < arr.count-1 {
                         str += ","
@@ -111,9 +111,9 @@ public extension NSObject {
         }
         
         str = "{"
-        for i in 0 ..< MMgetAllPropertys().count {
-            let item = MMgetAllPropertys()[i]
-            let value = MMgetValueOfProperty(item)
+        for i in 0 ..< mm_getAllPropertys().count {
+            let item = mm_getAllPropertys()[i]
+            let value = mm_getValueOfProperty(item)
             
             if let v = value as? String {
                 str += item + ":" + v
@@ -122,9 +122,9 @@ public extension NSObject {
             } else if let v = value as? Bool {
                 str += item + ":" + String(v)
             } else if let v = value as? NSObject {
-                str += item + ":" + v.MMgetString()
+                str += item + ":" + v.mm_getString()
             }
-            if i < MMgetAllPropertys().count-1 {
+            if i < mm_getAllPropertys().count-1 {
                 str += ","
             }
         }
@@ -139,7 +139,7 @@ public extension NSObject {
     ///
     /// - Parameter key: key值
     /// - Returns: 获取的value
-    func MMsafeValue(forKey key: String) -> Any? {
+    func mm_safeValue(forKey key: String) -> Any? {
         let copy = Mirror(reflecting: self)
         
         for child in copy.children.makeIterator() {

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 public extension UIImage {
     
-    class func MMimageWithColor(color: UIColor) -> UIImage? {
+    class func mm_imageWithColor(color: UIColor) -> UIImage? {
         let rect = CGRect.init(x: 0, y: 0, width: 2, height: 2)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
         color.setFill()
@@ -23,7 +23,7 @@ public extension UIImage {
         return image
     }
     
-    func MMresizeImage(reSize: CGSize) -> UIImage {
+    func mm_resizeImage(reSize: CGSize) -> UIImage {
         //UIGraphicsBeginImageContext(reSize);
         UIGraphicsBeginImageContextWithOptions(reSize, false, UIScreen.main.scale)
         self.draw(in: CGRect(x: 0, y: 0, width: reSize.width, height: reSize.height))
@@ -32,7 +32,7 @@ public extension UIImage {
         return reSizeImage ?? self
     }
     //压缩图片
-    func MMcompressSize() -> UIImage {
+    func mm_compressSize() -> UIImage {
         
         guard let data = self.jpegData(compressionQuality: 1) else { return self }
         let imageLength = data.count

@@ -98,7 +98,7 @@ public class MMLogger: NSObject {
 //    MMLOG.writeToFile(log: log, remotePushFilePath)
 //    }
     
-    public var callFunc: MMCallBlockLogLevelString?
+    public var callFunc: mm_CallBlockLogLevelString?
     
     static public let shared = MMLogger()
     //输出方式列表

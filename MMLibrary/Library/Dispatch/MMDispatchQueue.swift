@@ -32,7 +32,7 @@ open class MMDispatchQueue: NSObject {
 
     //    private let _dispatchQueue = getOperationQueue(withName: "YLBasicDispatchQueue", maxCount: 1)
     public class func getOperationQueue(withName name: String, maxCount: Int, finishBlock: @escaping (_ queue: MMOperationQueue) -> Void) {
-        MMexecuteOnMainThread {
+        mm_executeOnMainThread {
             if let queue = shared.allOperationQueueDictionary[name] {
                 finishBlock(queue)
             }
@@ -91,7 +91,7 @@ open class MMDispatchQueue: NSObject {
     ///
     /// - Parameter name: queue的名字
     public class func removeFreeOperationQueue(name: String) {
-        MMexecuteOnMainThread {
+        mm_executeOnMainThread {
             if shared.allOperationQueueDictionary[name] != nil {
                 shared.allOperationQueueDictionary[name] = nil
             }
@@ -101,7 +101,7 @@ open class MMDispatchQueue: NSObject {
     
     /// 移除所有队列中的任务
     public class func removeAllOperations() {
-        MMexecuteOnMainThread {
+        mm_executeOnMainThread {
             for (_, queue) in shared.allOperationQueueDictionary.values.enumerated() {
                 queue.cancelAllOperations()
             }
@@ -111,7 +111,7 @@ open class MMDispatchQueue: NSObject {
     
     /// 移除即时队列
     public class func removeFreeOperations() {
-        MMexecuteOnMainThread {
+        mm_executeOnMainThread {
             for (_, queue) in shared.allOperationQueueDictionary.values.enumerated() {
                 if queue.isFreeQueue {
                     queue.cancelAllOperations()

@@ -7,12 +7,12 @@
 //
 
 import Foundation
-public let MMkSqlQueueName = "MMMySqlQueueName"
+public let mm_kSqlQueueName = "mm_MySqlQueueName"
 public class MMSqlite: NSObject {
     
     static public let shared: MMSqlite = MMSqlite()
     
-    let queue = MMDispatchQueue.getOperationQueue(withName: MMkSqlQueueName, maxCount: 1)
+    let queue = MMDispatchQueue.getOperationQueue(withName: mm_kSqlQueueName, maxCount: 1)
     //处理队列
     //    var isolationQueue: DispatchQueue = DispatchQueue(label: "isolationQueue", attributes: [])
     //返回结果队列
@@ -60,7 +60,7 @@ public class MMSqlite: NSObject {
         operation.closeSQLite()
     }
     //移除所有任务
-    public func removeAllTasks(queueName: String = MMkSqlQueueName) {
+    public func removeAllTasks(queueName: String = mm_kSqlQueueName) {
         let queue = MMDispatchQueue.getOperationQueue(withName: queueName, maxCount: 1)
         queue.cancelAllOperations()
         queue.waitUntilAllOperationsAreFinished()
@@ -91,7 +91,7 @@ public class MMSqlite: NSObject {
      - parameter sql:   sql语句
      - parameter block: 返回成功or失败
      */
-    public func update(_ sql: String,_ queueName: String? = MMkSqlQueueName, block:@escaping ((_ isSuccess: Bool) -> Void)) {
+    public func update(_ sql: String,_ queueName: String? = mm_kSqlQueueName, block:@escaping ((_ isSuccess: Bool) -> Void)) {
         guard let queueName = queueName else {
             let isResult: Bool = self.operation.execSQL(sql)
             if isResult == false {
@@ -121,7 +121,7 @@ public class MMSqlite: NSObject {
      - parameter sql:   sql语句
      - parameter block: 返回对象数组
      */
-    public func select(_ sql: String,_ queueName: String? = MMkSqlQueueName, block:@escaping ((_ result: NSMutableArray) -> Void)) {
+    public func select(_ sql: String,_ queueName: String? = mm_kSqlQueueName, block:@escaping ((_ result: NSMutableArray) -> Void)) {
         guard let queueName = queueName else {
             let isResult: NSMutableArray = self.operation.recordSet(sql)
             block(isResult)
@@ -147,12 +147,12 @@ public class MMSqlite: NSObject {
      - returns: keys,values
      */
     public class func getObjectData(_ sender: NSObject) -> (keys: String, values: String) {
-        let allKeys = sender.MMgetAllPropertys()
+        let allKeys = sender.mm_getAllPropertys()
         var params: String = ""
         var paramValues: String = ""
         for i in 0...allKeys.count-1 {
             let key = allKeys[i]
-            let number: NSNumber? = sender.MMgetValueOfProperty(key) as? NSNumber
+            let number: NSNumber? = sender.mm_getValueOfProperty(key) as? NSNumber
             if number != nil {
                 params+=key
                 paramValues+=String(describing: number)
@@ -162,7 +162,7 @@ public class MMSqlite: NSObject {
                 }
                 
             } else {
-                if let value = sender.MMgetValueOfProperty(key) as? String {
+                if let value = sender.mm_getValueOfProperty(key) as? String {
                     params+=key
                     paramValues+="'"+value+"'"
                     if i < allKeys.count-1 {
