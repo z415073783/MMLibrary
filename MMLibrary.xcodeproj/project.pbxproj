@@ -31,6 +31,8 @@
 		04F1758222894EB70025999B /* MMSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1758122894EB70025999B /* MMSqlite.swift */; };
 		04F1758522894FDF0025999B /* MMFileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1758422894FDF0025999B /* MMFileData.swift */; };
 		04F17588228950860025999B /* UIImage+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F17587228950860025999B /* UIImage+Common.swift */; };
+		04FAEBD72338AD7D003FA238 /* MMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAEBD62338AD7D003FA238 /* MMColor.swift */; };
+		04FAEBD92338C150003FA238 /* MMColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAEBD82338C150003FA238 /* MMColor+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		04F1758122894EB70025999B /* MMSqlite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSqlite.swift; sourceTree = "<group>"; };
 		04F1758422894FDF0025999B /* MMFileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMFileData.swift; sourceTree = "<group>"; };
 		04F17587228950860025999B /* UIImage+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Common.swift"; sourceTree = "<group>"; };
+		04FAEBD62338AD7D003FA238 /* MMColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMColor.swift; sourceTree = "<group>"; };
+		04FAEBD82338C150003FA238 /* MMColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MMColor+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,9 +259,19 @@
 		04F17586228950750025999B /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				04FAEBD52338AD48003FA238 /* Color */,
 				04F17587228950860025999B /* UIImage+Common.swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		04FAEBD52338AD48003FA238 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				04FAEBD62338AD7D003FA238 /* MMColor.swift */,
+				04FAEBD82338C150003FA238 /* MMColor+Extension.swift */,
+			);
+			path = Color;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -344,6 +358,7 @@
 				04F1757322894BAF0025999B /* MMNotification.swift in Sources */,
 				04F1755722887E800025999B /* MMSystem.swift in Sources */,
 				04F1756E228949660025999B /* MMDate.swift in Sources */,
+				04FAEBD92338C150003FA238 /* MMColor+Extension.swift in Sources */,
 				04F1756622892C7C0025999B /* NSObject+ClassName.swift in Sources */,
 				04F17562228927B80025999B /* MMAtomicVar.swift in Sources */,
 				04F1757822894D750025999B /* MMJSON.swift in Sources */,
@@ -361,6 +376,7 @@
 				04E727A5228853CF00727D44 /* MMFoundationGlobalDefine.swift in Sources */,
 				04E7279F2288512500727D44 /* MMLanguage.swift in Sources */,
 				04F1758222894EB70025999B /* MMSqlite.swift in Sources */,
+				04FAEBD72338AD7D003FA238 /* MMColor.swift in Sources */,
 				04F1756822892D4F0025999B /* NSObject+Extension.swift in Sources */,
 				041FAC3C228E47C1006BFE57 /* MMTimer.swift in Sources */,
 			);
