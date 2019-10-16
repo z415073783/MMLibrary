@@ -7,6 +7,8 @@
 //
 
 import Foundation
+#if os(iOS) || os(tvOS)
+import UIKit
 @objc public class MMColor: UIColor {
     
     @objc public convenience init(auto red: Int, green: Int, blue: Int, alpha: CGFloat = 1.0, dynamic: Bool = true) {
@@ -67,3 +69,4 @@ import Foundation
     
     
 }
+#endif

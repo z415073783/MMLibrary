@@ -7,6 +7,8 @@
 //
 
 import Foundation
+#if os(iOS) || os(tvOS)
+import UIKit
 public extension MMSystem {
     //版本比较
     enum CompareVersion {
@@ -166,3 +168,4 @@ public extension UIDevice {
         }
     }
 }
+#endif

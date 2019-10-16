@@ -7,7 +7,9 @@
 //
 
 import Foundation
-
+#if os(iOS) || os(tvOS)
+import UIKit
+#endif
 open class MMFileData: NSObject {
     // MARK: 创建文件夹
     open class func createLocalSupportDicPath(dicName: String) -> Bool {
@@ -103,6 +105,7 @@ open class MMFileData: NSObject {
         return localPath
     }
     
+#if os(iOS) || os(tvOS)
     /// 保存图片到缓存目录下
     ///
     /// - Parameter image: 图片对象
@@ -147,7 +150,7 @@ open class MMFileData: NSObject {
         
         return getPath
     }
-    
+#endif
     //删除缓存图片
     open class func removeImageFromCache(_ imageName: String) {
         let getPath = getLocalCachesPath() + "/" + imageName + ".jpg"

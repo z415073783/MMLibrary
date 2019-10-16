@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if os(iOS) || os(tvOS)
+import UIKit
+#endif
 public extension String {
     
     /// 拼音类型
@@ -106,6 +109,7 @@ public extension String {
         return pinyin
     }
     
+    #if os(iOS) || os(tvOS)
     
     /// 获取字符串所需的rect
     ///
@@ -146,7 +150,7 @@ public extension String {
         
         return ceil(boundingBox.width)
     }
-    
+    #endif
     /// 判断是否有特殊字符
     ///
     /// - Returns: true 是 false 否

@@ -7,7 +7,9 @@
 //
 
 import Foundation
-import UIKit
+#if os(iOS) || os(tvOS)
+    import UIKit
+#endif
 public extension UIImage {
     
     class func mm_imageWithColor(color: UIColor) -> UIImage? {

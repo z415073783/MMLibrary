@@ -7,13 +7,14 @@
 //
 
 import Foundation
+#if os(iOS) || os(tvOS)
+import UIKit
 public extension MMColor {
     
 //    class var red: MMColor {
 //        return MMColor(auto: 1, green: 0, blue: 0)
 //    }
-    
-    
+
     override class var black: UIColor {
         return MMColor(auto: 0, green: 0, blue: 0)
     } // 0.0 white
@@ -74,7 +75,6 @@ public extension MMColor {
         return MMColor(auto: 0, green: 0, blue: 0, alpha: 0)
     } // 0.0 white, 0.0 alpha
 
-    
-    
-    
+ 
 }
+#endif

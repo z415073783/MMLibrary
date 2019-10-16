@@ -7,64 +7,64 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		041FAC3C228E47C1006BFE57 /* MMTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FAC3B228E47C1006BFE57 /* MMTimer.swift */; };
+		04E45F5E2357173F00F9B336 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F372357173F00F9B336 /* DispatchQueue+Extension.swift */; };
+		04E45F5F2357173F00F9B336 /* MMFileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F392357173F00F9B336 /* MMFileData.swift */; };
+		04E45F602357173F00F9B336 /* NSObject+ClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F3B2357173F00F9B336 /* NSObject+ClassName.swift */; };
+		04E45F612357173F00F9B336 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F3C2357173F00F9B336 /* NSObject+Extension.swift */; };
+		04E45F622357173F00F9B336 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F3D2357173F00F9B336 /* String+Extension.swift */; };
+		04E45F632357173F00F9B336 /* MMNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F3F2357173F00F9B336 /* MMNotification.swift */; };
+		04E45F642357173F00F9B336 /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F402357173F00F9B336 /* NotificationCenter+Extension.swift */; };
+		04E45F652357173F00F9B336 /* MMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F432357173F00F9B336 /* MMColor.swift */; };
+		04E45F662357173F00F9B336 /* MMColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F442357173F00F9B336 /* MMColor+Extension.swift */; };
+		04E45F672357173F00F9B336 /* UIImage+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F452357173F00F9B336 /* UIImage+Common.swift */; };
+		04E45F682357173F00F9B336 /* DispatchSemaphore+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F472357173F00F9B336 /* DispatchSemaphore+Extension.swift */; };
+		04E45F692357173F00F9B336 /* MMDispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F482357173F00F9B336 /* MMDispatchQueue.swift */; };
+		04E45F6A2357173F00F9B336 /* MMOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F492357173F00F9B336 /* MMOperationQueue.swift */; };
+		04E45F6B2357173F00F9B336 /* MMDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F4B2357173F00F9B336 /* MMDate.swift */; };
+		04E45F6C2357173F00F9B336 /* MMDateFormatterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F4C2357173F00F9B336 /* MMDateFormatterFactory.swift */; };
+		04E45F6D2357173F00F9B336 /* MMTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F4E2357173F00F9B336 /* MMTimer.swift */; };
+		04E45F6E2357173F00F9B336 /* MMFoundationGlobalDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F502357173F00F9B336 /* MMFoundationGlobalDefine.swift */; };
+		04E45F6F2357173F00F9B336 /* MMLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F522357173F00F9B336 /* MMLanguage.swift */; };
+		04E45F702357173F00F9B336 /* MMSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F542357173F00F9B336 /* MMSqlite.swift */; };
+		04E45F712357173F00F9B336 /* MMSqliteOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F552357173F00F9B336 /* MMSqliteOperation.swift */; };
+		04E45F722357173F00F9B336 /* MMSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F572357173F00F9B336 /* MMSystem.swift */; };
+		04E45F732357173F00F9B336 /* MMJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F592357173F00F9B336 /* MMJSON.swift */; };
+		04E45F742357173F00F9B336 /* MMLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F5B2357173F00F9B336 /* MMLog.swift */; };
+		04E45F752357173F00F9B336 /* MMAtomicVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F5D2357173F00F9B336 /* MMAtomicVar.swift */; };
 		04E7275722884AA900727D44 /* MMLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E7274922884AA900727D44 /* MMLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		04E7279F2288512500727D44 /* MMLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7279E2288512500727D44 /* MMLanguage.swift */; };
-		04E727A22288524300727D44 /* MMLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E727A12288524300727D44 /* MMLog.swift */; };
-		04E727A5228853CF00727D44 /* MMFoundationGlobalDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E727A4228853CF00727D44 /* MMFoundationGlobalDefine.swift */; };
-		04F1755422887B1D0025999B /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1755322887B1D0025999B /* String+Extension.swift */; };
-		04F1755722887E800025999B /* MMSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1755622887E800025999B /* MMSystem.swift */; };
-		04F1755B228926000025999B /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1755A228926000025999B /* DispatchQueue+Extension.swift */; };
-		04F1755D2289268B0025999B /* MMDispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1755C2289268B0025999B /* MMDispatchQueue.swift */; };
-		04F1755F228927100025999B /* MMOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1755E228927100025999B /* MMOperationQueue.swift */; };
-		04F17562228927B80025999B /* MMAtomicVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F17561228927B80025999B /* MMAtomicVar.swift */; };
-		04F1756422892B4D0025999B /* DispatchSemaphore+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1756322892B4D0025999B /* DispatchSemaphore+Extension.swift */; };
-		04F1756622892C7C0025999B /* NSObject+ClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1756522892C7C0025999B /* NSObject+ClassName.swift */; };
-		04F1756822892D4F0025999B /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1756722892D4F0025999B /* NSObject+Extension.swift */; };
-		04F1756E228949660025999B /* MMDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1756D228949660025999B /* MMDate.swift */; };
-		04F17570228949CA0025999B /* MMDateFormatterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1756F228949CA0025999B /* MMDateFormatterFactory.swift */; };
-		04F1757322894BAF0025999B /* MMNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1757222894BAF0025999B /* MMNotification.swift */; };
-		04F1757522894C100025999B /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1757422894C100025999B /* NotificationCenter+Extension.swift */; };
-		04F1757822894D750025999B /* MMJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1757722894D750025999B /* MMJSON.swift */; };
-		04F1757B22894DBF0025999B /* MMSqliteOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1757A22894DBF0025999B /* MMSqliteOperation.swift */; };
 		04F1757E22894E400025999B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F1757D22894E400025999B /* libsqlite3.0.tbd */; };
-		04F1758222894EB70025999B /* MMSqlite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1758122894EB70025999B /* MMSqlite.swift */; };
-		04F1758522894FDF0025999B /* MMFileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1758422894FDF0025999B /* MMFileData.swift */; };
-		04F17588228950860025999B /* UIImage+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F17587228950860025999B /* UIImage+Common.swift */; };
-		04FAEBD72338AD7D003FA238 /* MMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAEBD62338AD7D003FA238 /* MMColor.swift */; };
-		04FAEBD92338C150003FA238 /* MMColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAEBD82338C150003FA238 /* MMColor+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		041FAC3B228E47C1006BFE57 /* MMTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTimer.swift; sourceTree = "<group>"; };
+		04E45F372357173F00F9B336 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
+		04E45F392357173F00F9B336 /* MMFileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMFileData.swift; sourceTree = "<group>"; };
+		04E45F3B2357173F00F9B336 /* NSObject+ClassName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+ClassName.swift"; sourceTree = "<group>"; };
+		04E45F3C2357173F00F9B336 /* NSObject+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
+		04E45F3D2357173F00F9B336 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		04E45F3F2357173F00F9B336 /* MMNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMNotification.swift; sourceTree = "<group>"; };
+		04E45F402357173F00F9B336 /* NotificationCenter+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extension.swift"; sourceTree = "<group>"; };
+		04E45F432357173F00F9B336 /* MMColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMColor.swift; sourceTree = "<group>"; };
+		04E45F442357173F00F9B336 /* MMColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MMColor+Extension.swift"; sourceTree = "<group>"; };
+		04E45F452357173F00F9B336 /* UIImage+Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Common.swift"; sourceTree = "<group>"; };
+		04E45F472357173F00F9B336 /* DispatchSemaphore+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchSemaphore+Extension.swift"; sourceTree = "<group>"; };
+		04E45F482357173F00F9B336 /* MMDispatchQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMDispatchQueue.swift; sourceTree = "<group>"; };
+		04E45F492357173F00F9B336 /* MMOperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMOperationQueue.swift; sourceTree = "<group>"; };
+		04E45F4B2357173F00F9B336 /* MMDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMDate.swift; sourceTree = "<group>"; };
+		04E45F4C2357173F00F9B336 /* MMDateFormatterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMDateFormatterFactory.swift; sourceTree = "<group>"; };
+		04E45F4E2357173F00F9B336 /* MMTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTimer.swift; sourceTree = "<group>"; };
+		04E45F502357173F00F9B336 /* MMFoundationGlobalDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMFoundationGlobalDefine.swift; sourceTree = "<group>"; };
+		04E45F522357173F00F9B336 /* MMLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMLanguage.swift; sourceTree = "<group>"; };
+		04E45F542357173F00F9B336 /* MMSqlite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSqlite.swift; sourceTree = "<group>"; };
+		04E45F552357173F00F9B336 /* MMSqliteOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSqliteOperation.swift; sourceTree = "<group>"; };
+		04E45F572357173F00F9B336 /* MMSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSystem.swift; sourceTree = "<group>"; };
+		04E45F592357173F00F9B336 /* MMJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMJSON.swift; sourceTree = "<group>"; };
+		04E45F5B2357173F00F9B336 /* MMLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMLog.swift; sourceTree = "<group>"; };
+		04E45F5D2357173F00F9B336 /* MMAtomicVar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMAtomicVar.swift; sourceTree = "<group>"; };
 		04E7274622884AA900727D44 /* MMLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MMLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E7274922884AA900727D44 /* MMLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMLibrary.h; sourceTree = "<group>"; };
 		04E7274A22884AA900727D44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04E7279E2288512500727D44 /* MMLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLanguage.swift; sourceTree = "<group>"; };
-		04E727A12288524300727D44 /* MMLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLog.swift; sourceTree = "<group>"; };
-		04E727A4228853CF00727D44 /* MMFoundationGlobalDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMFoundationGlobalDefine.swift; sourceTree = "<group>"; };
-		04F1755322887B1D0025999B /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		04F1755622887E800025999B /* MMSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSystem.swift; sourceTree = "<group>"; };
-		04F1755A228926000025999B /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
-		04F1755C2289268B0025999B /* MMDispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMDispatchQueue.swift; sourceTree = "<group>"; };
-		04F1755E228927100025999B /* MMOperationQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMOperationQueue.swift; sourceTree = "<group>"; };
-		04F17561228927B80025999B /* MMAtomicVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMAtomicVar.swift; sourceTree = "<group>"; };
-		04F1756322892B4D0025999B /* DispatchSemaphore+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchSemaphore+Extension.swift"; sourceTree = "<group>"; };
-		04F1756522892C7C0025999B /* NSObject+ClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+ClassName.swift"; sourceTree = "<group>"; };
-		04F1756722892D4F0025999B /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
-		04F1756D228949660025999B /* MMDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMDate.swift; sourceTree = "<group>"; };
-		04F1756F228949CA0025999B /* MMDateFormatterFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMDateFormatterFactory.swift; sourceTree = "<group>"; };
-		04F1757222894BAF0025999B /* MMNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMNotification.swift; sourceTree = "<group>"; };
-		04F1757422894C100025999B /* NotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extension.swift"; sourceTree = "<group>"; };
-		04F1757722894D750025999B /* MMJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMJSON.swift; sourceTree = "<group>"; };
-		04F1757A22894DBF0025999B /* MMSqliteOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSqliteOperation.swift; sourceTree = "<group>"; };
 		04F1757D22894E400025999B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		04F1757F22894E770025999B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		04F1758122894EB70025999B /* MMSqlite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSqlite.swift; sourceTree = "<group>"; };
-		04F1758422894FDF0025999B /* MMFileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMFileData.swift; sourceTree = "<group>"; };
-		04F17587228950860025999B /* UIImage+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Common.swift"; sourceTree = "<group>"; };
-		04FAEBD62338AD7D003FA238 /* MMColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMColor.swift; sourceTree = "<group>"; };
-		04FAEBD82338C150003FA238 /* MMColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MMColor+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +79,165 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04E45F352357173F00F9B336 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F362357173F00F9B336 /* DispatchExtension */,
+				04E45F382357173F00F9B336 /* File */,
+				04E45F3A2357173F00F9B336 /* FoundationExtension */,
+				04E45F3E2357173F00F9B336 /* Notification */,
+				04E45F412357173F00F9B336 /* UIKit */,
+				04E45F462357173F00F9B336 /* Dispatch */,
+				04E45F4A2357173F00F9B336 /* Date */,
+				04E45F4D2357173F00F9B336 /* Timer */,
+				04E45F4F2357173F00F9B336 /* Foundation */,
+				04E45F512357173F00F9B336 /* Language */,
+				04E45F532357173F00F9B336 /* Sqlite */,
+				04E45F562357173F00F9B336 /* System */,
+				04E45F582357173F00F9B336 /* JSON */,
+				04E45F5A2357173F00F9B336 /* Log */,
+				04E45F5C2357173F00F9B336 /* AtomicVar */,
+			);
+			path = Sources;
+			sourceTree = SOURCE_ROOT;
+		};
+		04E45F362357173F00F9B336 /* DispatchExtension */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F372357173F00F9B336 /* DispatchQueue+Extension.swift */,
+			);
+			path = DispatchExtension;
+			sourceTree = "<group>";
+		};
+		04E45F382357173F00F9B336 /* File */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F392357173F00F9B336 /* MMFileData.swift */,
+			);
+			path = File;
+			sourceTree = "<group>";
+		};
+		04E45F3A2357173F00F9B336 /* FoundationExtension */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F3B2357173F00F9B336 /* NSObject+ClassName.swift */,
+				04E45F3C2357173F00F9B336 /* NSObject+Extension.swift */,
+				04E45F3D2357173F00F9B336 /* String+Extension.swift */,
+			);
+			path = FoundationExtension;
+			sourceTree = "<group>";
+		};
+		04E45F3E2357173F00F9B336 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F3F2357173F00F9B336 /* MMNotification.swift */,
+				04E45F402357173F00F9B336 /* NotificationCenter+Extension.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		04E45F412357173F00F9B336 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F422357173F00F9B336 /* Color */,
+				04E45F452357173F00F9B336 /* UIImage+Common.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		04E45F422357173F00F9B336 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F432357173F00F9B336 /* MMColor.swift */,
+				04E45F442357173F00F9B336 /* MMColor+Extension.swift */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
+		04E45F462357173F00F9B336 /* Dispatch */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F472357173F00F9B336 /* DispatchSemaphore+Extension.swift */,
+				04E45F482357173F00F9B336 /* MMDispatchQueue.swift */,
+				04E45F492357173F00F9B336 /* MMOperationQueue.swift */,
+			);
+			path = Dispatch;
+			sourceTree = "<group>";
+		};
+		04E45F4A2357173F00F9B336 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F4B2357173F00F9B336 /* MMDate.swift */,
+				04E45F4C2357173F00F9B336 /* MMDateFormatterFactory.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
+		04E45F4D2357173F00F9B336 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F4E2357173F00F9B336 /* MMTimer.swift */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		04E45F4F2357173F00F9B336 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F502357173F00F9B336 /* MMFoundationGlobalDefine.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		04E45F512357173F00F9B336 /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F522357173F00F9B336 /* MMLanguage.swift */,
+			);
+			path = Language;
+			sourceTree = "<group>";
+		};
+		04E45F532357173F00F9B336 /* Sqlite */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F542357173F00F9B336 /* MMSqlite.swift */,
+				04E45F552357173F00F9B336 /* MMSqliteOperation.swift */,
+			);
+			path = Sqlite;
+			sourceTree = "<group>";
+		};
+		04E45F562357173F00F9B336 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F572357173F00F9B336 /* MMSystem.swift */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		04E45F582357173F00F9B336 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F592357173F00F9B336 /* MMJSON.swift */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		04E45F5A2357173F00F9B336 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F5B2357173F00F9B336 /* MMLog.swift */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
+		04E45F5C2357173F00F9B336 /* AtomicVar */ = {
+			isa = PBXGroup;
+			children = (
+				04E45F5D2357173F00F9B336 /* MMAtomicVar.swift */,
+			);
+			path = AtomicVar;
+			sourceTree = "<group>";
+		};
 		04E7273C22884AA900727D44 = {
 			isa = PBXGroup;
 			children = (
@@ -99,144 +258,11 @@
 		04E7274822884AA900727D44 /* MMLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				04E7279222884DDC00727D44 /* Library */,
+				04E45F352357173F00F9B336 /* Sources */,
 				04E7274922884AA900727D44 /* MMLibrary.h */,
 				04E7274A22884AA900727D44 /* Info.plist */,
 			);
 			path = MMLibrary;
-			sourceTree = "<group>";
-		};
-		04E7279222884DDC00727D44 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				04F17586228950750025999B /* UIKit */,
-				04F1758322894FBC0025999B /* File */,
-				04F1757922894D8D0025999B /* Sqlite */,
-				04F1757622894C980025999B /* JSON */,
-				04F1757122894B3C0025999B /* Notification */,
-				04F17560228927A20025999B /* AtomicVar */,
-				04F17559228925D80025999B /* Dispatch */,
-				04F17558228925D80025999B /* DispatchExtension */,
-				04F1755522887E6F0025999B /* System */,
-				04F1755222887B040025999B /* FoundationExtension */,
-				04E727A32288538000727D44 /* Foundation */,
-				04E727A0228851CC00727D44 /* Log */,
-				04E7279D22884EA800727D44 /* Date */,
-				04E7279B22884E5C00727D44 /* Language */,
-				04E7279922884E5C00727D44 /* Timer */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
-		04E7279922884E5C00727D44 /* Timer */ = {
-			isa = PBXGroup;
-			children = (
-				041FAC3B228E47C1006BFE57 /* MMTimer.swift */,
-			);
-			path = Timer;
-			sourceTree = "<group>";
-		};
-		04E7279B22884E5C00727D44 /* Language */ = {
-			isa = PBXGroup;
-			children = (
-				04E7279E2288512500727D44 /* MMLanguage.swift */,
-			);
-			path = Language;
-			sourceTree = "<group>";
-		};
-		04E7279D22884EA800727D44 /* Date */ = {
-			isa = PBXGroup;
-			children = (
-				04F1756D228949660025999B /* MMDate.swift */,
-				04F1756F228949CA0025999B /* MMDateFormatterFactory.swift */,
-			);
-			path = Date;
-			sourceTree = "<group>";
-		};
-		04E727A0228851CC00727D44 /* Log */ = {
-			isa = PBXGroup;
-			children = (
-				04E727A12288524300727D44 /* MMLog.swift */,
-			);
-			path = Log;
-			sourceTree = "<group>";
-		};
-		04E727A32288538000727D44 /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				04E727A4228853CF00727D44 /* MMFoundationGlobalDefine.swift */,
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
-		04F1755222887B040025999B /* FoundationExtension */ = {
-			isa = PBXGroup;
-			children = (
-				04F1756522892C7C0025999B /* NSObject+ClassName.swift */,
-				04F1756722892D4F0025999B /* NSObject+Extension.swift */,
-				04F1755322887B1D0025999B /* String+Extension.swift */,
-			);
-			path = FoundationExtension;
-			sourceTree = "<group>";
-		};
-		04F1755522887E6F0025999B /* System */ = {
-			isa = PBXGroup;
-			children = (
-				04F1755622887E800025999B /* MMSystem.swift */,
-			);
-			path = System;
-			sourceTree = "<group>";
-		};
-		04F17558228925D80025999B /* DispatchExtension */ = {
-			isa = PBXGroup;
-			children = (
-				04F1755A228926000025999B /* DispatchQueue+Extension.swift */,
-			);
-			path = DispatchExtension;
-			sourceTree = "<group>";
-		};
-		04F17559228925D80025999B /* Dispatch */ = {
-			isa = PBXGroup;
-			children = (
-				04F1755C2289268B0025999B /* MMDispatchQueue.swift */,
-				04F1755E228927100025999B /* MMOperationQueue.swift */,
-				04F1756322892B4D0025999B /* DispatchSemaphore+Extension.swift */,
-			);
-			path = Dispatch;
-			sourceTree = "<group>";
-		};
-		04F17560228927A20025999B /* AtomicVar */ = {
-			isa = PBXGroup;
-			children = (
-				04F17561228927B80025999B /* MMAtomicVar.swift */,
-			);
-			path = AtomicVar;
-			sourceTree = "<group>";
-		};
-		04F1757122894B3C0025999B /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				04F1757222894BAF0025999B /* MMNotification.swift */,
-				04F1757422894C100025999B /* NotificationCenter+Extension.swift */,
-			);
-			path = Notification;
-			sourceTree = "<group>";
-		};
-		04F1757622894C980025999B /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				04F1757722894D750025999B /* MMJSON.swift */,
-			);
-			path = JSON;
-			sourceTree = "<group>";
-		};
-		04F1757922894D8D0025999B /* Sqlite */ = {
-			isa = PBXGroup;
-			children = (
-				04F1757A22894DBF0025999B /* MMSqliteOperation.swift */,
-				04F1758122894EB70025999B /* MMSqlite.swift */,
-			);
-			path = Sqlite;
 			sourceTree = "<group>";
 		};
 		04F1757C22894E400025999B /* Frameworks */ = {
@@ -246,32 +272,6 @@
 				04F1757D22894E400025999B /* libsqlite3.0.tbd */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		04F1758322894FBC0025999B /* File */ = {
-			isa = PBXGroup;
-			children = (
-				04F1758422894FDF0025999B /* MMFileData.swift */,
-			);
-			path = File;
-			sourceTree = "<group>";
-		};
-		04F17586228950750025999B /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-				04FAEBD52338AD48003FA238 /* Color */,
-				04F17587228950860025999B /* UIImage+Common.swift */,
-			);
-			path = UIKit;
-			sourceTree = "<group>";
-		};
-		04FAEBD52338AD48003FA238 /* Color */ = {
-			isa = PBXGroup;
-			children = (
-				04FAEBD62338AD7D003FA238 /* MMColor.swift */,
-				04FAEBD82338C150003FA238 /* MMColor+Extension.swift */,
-			);
-			path = Color;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,30 +355,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04F1757322894BAF0025999B /* MMNotification.swift in Sources */,
-				04F1755722887E800025999B /* MMSystem.swift in Sources */,
-				04F1756E228949660025999B /* MMDate.swift in Sources */,
-				04FAEBD92338C150003FA238 /* MMColor+Extension.swift in Sources */,
-				04F1756622892C7C0025999B /* NSObject+ClassName.swift in Sources */,
-				04F17562228927B80025999B /* MMAtomicVar.swift in Sources */,
-				04F1757822894D750025999B /* MMJSON.swift in Sources */,
-				04F1755F228927100025999B /* MMOperationQueue.swift in Sources */,
-				04F1755B228926000025999B /* DispatchQueue+Extension.swift in Sources */,
-				04F1758522894FDF0025999B /* MMFileData.swift in Sources */,
-				04F1755D2289268B0025999B /* MMDispatchQueue.swift in Sources */,
-				04F1755422887B1D0025999B /* String+Extension.swift in Sources */,
-				04F1757B22894DBF0025999B /* MMSqliteOperation.swift in Sources */,
-				04F1756422892B4D0025999B /* DispatchSemaphore+Extension.swift in Sources */,
-				04E727A22288524300727D44 /* MMLog.swift in Sources */,
-				04F17570228949CA0025999B /* MMDateFormatterFactory.swift in Sources */,
-				04F1757522894C100025999B /* NotificationCenter+Extension.swift in Sources */,
-				04F17588228950860025999B /* UIImage+Common.swift in Sources */,
-				04E727A5228853CF00727D44 /* MMFoundationGlobalDefine.swift in Sources */,
-				04E7279F2288512500727D44 /* MMLanguage.swift in Sources */,
-				04F1758222894EB70025999B /* MMSqlite.swift in Sources */,
-				04FAEBD72338AD7D003FA238 /* MMColor.swift in Sources */,
-				04F1756822892D4F0025999B /* NSObject+Extension.swift in Sources */,
-				041FAC3C228E47C1006BFE57 /* MMTimer.swift in Sources */,
+				04E45F5E2357173F00F9B336 /* DispatchQueue+Extension.swift in Sources */,
+				04E45F6B2357173F00F9B336 /* MMDate.swift in Sources */,
+				04E45F6A2357173F00F9B336 /* MMOperationQueue.swift in Sources */,
+				04E45F6D2357173F00F9B336 /* MMTimer.swift in Sources */,
+				04E45F752357173F00F9B336 /* MMAtomicVar.swift in Sources */,
+				04E45F702357173F00F9B336 /* MMSqlite.swift in Sources */,
+				04E45F682357173F00F9B336 /* DispatchSemaphore+Extension.swift in Sources */,
+				04E45F6C2357173F00F9B336 /* MMDateFormatterFactory.swift in Sources */,
+				04E45F652357173F00F9B336 /* MMColor.swift in Sources */,
+				04E45F602357173F00F9B336 /* NSObject+ClassName.swift in Sources */,
+				04E45F5F2357173F00F9B336 /* MMFileData.swift in Sources */,
+				04E45F642357173F00F9B336 /* NotificationCenter+Extension.swift in Sources */,
+				04E45F622357173F00F9B336 /* String+Extension.swift in Sources */,
+				04E45F742357173F00F9B336 /* MMLog.swift in Sources */,
+				04E45F6F2357173F00F9B336 /* MMLanguage.swift in Sources */,
+				04E45F732357173F00F9B336 /* MMJSON.swift in Sources */,
+				04E45F662357173F00F9B336 /* MMColor+Extension.swift in Sources */,
+				04E45F632357173F00F9B336 /* MMNotification.swift in Sources */,
+				04E45F712357173F00F9B336 /* MMSqliteOperation.swift in Sources */,
+				04E45F672357173F00F9B336 /* UIImage+Common.swift in Sources */,
+				04E45F612357173F00F9B336 /* NSObject+Extension.swift in Sources */,
+				04E45F692357173F00F9B336 /* MMDispatchQueue.swift in Sources */,
+				04E45F722357173F00F9B336 /* MMSystem.swift in Sources */,
+				04E45F6E2357173F00F9B336 /* MMFoundationGlobalDefine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

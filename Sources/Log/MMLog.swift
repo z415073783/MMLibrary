@@ -126,7 +126,7 @@ public class MMLogger: NSObject {
     }
     
     
-    public class func debug( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+    @objc public class func debug( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
         
         MMLogger.shared.logln(closure(), logLevel: LogLevel.Debug, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
         

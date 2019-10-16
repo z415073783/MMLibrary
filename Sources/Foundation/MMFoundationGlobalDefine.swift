@@ -39,6 +39,8 @@ public let mm_kFontTextDefaultBold: String = "Helvetica-Bold"
 /** 默认细体字体  */
 public let mm_kFontTextDefaultLight: String = "HelveticaNeue-Light"
 // MARK: 字体大小
+#if os(iOS) || os(tvOS)
+import UIKit
 /** 字体大小 10号  */
 public let mm_kFontSizeSmallest: CGFloat = 10
 /** 字体大小 12号  */
@@ -49,6 +51,7 @@ public let mm_kFontSizeMedium: CGFloat = 14
 public let mm_kFontSizeLarge: CGFloat = 16
 /** 字体大小 18号  */
 public let mm_kFontSizeLargest: CGFloat = 18
+#endif
 
 /** 切换动画时间 0.2秒  */
 public let mm_kActionDuration: Double = 0.2
