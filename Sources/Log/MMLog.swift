@@ -253,9 +253,9 @@ public class MMLogger: NSObject {
                     }
                 }
             }
-            if let block = MMLogger.shared.callFunc {
-                block(adjustedText,level.rawValue)
-            }
+//            if let block = MMLogger.shared.callFunc {
+//                block(adjustedText,level.rawValue)
+//            }
         }
         outputClosure()
     }
