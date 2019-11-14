@@ -119,7 +119,7 @@ public extension String {
     ///   - attributes: attributes
     ///   - context: 上下文
     /// - Returns: 所需的rect
-    func mm_boundingRect(with: CGSize, options: NSStringDrawingOptions, attributes: [NSAttributedString.Key : Any]?, context: NSStringDrawingContext?) -> CGRect {
+    public func mm_boundingRect(with: CGSize, options: NSStringDrawingOptions, attributes: [NSAttributedString.Key : Any]?, context: NSStringDrawingContext?) -> CGRect {
         let str: NSString = NSString(string: self)
         return str.boundingRect(with: with, options: options, attributes: attributes, context: context)
     }
@@ -131,7 +131,7 @@ public extension String {
     ///   - width: 指定宽度
     ///   - font: 字体
     /// - Returns: 自适应高度
-    func mm_getStringHeight(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+    public func mm_getStringHeight(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
         
@@ -154,7 +154,7 @@ public extension String {
     /// 判断是否有特殊字符
     ///
     /// - Returns: true 是 false 否
-    func mm_hasInAlphabet() -> Bool {
+    public func mm_hasInAlphabet() -> Bool {
         if !isEmpty {
             let string: NSString = self as NSString
             let c: unichar = string.character(at: 0)
@@ -168,7 +168,7 @@ public extension String {
     /// 判断字符串是否含有中文，中文符号不包含在内
     ///
     /// - Returns: true 是 false 否
-    func mm_hasChineseWord() -> Bool {
+    public func mm_hasChineseWord() -> Bool {
         let string: NSString = self as NSString
         let count: Int = string.length
         for i in 0 ..< count {
@@ -183,7 +183,7 @@ public extension String {
     /// 从有汉字的字符串中抽取出所有汉字
     ///
     /// - Returns: 抽取出的汉字
-    func mm_getChineseWord() -> String {
+    public func mm_getChineseWord() -> String {
         let string: NSString = self as NSString
         var newStr: String = ""
         let count: Int = string.length
@@ -206,7 +206,7 @@ public extension String {
     /// 是否为纯数字
     ///
     /// - Returns: true 是 false 否
-    func mm_isNumberText() -> Bool {
+    public func mm_isNumberText() -> Bool {
         let regex: String = "^[0-9]+$"
         let pred: NSPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let isMatch: Bool = pred.evaluate(with: self)
@@ -216,7 +216,7 @@ public extension String {
     /// 是否为纯字母
     ///
     /// - Returns: true 是 false 否
-    func mm_isABCCharText() -> Bool {
+    public func mm_isABCCharText() -> Bool {
         let regex: String = "^[a-zA-Z]+$"
         let pred: NSPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let isMatch: Bool = pred.evaluate(with: self)
@@ -228,7 +228,7 @@ public extension String {
     /// - Parameters:
     ///   - pattern: 表达式
     /// - Returns: 结果列表
-    func mm_regularExpressionData(pattern: String) -> [NSTextCheckingResult] {
+    public func mm_regularExpressionData(pattern: String) -> [NSTextCheckingResult] {
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
             
@@ -246,7 +246,7 @@ public extension String {
     /// 判断是否是ip地址 匹配ipv4,ipv6,域名
     ///
     /// - Returns: true 是 false 否
-    func mm_checkIfIpAddress() -> Bool {
+    public func mm_checkIfIpAddress() -> Bool {
         if self.count == 0 {
             return true
         }
@@ -280,7 +280,7 @@ public extension String {
     /// 判断是否是端口
     ///
     /// - Returns: true 是 false 否
-    func mm_checkIfPort() -> Bool {
+    public func mm_checkIfPort() -> Bool {
         if self.count > 0 {
             guard let intSelf = Int(self) else { return false }
             if intSelf >= 0 && intSelf <= 65535 {
@@ -293,7 +293,7 @@ public extension String {
     /// 判断负载均衡值是否正确
     ///
     /// - Returns: true 是 false 否
-    func mm_checkLoad() -> Bool {
+    public func mm_checkLoad() -> Bool {
         if self.count > 0 {
             guard let intSelf = Int(self) else { return false }
             if intSelf >= 96 && intSelf <= 127 {
@@ -321,7 +321,7 @@ public extension String {
     ///
     /// - Parameter separator: 分隔符
     /// - Returns: 分割的字符串数组
-    func mm_split(_ separator: Character) -> [String] {
+    public func mm_split(_ separator: Character) -> [String] {
         return self.split { $0 == separator }.map(String.init)
     }
 }
