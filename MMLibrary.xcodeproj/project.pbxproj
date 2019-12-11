@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0404EF5123A0DEAA005260CD /* NSObject+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0404EF5023A0DEAA005260CD /* NSObject+Value.swift */; };
 		04E45F5E2357173F00F9B336 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F372357173F00F9B336 /* DispatchQueue+Extension.swift */; };
 		04E45F5F2357173F00F9B336 /* MMFileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F392357173F00F9B336 /* MMFileData.swift */; };
 		04E45F602357173F00F9B336 /* NSObject+ClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F3B2357173F00F9B336 /* NSObject+ClassName.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0404EF5023A0DEAA005260CD /* NSObject+Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Value.swift"; sourceTree = "<group>"; };
 		04E45F372357173F00F9B336 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		04E45F392357173F00F9B336 /* MMFileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMFileData.swift; sourceTree = "<group>"; };
 		04E45F3B2357173F00F9B336 /* NSObject+ClassName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+ClassName.swift"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				04E45F3B2357173F00F9B336 /* NSObject+ClassName.swift */,
 				04E45F3C2357173F00F9B336 /* NSObject+Extension.swift */,
 				04E45F3D2357173F00F9B336 /* String+Extension.swift */,
+				0404EF5023A0DEAA005260CD /* NSObject+Value.swift */,
 			);
 			path = FoundationExtension;
 			sourceTree = "<group>";
@@ -318,7 +321,7 @@
 				TargetAttributes = {
 					04E7274522884AA900727D44 = {
 						CreatedOnToolsVersion = 10.2.1;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 1120;
 					};
 				};
 			};
@@ -364,6 +367,7 @@
 				04E45F682357173F00F9B336 /* DispatchSemaphore+Extension.swift in Sources */,
 				04E45F6C2357173F00F9B336 /* MMDateFormatterFactory.swift in Sources */,
 				04E45F652357173F00F9B336 /* MMColor.swift in Sources */,
+				0404EF5123A0DEAA005260CD /* NSObject+Value.swift in Sources */,
 				04E45F602357173F00F9B336 /* NSObject+ClassName.swift in Sources */,
 				04E45F5F2357173F00F9B336 /* MMFileData.swift in Sources */,
 				04E45F642357173F00F9B336 /* NotificationCenter+Extension.swift in Sources */,

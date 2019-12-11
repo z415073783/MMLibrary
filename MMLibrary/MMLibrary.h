@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double MMLibraryVersionNumber;
 FOUNDATION_EXPORT const unsigned char MMLibraryVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <MMLibrary/PublicHeader.h>
-
-
