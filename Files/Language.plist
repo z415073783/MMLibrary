@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Language</key>
+	<dict>
+		<key>%d day</key>
+		<dict>
+			<key>en</key>
+			<string> %d day(s)</string>
+			<key>es</key>
+			<string> %d day</string>
+			<key>zh-Hans</key>
+			<string>%d天</string>
+			<key>zh-Hant</key>
+			<string>%d天</string>
+		</dict>
+		<key>user-agent be rejected</key>
+		<dict>
+			<key>en</key>
+			<string>user-agent is rejected</string>
+			<key>es</key>
+			<string>usuario-agente es rechazado</string>
+			<key>zh-Hans</key>
+			<string>user-agent被拒绝</string>
+			<key>zh-Hant</key>
+			<string>user-agent被拒絕</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
