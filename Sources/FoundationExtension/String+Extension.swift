@@ -22,6 +22,10 @@ public extension String {
         case name, word, firtword, xinAndNameFirstWord
     }
     
+//    enum MMStringCompareType {
+//        case greater, less, equal
+//    }
+//    
     /// 中文转拼音
     ///
     /// - Parameter spellType: 拼音类型
@@ -324,4 +328,13 @@ public extension String {
     public func mm_split(_ separator: Character) -> [String] {
         return self.split { $0 == separator }.map(String.init)
     }
+    
+//    func compare(sender: String) -> MMStringCompareType {
+//
+//
+//
+//
+//
+//    }
+    
 }

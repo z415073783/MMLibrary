@@ -14,6 +14,7 @@
 		0445738823B86881008F6D70 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0445738623B86881008F6D70 /* Main.storyboard */; };
 		0445738A23B86883008F6D70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0445738923B86883008F6D70 /* Assets.xcassets */; };
 		0445738D23B86883008F6D70 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0445738B23B86883008F6D70 /* LaunchScreen.storyboard */; };
+		04CE2D44241B5B8B00C39743 /* MMTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE2D43241B5B8B00C39743 /* MMTree.swift */; };
 		04E45F5E2357173F00F9B336 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F372357173F00F9B336 /* DispatchQueue+Extension.swift */; };
 		04E45F5F2357173F00F9B336 /* MMFileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F392357173F00F9B336 /* MMFileData.swift */; };
 		04E45F602357173F00F9B336 /* NSObject+ClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F3B2357173F00F9B336 /* NSObject+ClassName.swift */; };
@@ -52,6 +53,7 @@
 		0445738923B86883008F6D70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0445738C23B86883008F6D70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0445738E23B86883008F6D70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04CE2D43241B5B8B00C39743 /* MMTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTree.swift; sourceTree = "<group>"; };
 		04E45F372357173F00F9B336 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		04E45F392357173F00F9B336 /* MMFileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMFileData.swift; sourceTree = "<group>"; };
 		04E45F3B2357173F00F9B336 /* NSObject+ClassName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+ClassName.swift"; sourceTree = "<group>"; };
@@ -116,9 +118,18 @@
 			path = MMLibraryTest;
 			sourceTree = "<group>";
 		};
+		04CE2D42241B5B4A00C39743 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				04CE2D43241B5B8B00C39743 /* MMTree.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
 		04E45F352357173F00F9B336 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				04CE2D42241B5B4A00C39743 /* Container */,
 				04E45F362357173F00F9B336 /* DispatchExtension */,
 				04E45F382357173F00F9B336 /* File */,
 				04E45F3A2357173F00F9B336 /* FoundationExtension */,
@@ -449,6 +460,7 @@
 				04E45F602357173F00F9B336 /* NSObject+ClassName.swift in Sources */,
 				04E45F5F2357173F00F9B336 /* MMFileData.swift in Sources */,
 				04E45F642357173F00F9B336 /* NotificationCenter+Extension.swift in Sources */,
+				04CE2D44241B5B8B00C39743 /* MMTree.swift in Sources */,
 				04E45F622357173F00F9B336 /* String+Extension.swift in Sources */,
 				04E45F742357173F00F9B336 /* MMLog.swift in Sources */,
 				04E45F6F2357173F00F9B336 /* MMLanguage.swift in Sources */,
@@ -493,7 +505,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K8KKN2L2KK;
 				INFOPLIST_FILE = MMLibraryTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -512,7 +524,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K8KKN2L2KK;
 				INFOPLIST_FILE = MMLibraryTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
