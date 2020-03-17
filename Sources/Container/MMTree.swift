@@ -196,6 +196,10 @@ extension __TreeControl {
 
         fatherNode?.leftSubNode = rightNode
         rightNode?.superNode = fatherNode
+        if translateNode.superNode == nil {
+            rootNode = translateNode
+            translateNode.color = .black
+        }
 //        MMLOG.debug("右旋结束")
     }
     /// 左旋
@@ -217,6 +221,10 @@ extension __TreeControl {
         fatherNode?.rightSubNode = leftNode
         leftNode?.superNode = fatherNode
 //        MMLOG.debug("左旋结束")
+        if translateNode.superNode == nil {
+            rootNode = translateNode
+            translateNode.color = .black
+        }
     }
     
     
@@ -242,67 +250,92 @@ extension __TreeControl {
         }
 
         //叔叔节点存在并且为红色, 说明需要以祖父节点作为插入节点做自平衡
-        if let _uncleNode = uncleNode, _uncleNode.color == .red, grandfatherNode?.superNode != nil {
+        if let _uncleNode = uncleNode, _uncleNode.color == .red {
             
             fatherNode.color = .black
             _uncleNode.color = .black
-         
-            grandfatherNode?.color = .red
-            guard let grandfatherNode = grandfatherNode else {
-                MMLOG.error("获取grandfatherNode失败")
-                return
+            
+            if grandfatherNode != rootNode {
+                grandfatherNode?.color = .red
+                guard let grandfatherNode = grandfatherNode else {
+                    MMLOG.error("获取grandfatherNode失败")
+                    return
+                }
+                autoBalanceTree(insertNode: grandfatherNode)
+            } else {
+                //这是唯一增加黑节点的方式
             }
-            autoBalanceTree(insertNode: grandfatherNode)
-
             return
         }
 
         
         if fatherNode == grandfatherNode?.leftSubNode {
-            fatherNode.color = .black
-            grandfatherNode?.color = .red
-            uncleNode?.color = .black
-//            if insertNode == fatherNode.leftSubNode {
-                
-                guard let grandfatherNode = grandfatherNode else {
-                    MMLOG.error("获取grandfatherNode失败")
-                    return
-                }
-//                rightTranslate(translateNode: fatherNode)
-//            } else {
+            
+            if insertNode == fatherNode.leftSubNode {
+                fatherNode.color = .black
+                grandfatherNode?.color = .red
+                uncleNode?.color = .black
+//                guard let grandfatherNode = grandfatherNode else {
+//                    MMLOG.error("获取grandfatherNode失败")
+//                    return
+//                }
                 rightTranslate(translateNode: fatherNode)
                 autoBalanceTree(insertNode: fatherNode)
-//            }
-        } else {
-            fatherNode.color = .black
-            grandfatherNode?.color = .red
-            uncleNode?.color = .black
-//            if insertNode == fatherNode.leftSubNode {
-                
-                guard let grandfatherNode = grandfatherNode else {
-                    MMLOG.error("获取grandfatherNode失败")
-                    return
+            } else {
+                insertNode.color = .red
+                fatherNode.color = .red
+                leftTranslate(translateNode: insertNode)
+                if let subNode = insertNode.leftSubNode {
+                    autoBalanceTree(insertNode: subNode)
                 }
-//                rightTranslate(translateNode: grandfatherNode)
-//            } else {
+                
+            }
+        } else {
+            
+            if insertNode == fatherNode.leftSubNode {
+                insertNode.color = .red
+                fatherNode.color = .red
+//                guard let grandfatherNode = grandfatherNode else {
+//                    MMLOG.error("获取grandfatherNode失败")
+//                    return
+//                }
+                rightTranslate(translateNode: insertNode)
+                if let subNode = insertNode.rightSubNode {
+                    autoBalanceTree(insertNode: subNode)
+                }
+                
+            } else {
+                fatherNode.color = .black
+                grandfatherNode?.color = .red
+                uncleNode?.color = .black
                 leftTranslate(translateNode: fatherNode)
-//                rightTranslate(translateNode: fatherNode)
                 autoBalanceTree(insertNode: fatherNode)
-//            }
+//                rightTranslate(translateNode: fatherNode)
+                
+            }
+            
         }
         
-        if rootNode == grandfatherNode {
-            rootNode = fatherNode
-//            if fatherNode.color == .red {
-//                fatherNode.color = .black
-//            }
-        }
+//        if rootNode == grandfatherNode {
+//            rootNode = fatherNode
+//        }
         
         
     }
     
     func selectLastNode(node: MMNode, key: String, isInsert: Bool) -> MMNode {
         //比较大小
+//        guard let nodeKey = node.key else {
+//            MMLOG.error("传入node未设置key")
+//            return MMNode()
+//        }
+//        if nodeKey > key {
+//            MMLOG.debug(">")
+//        } else if nodeKey < key {
+//            MMLOG.debug("<")
+//        } else {
+//            MMLOG.debug("=")
+//        }
         let compareResult = node.key?.compare(key)
         switch compareResult {
         case .orderedSame:

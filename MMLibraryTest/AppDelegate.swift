@@ -24,13 +24,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MMLOG.debug("启动程序")
         var systemDic: [String: TestObj] = [:]
         let treeDic = MMTree()
+        
+        treeDic.setNode(key: "a", value: TestObj())
+        treeDic.setNode(key: "b", value: TestObj())
+        treeDic.setNode(key: "c", value: TestObj())
+        treeDic.setNode(key: "d", value: TestObj())
+        treeDic.setNode(key: "e", value: TestObj())
+        treeDic.setNode(key: "f", value: TestObj())
+        treeDic.setNode(key: "g", value: TestObj())
+        treeDic.setNode(key: "h", value: TestObj())
+        treeDic.setNode(key: "i", value: TestObj())
+        treeDic.setNode(key: "j", value: TestObj())
+        treeDic.setNode(key: "k", value: TestObj())
+        treeDic.setNode(key: "l", value: TestObj())
+        treeDic.setNode(key: "m", value: TestObj())
+        treeDic.setNode(key: "n", value: TestObj())
+        treeDic.setNode(key: "o", value: TestObj())
+        treeDic.setNode(key: "p", value: TestObj())
+        treeDic.setNode(key: "q", value: TestObj())
+        treeDic.setNode(key: "r", value: TestObj())
+        
+        
         var list: [String] = []
-        for _ in 0 ..< 5000 {
+        for _ in 0 ..< 500000 {
             let rand = arc4random()
             list.append("\(rand)")
 
         }
 
+        
+        
+        
         MMLOG.debug("二叉树存入")
         for i in 0 ..< list.count {
             let item = list[i]
@@ -65,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MMLOG.debug("二叉树删除")
         for item in list {
             treeDic.setNode(key: item, value: nil)
-            break
+//            break
         }
         MMLOG.debug("二叉树删除结束")
         MMLOG.debug("字典删除")
@@ -73,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         for item in list {
             systemDic[item] = nil
-            break
+//            break
         }
         MMLOG.debug("字典删除结束")
         
