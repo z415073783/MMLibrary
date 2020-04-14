@@ -7,16 +7,28 @@
 //
 
 import Foundation
-public let mm_kSqlQueueName = "mm_MySqlQueueName"
+
 public class MMSqlite: NSObject {
-    
     static public let shared: MMSqlite = MMSqlite()
+    var queue: OperationQueue?
+    //默认未开启多线程
+    var isQueue: Bool {
+        get {
+            return (queue != nil) ? true : false
+        }
+        set {
+            if newValue {
+                queue = MMDispatchQueue.getOperationQueue(withName: self.description, maxCount: 1)
+            } else {
+                queue = nil
+            }
+        }
+    }
     
-    let queue = MMDispatchQueue.getOperationQueue(withName: mm_kSqlQueueName, maxCount: 1)
     //处理队列
     //    var isolationQueue: DispatchQueue = DispatchQueue(label: "isolationQueue", attributes: [])
-    //返回结果队列
-    var returnQueue: DispatchQueue = DispatchQueue(label: "returnQueue", attributes: [])
+    //返回结果队列 直接返回原线程
+//    var returnQueue: DispatchQueue = DispatchQueue(label: "returnQueue", attributes: [])
     
     //数据库操作对象(每个数据库一个对象,默认只有一个数据库) 要创建多个数据库请使用init方法
     public var operation: MMSqliteOperation = MMSqliteOperation()
@@ -30,44 +42,59 @@ public class MMSqlite: NSObject {
      - parameter dbName: 数据库名称
      - parameter block:  是否成功
      */
-    public func openSql(_ dbName: String, block:@escaping (_ isSuccess: Bool) -> Void) {
-        MMLOG.debug("self = \(self)")
-        let blockOpera = BlockOperation()
-        blockOpera.addExecutionBlock { [weak self] in
+    public func openSql(_ dbName: String, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) -> Void) {
+        
+        guard let queue = queue ?? self.queue else {
+            let isResult: Bool = self.operation.openSqlite(dbName)
+            if isResult == false {
+                print("sqlite创建表失败")
+            }
+            block(isResult)
+            return
+        }
+        let current = OperationQueue.current
+        queue.addOperation {[weak self] in
             guard let `self` = self else { return }
             let isResult: Bool = self.operation.openSqlite(dbName)
-            self.returnQueue.async {
+            current?.addOperation({
                 block(isResult)
-            }
+            })
         }
-        queue.addOperation(blockOpera)
-        
     }
     
     //打开数据库 指定路径
-    public func openSqlWithPath(_ dbPath: String, block:@escaping (_ isSuccess:Bool)->Void) -> Void {
-        let blockOpera = BlockOperation()
-        blockOpera.addExecutionBlock { [weak self] in
+    public func openSqlWithPath(_ dbPath: String, queue: OperationQueue? = nil, block:@escaping (_ isSuccess:Bool)->Void) -> Void {
+        guard let queue = queue ?? self.queue else {
+            let isResult:Bool = self.operation.openSqliteWithPath(dbPath)
+            MMLOG.info("打开数据库: \(dbPath), \(isResult)")
+            block(isResult)
+            return
+        }
+        
+        let current = OperationQueue.current
+        queue.addOperation { [weak self] in
             guard let `self` = self else { return }
             
             let isResult:Bool = self.operation.openSqliteWithPath(dbPath)
-            self.returnQueue.async {
+            current?.addOperation({
                 MMLOG.info("打开数据库: \(dbPath), \(isResult)")
                 block(isResult)
-            }
+            })
         }
-        queue.addOperation(blockOpera)
     }
     
     public func closeSql(isSafe: Bool = true) {
         if isSafe {
-            queue.waitUntilAllOperationsAreFinished()
+            queue?.waitUntilAllOperationsAreFinished()
         }
         operation.closeSQLite()
     }
     //移除所有任务
-    public func removeAllTasks(queueName: String = mm_kSqlQueueName) {
-        let queue = MMDispatchQueue.getOperationQueue(withName: queueName, maxCount: 1)
+    public func removeAllTasks(queue: OperationQueue? = nil) {
+        guard let queue = queue ?? self.queue else {
+            MMLOG.info("当前未开启MMSqlite多线程")
+            return
+        }
         queue.cancelAllOperations()
         queue.waitUntilAllOperationsAreFinished()
     }
@@ -79,16 +106,23 @@ public class MMSqlite: NSObject {
      - parameter parames: 参数字典 [参数1:[属性1,属性2,...],参数2:[属性1,属性2,...],...]
      - parameter block:   是否成功
      */
-    public func createTable(_ sqlName: String, parames: [(String, [MMSqliteOperationPropertyType])], block:@escaping (_ isSuccess: Bool) -> Void) {
-        let blockOpera = BlockOperation()
-        blockOpera.addExecutionBlock {[weak self] in
+    public func createTable(_ sqlName: String, parames: [(String, [MMSqliteOperationPropertyType])], queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) -> Void) {
+        guard let queue = queue ?? self.queue else {
+            let isResult: Bool = self.operation.createTable(sqlName, Parameters: parames)
+            if isResult == false {
+                print("sqlite创建表失败")
+            }
+            block(isResult)
+            return
+        }
+        let currentQueue = OperationQueue.current
+        queue.addOperation { [weak self] in
             guard let `self` = self else { return }
             let isResult: Bool = self.operation.createTable(sqlName, Parameters: parames)
-            self.returnQueue.async {
+            currentQueue?.addOperation({
                 block(isResult)
-            }
+            })
         }
-        queue.addOperation(blockOpera)
     }
     
     /**
@@ -97,8 +131,8 @@ public class MMSqlite: NSObject {
      - parameter sql:   sql语句
      - parameter block: 返回成功or失败
      */
-    public func update(_ sql: String,_ queueName: String? = mm_kSqlQueueName, block:@escaping ((_ isSuccess: Bool) -> Void)) {
-        guard let queueName = queueName else {
+    public func update(_ sql: String, queue: OperationQueue? = nil, block:@escaping ((_ isSuccess: Bool) -> Void)) {
+        guard let queue = queue ?? self.queue else {
             let isResult: Bool = self.operation.execSQL(sql)
             if isResult == false {
                 print("sqlite操作失败: sql = \(sql)")
@@ -106,8 +140,7 @@ public class MMSqlite: NSObject {
             block(isResult)
             return
         }
-        
-        let queue = MMDispatchQueue.getOperationQueue(withName: queueName, maxCount: 1)
+        let currentQueue = OperationQueue.current
         //        queue.waitUntilAllOperationsAreFinished()
         //        queue.maxConcurrentOperationCount = 1
         queue.addOperation { [weak self] in
@@ -116,9 +149,9 @@ public class MMSqlite: NSObject {
             if isResult == false {
                 print("sqlite操作失败: sql = \(sql)")
             }
-            self.returnQueue.async {
+            currentQueue?.addOperation({
                 block(isResult)
-            }
+            })
         }
     }
     /**
@@ -127,21 +160,22 @@ public class MMSqlite: NSObject {
      - parameter sql:   sql语句
      - parameter block: 返回对象数组
      */
-    public func select(_ sql: String,_ queueName: String? = mm_kSqlQueueName, block:@escaping ((_ result: NSMutableArray) -> Void)) {
-        guard let queueName = queueName else {
+    public func select(_ sql: String, queue: OperationQueue? = nil, block:@escaping ((_ result: NSMutableArray) -> Void)) {
+        
+        guard let queue = queue ?? self.queue else {
             let isResult: NSMutableArray = self.operation.recordSet(sql)
             block(isResult)
             return
         }
-        let queue = MMDispatchQueue.getOperationQueue(withName: queueName, maxCount: 1)
+        let currentQueue = OperationQueue.current
         //        queue.waitUntilAllOperationsAreFinished()
         //        queue.maxConcurrentOperationCount = 1
         queue.addOperation { [weak self] in
             guard let `self` = self else { return }
             let isResult: NSMutableArray = self.operation.recordSet(sql)
-            self.returnQueue.async {
+            currentQueue?.addOperation({
                 block(isResult)
-            }
+            })
         }
         
     }

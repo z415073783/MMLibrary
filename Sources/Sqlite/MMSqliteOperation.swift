@@ -83,6 +83,7 @@ public class MMSqliteOperation: NSObject {
             return false
         }
         let sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (" + newParams + ")"
+        MMLOG.debug("执行sql: \(sql)")
         var stmt: OpaquePointer? = nil
         //        MMLOG.debug(sql)
         let sqlReturn = sqlite3_prepare_v2(db, sql.cString(using: String.Encoding.utf8)!, -1, &stmt, nil)
@@ -112,6 +113,7 @@ public class MMSqliteOperation: NSObject {
             MMLOG.error("数据库实例不存在")
             return false
         }
+        MMLOG.debug("执行sql: \(sql)")
         var stmt: OpaquePointer? = nil
         //sqlite3_prepare_v2 接口把一条SQL语句解析到statement结构里去. 使用该接口访问数据库是当前比较好的的一种方法
         //第一个参数跟前面一样，是个sqlite3 * 类型变量，
@@ -148,6 +150,7 @@ public class MMSqliteOperation: NSObject {
             MMLOG.error("数据库未初始化")
             return false
         }
+        MMLOG.debug("执行sql: \(sql)")
         /**
          1. 数据库指针
          2. SQL 字符串的 C 语言格式
@@ -161,6 +164,9 @@ public class MMSqliteOperation: NSObject {
         }
         return sqlite3_exec(db, chars, nil, nil, nil) == SQLITE_OK
     }
+    
+    
+    
     /**
      执行sql返回一个结果集(对象数组)
      
@@ -173,9 +179,10 @@ public class MMSqliteOperation: NSObject {
             MMLOG.error("数据库未初始化")
             return allData
         }
-        
+        MMLOG.debug("执行sql: \(sql)")
         var stmt: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, sql.cString(using: String.Encoding.utf8)!, -1, &stmt, nil) == SQLITE_OK {
+            
             if let stmt = stmt {
                 while sqlite3_step(stmt) == SQLITE_ROW {
                     allData.add(recordData(stmt))
@@ -223,14 +230,15 @@ public class MMSqliteOperation: NSObject {
                     guard let chars = sqlite3_column_text(stmt, i) else {
                         return onceData
                     }
-                    //                    MMLOG.debug("chars = \(chars)")
-                    //                    :UnsafePointer<CChar>
-                    //                    let chars = UnsafePointer(sqlite3_column_text(stmt, i))
                     let str: String = String(cString: chars)
+                    
                     onceData.setObject(str, forKey: name as NSCopying)
+//                    MMLOG.debug("str = \(str)")
                 case let type:
                     MMLOG.error("数据库不支持该类型:\(type)")
                 }
+//                let typeStr = sqlite3_column_type(stmt, i)
+//                MMLOG.debug("name = \(name)")
             }
         }
         return onceData

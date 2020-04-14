@@ -22,28 +22,69 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         MMLOG.debug("启动程序")
-        sqliteLink = MMSqliteLink(name: "test") { (isFinish, link) in
-            link?.tableName(name: "table1").createTable.property(name: "姓名").primarykey.text.property(name: "年龄").integer.property(name: "身高").text.execute(block: { [weak self](isSuccess, result) in
+        MMLOG.debug("zlm = 1")
+        sqliteLink = MMSqliteLink(name: "test", isQueue: true) { (isFinish, link) in
+            MMLOG.debug("zlm = 2")
+            link?.tableName(name: "table1").createTable.property(name: "姓名").primarykey.unique.text.property(name: "年龄").integer.property(name: "身高").text.execute(block: { (isSuccess, result) in
                 MMLOG.debug("创建表结果: \(isSuccess)")
-//                self?.sqliteLink?.close()
-                
-                //查询
-//                link?.tableName(name: "table1").select(names: ["姓名"]).whereEqual(key: "", value: <#T##String#>)
+                MMLOG.debug("zlm = 3")
                 // 插入
-                link?.tableName(name: "table1").insert().set(key: "姓名", value: "'李四'").set(key: "年龄", value: "21").set(key: "身高", value: "'178'").execute(block: { (isSuccess, result) in
-                    MMLOG.debug("插入数据结果: \(isSuccess)")
+                
+                link?.tableName(name: "table1").insert(values: ["姓名": "张三", "年龄": 20, "身高": "160cm"]).execute(block: { (isSuccess, result) in
+                    MMLOG.debug("zlm = select 1")
                 })
+                link?.tableName(name: "table1").insert(values: ["姓名": "李四", "年龄": 21, "身高": "161cm"]).execute(block: { (isSuccess, result) in
+                    MMLOG.debug("zlm = select 2")
+                })
+                link?.tableName(name: "table1").insert(values: ["姓名": "王五", "年龄": 22, "身高": "162cm"]).execute(block: { (isSuccess, result) in
+                    MMLOG.debug("zlm = select 3")
+                })
+                MMLOG.debug("zlm = select 4")
                 
-                
-                
-                
+                link?.tableName(name: "table1").insert().set(key: "姓名", value: "马六").set(key: "年龄", value: 23).set(key: "身高", value: "163cm").execute(block: { (isSuccess, result) in
+                    MMLOG.debug("插入数据结果: \(isSuccess)")
+                    MMLOG.debug("zlm = 4")
+                    //查询
+                    link?.tableName(name: "table1").select(names: ["姓名", "年龄"]).whereEqual(key: "身高", value: "160cm").execute(block: { (isSuccess, result) in
+                        MMLOG.debug("zlm = 5")
+                        MMLOG.debug("查询 isSuccess = \(isSuccess), result = \(result)")
+                        
+                        //更新
+                        link?.tableName(name: "table1").update().set(key: "身高", value: "200cm").whereEqual(key: "身高", value: "163cm").execute(block: { (isSuccess, result) in
+                            MMLOG.debug("更新 isSuccess = \(isSuccess), result = \(result)")
+                            
+                            link?.tableName(name: "table1").select().execute(block: { (isSuccess, result) in
+                       
+                                MMLOG.debug("查询更新后的数据 isSuccess = \(isSuccess), result = \(result)")
+                                
+                                //删除
+                                link?.tableName(name: "table1").delete().whereLike(key: "身高", value: "160").execute(block: { (isSuccess, result) in
+                                    MMLOG.debug("删除身高为160的数据 isSuccess = \(isSuccess)")
+                                    link?.tableName(name: "table1").select().execute(block: { (isSuccess, result) in
+                                        MMLOG.debug("isSuccess = \(isSuccess), 查询结果 = \(result)")
+                                        link?.tableName(name: "table1").delete().execute(block: { (isSuccess, result) in
+                                            MMLOG.debug("删除全部数据 isSuccess = \(isSuccess)")
+                                            link?.tableName(name: "table1").select().execute(block: { (isSuccess, result) in
+                                                MMLOG.debug("isSuccess = \(isSuccess), 查询结果 = \(result)")
+                                            })
+                                            
+                                        })
+                                    })
+                                })
+                            })
+                            
+                        })
+                        
+                        
+                    })
+                })
             })
         }
         
 //        let sqlite = MMSqliteLink(name: "aa") { (isOk) in
 //        }
 //        sqlite.createTable(name: "table1")
-        
+        MMLOG.debug("结束")
         return true
         var systemDic: [String: TestObj] = [:]
         let treeDic = MMTree()

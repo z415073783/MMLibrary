@@ -28,10 +28,10 @@ class MMSqliteOperationSelectModel: MMSqliteOperationModel {
     fileprivate var wheres: [String] = []
 }
 class MMSqliteOperationInsertModel: MMSqliteOperationModel {
-    fileprivate var values: [String: String] = [:]
+    fileprivate var values: [String: Any] = [:]
 }
 class MMSqliteOperationUpdateModel: MMSqliteOperationModel {
-    fileprivate var values: [String: String] = [:]
+    fileprivate var values: [String: Any] = [:]
     fileprivate var wheres: [String] = []
 }
 class MMSqliteOperationDeleteModel: MMSqliteOperationModel {
@@ -41,11 +41,26 @@ class MMSqliteOperationDeleteModel: MMSqliteOperationModel {
 
 public class MMSqliteMake: NSObject {
     lazy var _sqliteObj = MMSqlite()
-    
-//    fileprivate init() {
-//    }
+    //是否开启多线程
+    var isQueue: Bool {
+        get {
+            return _sqliteObj.isQueue
+        }
+        set {
+            _sqliteObj.isQueue = newValue
+        }
+    }
+
     //表名
     fileprivate var tableName: String?
+    
+    typealias MMSqliteTableName = String
+    typealias MMSqlitePropertyName = String
+    
+    
+    //参数属性  [表名, [字段名, [字段类型列表]]]
+    fileprivate var tableInfos: [(MMSqliteTableName, [(MMSqlitePropertyName, [MMSqliteOperationPropertyType])])] = []
+    
     
 //    weak fileprivate var link: MMSqliteLink?
     //保存操作队列
@@ -58,34 +73,40 @@ public class MMSqliteMake: NSObject {
        self.tableName = name
        return self
     }
-    
+//    var executeLock = NSLock()
     //执行
-    public func execute(block:@escaping (_ isSuccess: Bool,_ result: NSMutableArray) ->Void) {
+    public func execute(queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool,_ result: NSMutableArray) ->Void) {
+
+        guard let name = tableName else {
+            block(false, [])
+            return
+        }
+        
 //        let _block = block
-        for operation in operations {
-            guard let name = tableName else {
-                block(false, [])
-                return
-            }
+//        if queue {
+//            executeLock.lock()
+//        }
+         
+        
+        
+        while operations.count > 0 {
+            let operation = operations.removeFirst()
             switch operation.0 {
             case .createTable:
-                
                 guard let model = operation.1 as? MMSqliteOperationCreateModel else {
                     block(false, [])
                     return
                 }
-                _sqliteObj.createTable(name, parames: model.propertys, block: { (isOk) in
+                _sqliteObj.createTable(name, parames: model.propertys, queue: queue, block: { (isOk) in
                     MMLOG.info("创建表: \(name), \(isOk)")
                     block(isOk, [])
                 })
             case .select:
-               
                 guard let model = operation.1 as? MMSqliteOperationSelectModel else {
                     block(false, [])
                     return
                 }
-                
-                _sqliteObj.select(getSelectSql(model: model), self.description) { (resultList) in
+                _sqliteObj.select(getSelectSql(model: model), queue: queue) { (resultList) in
                     block(true, resultList)
                 }
             case .insert:
@@ -93,17 +114,30 @@ public class MMSqliteMake: NSObject {
                     block(false, [])
                     return
                 }
-                _sqliteObj.update(getInsertSql(model: model), self.description) { (isOk) in
+                _sqliteObj.update(getInsertSql(model: model), queue: queue) { (isOk) in
                     block(isOk, [])
                 }
             case .delete:
-                
-                break
+//                getDeleteSql
+                guard let model = operation.1 as? MMSqliteOperationDeleteModel else {
+                    block(false, [])
+                    return
+                }
+                _sqliteObj.update(getDeleteSql(model: model), queue: queue) { (isOk) in
+                    block(isOk, [])
+                }
             case .update:
-               
-                break
+               guard let model = operation.1 as? MMSqliteOperationUpdateModel else {
+                   block(false, [])
+                   return
+               }
+               _sqliteObj.update(getUpdateSql(model: model), queue: queue) { (isOk) in
+                   block(isOk, [])
+               }
             }
         }
+      
+//        executeLock.unlock()
     }
 
     //关闭数据库
@@ -123,11 +157,12 @@ public class MMSqliteLink: MMSqliteMake {
 //    lazy var _make = MMSqliteMake()
     
     
-    //打开数据库
-    public init(name: String, path: String = MMFileData.getDocumentsPath(), block: @escaping ((_ isSuccess: Bool, _ link: MMSqliteLink?) -> Void)) {
+    //打开数据库 数据库名称 路径
+    public init(name: String, path: String = MMFileData.getDocumentsPath(), isQueue: Bool = false, block: @escaping ((_ isSuccess: Bool, _ link: MMSqliteLink?) -> Void)) {
         super.init()
         let fullPath = path + "/" + name
         MMLOG.debug("path/name = \(fullPath)")
+        self._sqliteObj.isQueue = isQueue
         self._sqliteObj.openSqlWithPath(fullPath) { [weak self](isOk) in
 //            self?._make.link = self
             block(isOk, self ?? nil)
@@ -214,7 +249,12 @@ extension __CreateTableMake {
 fileprivate typealias __CommonMake = MMSqliteMake
 extension __CommonMake {
     
-    public func set(key: String, value: String) -> MMSqliteMake {
+    /// set数据 (insert, update)
+    /// - Parameters:
+    ///   - key: <#key description#>
+    ///   - value: <#value description#>
+    /// - Returns: <#description#>
+    public func set(key: String, value: Any) -> MMSqliteMake {
         let model = operations.last?.1
         switch model.self {
         case is MMSqliteOperationInsertModel:
@@ -229,9 +269,19 @@ extension __CommonMake {
     }
     
     
-    //条件
-    public func whereEqual(key: String, value: String) -> MMSqliteMake {
+    
+    /// where (select, update, delete)
+    /// - Parameters:
+    ///   - key: <#key description#>
+    ///   - value: <#value description#>
+    /// - Returns: <#description#>
+    public func whereEqual(key: String, value: Any) -> MMSqliteMake {
+        var value = value
+        if let _ = value as? String {
+            value = "'\(value)'"
+        }
         let model = operations.last?.1
+        
         switch model.self {
         case is MMSqliteOperationSelectModel:
             (model as? MMSqliteOperationSelectModel)?.wheres.append("\(key)=\(value)")
@@ -244,13 +294,25 @@ extension __CommonMake {
         }
         return self
     }
-    public func whereLike(key: String, value: String) -> MMSqliteMake {
+    
+    /// whereLike (select, update, delete)
+    /// - Parameters:
+    ///   - key: <#key description#>
+    ///   - value: <#value description#>
+    /// - Returns: <#description#>
+    public func whereLike(key: String, value: Any) -> MMSqliteMake {
+        var value = "%\(value)%"
+        if let _ = value as? String {
+            value = "'\(value)'"
+        }
         let model = operations.last?.1
         switch model.self {
         case is MMSqliteOperationSelectModel:
             (model as? MMSqliteOperationSelectModel)?.wheres.append("\(key) like \(value)")
         case is MMSqliteOperationUpdateModel:
             (model as? MMSqliteOperationUpdateModel)?.wheres.append("\(key) like \(value)")
+        case is MMSqliteOperationDeleteModel:
+            (model as? MMSqliteOperationDeleteModel)?.wheres.append("\(key) like \(value)")
         default:
             break
         }
@@ -262,7 +324,7 @@ extension __CommonMake {
 //增加
 fileprivate typealias __InsertMake = MMSqliteMake
 extension __InsertMake {
-    public func insert(values: [String: String] = [:]) -> MMSqliteMake {
+    public func insert(values: [String: Any] = [:]) -> MMSqliteMake {
         let model = MMSqliteOperationInsertModel()
         operations.append((.insert, model))
         model.values = values
@@ -283,7 +345,7 @@ extension __DeleteMake {
 //修改
 fileprivate typealias __UpdateMake = MMSqliteMake
 extension __UpdateMake {
-    public func update(values: [String: String] = [:]) -> MMSqliteMake {
+    public func update(values: [String: Any] = [:]) -> MMSqliteMake {
         let model = MMSqliteOperationUpdateModel()
         operations.append((.update, model))
         model.values = values
@@ -296,12 +358,6 @@ extension __UpdateMake {
 //查询
 fileprivate typealias __SelectMake = MMSqliteMake
 extension __SelectMake {
-    //查询命令
-//    public var select: MMSqliteMake {
-//        operations.append(MMSqliteOperationType.select)
-//        return self
-//    }
-    
     /// 查询数据
     /// - Parameter names: 需要查询的数据名称列表, 为空表示查询全部
     /// - Returns:
@@ -316,7 +372,6 @@ extension __SelectMake {
 
 fileprivate typealias __PrivateMake = MMSqliteMake
 extension __PrivateMake {
-     
 //MARK: sql语句拼接
     
     /// 插入sql语句
@@ -337,7 +392,12 @@ extension __PrivateMake {
                 valuesString += ","
             }
             keysString += key
-            valuesString += value
+            if let _ = value as? String {
+                valuesString += "'\(value)'"
+            } else {
+                valuesString += "\(value)"
+            }
+            
             
             i += 1
         }
@@ -362,14 +422,20 @@ extension __PrivateMake {
             if i != 0 {
                 setValues += ","
             }
-            setValues += "\(key)=\(value)"
+            if let _ = value as? String {
+                setValues += "\(key)='\(value)'"
+            } else {
+                setValues += "\(key)=\(value)"
+            }
+                
+            
             i += 1
         }
         
         let whereStr = getWheres(wheres: model.wheres)
         
         if model.values.count > 0 {
-            return "UPDATE (\(name)) SET \(setValues) WHERE (\(whereStr))"
+            return "UPDATE \(name) SET \(setValues) WHERE (\(whereStr))"
         } else {
             return ""
         }
@@ -397,7 +463,7 @@ extension __PrivateMake {
         if model.wheres.count > 0 {
             return "DELETE FROM \(name) WHERE (\(whereStr))"
         } else {
-            return ""
+            return "DELETE FROM \(name)"
         }
     }
     
@@ -422,12 +488,15 @@ extension __PrivateMake {
         if selectNames.count == 0  {
             selectNames = "*"
         } else {
-            selectNames = "(\(selectNames))"
+            selectNames = "\(selectNames)"
         }
         if model.wheres.count > 0 {
-            return "SELECT (\(selectNames)) FROM \(name) WHERE (\(whereStr))"
+            return "SELECT \(selectNames) FROM \(name) WHERE (\(whereStr))"
         } else {
-            return "SELECT (\(selectNames)) FROM \(name)"
+            return "SELECT \(selectNames) FROM \(name)"
         }
     }
+    
+    
+    
 }
