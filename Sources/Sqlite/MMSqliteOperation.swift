@@ -4,7 +4,7 @@
 //
 //  Created by mac on 2019/5/13.
 //  Copyright © 2019 zlm. All rights reserved.
-//
+//c接口层
 
 import Foundation
 import SQLite3
@@ -21,6 +21,15 @@ import SQLite3
 //public let SQL_float = "FLOAT"
 public enum MMSqliteOperationPropertyType: String {
     case primarykey = "PRIMARY KEY", autoincrement = "AUTOINCREMENT", unique = "UNIQUE", integer = "INTEGER", text = "TEXT", float = "FLOAT"
+}
+public class MMSqliteOperationCreateProperty {
+    var name: String = ""
+    var types: [MMSqliteOperationPropertyType] = []
+    init(name: String, types: [MMSqliteOperationPropertyType]) {
+        self.name = name
+        self.types = types
+    }
+    
 }
 
 public class MMSqliteOperation: NSObject {
@@ -75,7 +84,7 @@ public class MMSqliteOperation: NSObject {
      - parameter params: 参数字典 [参数1:[属性1,属性2,...],参数2:[属性1,属性2,...],...]
      - returns: 是否成功
      */
-    public func createTable(_ tableName: String, Parameters params: [(String, [MMSqliteOperationPropertyType])]) -> Bool {
+    public func createTable(_ tableName: String, Parameters params: [MMSqliteOperationCreateProperty]) -> Bool {
         let newParams = splitParams(params)
         
         if db == nil {
@@ -245,20 +254,56 @@ public class MMSqliteOperation: NSObject {
     }
     
     //拆分数据
-    func splitParams(_ sender: [(String, [MMSqliteOperationPropertyType])]) -> String {
+    func splitParams(_ sender: [MMSqliteOperationCreateProperty]) -> String {
+        
         var result: String = ""
         var i: Int = 0
-        
         for property in sender {
-            var once: String = property.0
-            for item in property.1 {
+            var once: String = property.name
+            
+            //做个排序,保证type顺序无问题
+//            integer.primarykey.autoincrement
+            if property.types.count > 1 {
+                
+                var sort: [MMSqliteOperationPropertyType] = []
+                var hasAuto = false
+                var hasPriKey = false
+                
+                for item in property.types {
+                    switch item {
+                    case .autoincrement:
+                        hasAuto = true
+                    case .primarykey:
+                        hasPriKey = true
+                    case .unique:
+                        fallthrough
+                    case .integer:
+                        fallthrough
+                    case .text:
+                        fallthrough
+                    case .float:
+                        sort.append(item)
+                    }
+                }
+                if hasPriKey {
+                    sort.append(.primarykey)
+                }
+                if hasAuto {
+                    sort.append(.autoincrement)
+                }
+                
+                property.types = sort
+            }
+            
+            
+            for item in property.types {
                 once = once+" "+item.rawValue
             }
             
             result+=once
             
             if sender.count > (i+1) {
-                result+=","
+                result+=", "
             }
             i+=1
         }

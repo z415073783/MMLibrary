@@ -4,7 +4,7 @@
 //
 //  Created by zlm on 2020/3/27.
 //  Copyright © 2020 zlm. All rights reserved.
-//
+// 链式结构封装层
 
 import Foundation
 
@@ -16,9 +16,12 @@ enum MMSqliteOperationType {
 class MMSqliteOperationModel {
     
 }
+
+
+
 class MMSqliteOperationCreateModel: MMSqliteOperationModel {
     //保存索引属性列表
-     fileprivate var propertys: [(String, [MMSqliteOperationPropertyType])] = []
+    fileprivate var propertys: [MMSqliteOperationCreateProperty] = []
 }
 
 
@@ -187,23 +190,24 @@ extension __CreateTableMake {
     //设置key属性
     public func property(name: String) -> MMSqliteMake {
         if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
-            model.propertys.append((name,[]))
+            model.propertys.append(MMSqliteOperationCreateProperty(name: name, types: []))
         }
         return self
     }
     public var primarykey: MMSqliteMake {
         if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
-            if var set = model.propertys.last {
-                set.1.append(.primarykey)
+            if let set = model.propertys.last {
+                set.types.append(.primarykey)
             }
         }
         
         return self
     }
+    //设置自增属性需要遵循右侧顺序,否则会失败 -> integer.primarykey.autoincrement
     public var autoincrement: MMSqliteMake {
         if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
-            if var set = model.propertys.last {
-                set.1.append(.autoincrement)
+            if let set = model.propertys.last {
+                set.types.append(.autoincrement)
             }
         }
         
@@ -211,8 +215,8 @@ extension __CreateTableMake {
     }
     public var unique: MMSqliteMake {
         if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
-            if var set = model.propertys.last {
-                set.1.append(.unique)
+            if let set = model.propertys.last {
+                set.types.append(.unique)
             }
         }
         
@@ -220,24 +224,24 @@ extension __CreateTableMake {
     }
     public var integer: MMSqliteMake {
         if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
-            if var set = model.propertys.last {
-                set.1.append(.integer)
+            if let set = model.propertys.last {
+                set.types.append(.integer)
             }
         }
         return self
     }
     public var text: MMSqliteMake {
         if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
-            if var set = model.propertys.last {
-                set.1.append(.text)
+            if let set = model.propertys.last {
+                set.types.append(.text)
             }
         }
         return self
     }
     public var float: MMSqliteMake {
         if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
-            if var set = model.propertys.last {
-                set.1.append(.float)
+            if let set = model.propertys.last {
+                set.types.append(.float)
             }
         }
         return self
@@ -301,9 +305,11 @@ extension __CommonMake {
     ///   - value: <#value description#>
     /// - Returns: <#description#>
     public func whereLike(key: String, value: Any) -> MMSqliteMake {
-        var value = "%\(value)%"
+        var value = value
         if let _ = value as? String {
-            value = "'\(value)'"
+            value = "'%\(value)%'"
+        } else {
+            value = "%\(value)%"
         }
         let model = operations.last?.1
         switch model.self {
@@ -372,6 +378,20 @@ extension __SelectMake {
 
 fileprivate typealias __PrivateMake = MMSqliteMake
 extension __PrivateMake {
+    
+    
+    func getWheres(wheres: [String]) -> String {
+        var whereStr = ""
+        for i in 0 ..< wheres.count {
+            if i != 0 {
+                whereStr += ","
+            }
+            let condition = wheres[i]
+            whereStr += "\(condition)"
+        }
+        return whereStr
+    }
+    
 //MARK: sql语句拼接
     
     /// 插入sql语句
@@ -440,18 +460,7 @@ extension __PrivateMake {
             return ""
         }
     }
-    
-    func getWheres(wheres: [String]) -> String {
-        var whereStr = ""
-        for i in 0 ..< wheres.count {
-            if i != 0 {
-                whereStr += ","
-            }
-            let condition = wheres[i]
-            whereStr += "\(condition)"
-        }
-        return whereStr
-    }
+
     
     func getDeleteSql(model: MMSqliteOperationDeleteModel) -> String {
         guard let name = tableName else {

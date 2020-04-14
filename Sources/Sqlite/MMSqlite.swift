@@ -4,7 +4,7 @@
 //
 //  Created by mac on 2019/5/13.
 //  Copyright © 2019 zlm. All rights reserved.
-//
+// 多线程sqlite调用接口层
 
 import Foundation
 
@@ -106,7 +106,7 @@ public class MMSqlite: NSObject {
      - parameter parames: 参数字典 [参数1:[属性1,属性2,...],参数2:[属性1,属性2,...],...]
      - parameter block:   是否成功
      */
-    public func createTable(_ sqlName: String, parames: [(String, [MMSqliteOperationPropertyType])], queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) -> Void) {
+    public func createTable(_ sqlName: String, parames: [MMSqliteOperationCreateProperty], queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) -> Void) {
         guard let queue = queue ?? self.queue else {
             let isResult: Bool = self.operation.createTable(sqlName, Parameters: parames)
             if isResult == false {

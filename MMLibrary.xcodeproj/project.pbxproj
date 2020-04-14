@@ -15,7 +15,6 @@
 		0445738823B86881008F6D70 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0445738623B86881008F6D70 /* Main.storyboard */; };
 		0445738A23B86883008F6D70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0445738923B86883008F6D70 /* Assets.xcassets */; };
 		0445738D23B86883008F6D70 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0445738B23B86883008F6D70 /* LaunchScreen.storyboard */; };
-		0456D9A524454D1A006DCCA7 /* MMSqliteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0456D9A424454D1A006DCCA7 /* MMSqliteModel.swift */; };
 		046E6352243372C100B1DB14 /* MMLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7274622884AA900727D44 /* MMLibrary.framework */; };
 		046E6353243372C100B1DB14 /* MMLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7274622884AA900727D44 /* MMLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		04CE2D44241B5B8B00C39743 /* MMTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE2D43241B5B8B00C39743 /* MMTree.swift */; };
@@ -83,7 +82,6 @@
 		0445738923B86883008F6D70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0445738C23B86883008F6D70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0445738E23B86883008F6D70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0456D9A424454D1A006DCCA7 /* MMSqliteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSqliteModel.swift; sourceTree = "<group>"; };
 		04CE2D43241B5B8B00C39743 /* MMTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTree.swift; sourceTree = "<group>"; };
 		04E45F372357173F00F9B336 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		04E45F392357173F00F9B336 /* MMFileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMFileData.swift; sourceTree = "<group>"; };
@@ -285,7 +283,6 @@
 				04E45F542357173F00F9B336 /* MMSqlite.swift */,
 				04E45F552357173F00F9B336 /* MMSqliteOperation.swift */,
 				04377B1F242E224500F4C604 /* MMSqliteLink.swift */,
-				0456D9A424454D1A006DCCA7 /* MMSqliteModel.swift */,
 			);
 			path = Sqlite;
 			sourceTree = "<group>";
@@ -511,7 +508,6 @@
 				04E45F692357173F00F9B336 /* MMDispatchQueue.swift in Sources */,
 				04E45F722357173F00F9B336 /* MMSystem.swift in Sources */,
 				04E45F6E2357173F00F9B336 /* MMFoundationGlobalDefine.swift in Sources */,
-				0456D9A524454D1A006DCCA7 /* MMSqliteModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
