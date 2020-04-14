@@ -31,6 +31,7 @@ public class MMSqlite: NSObject {
      - parameter block:  是否成功
      */
     public func openSql(_ dbName: String, block:@escaping (_ isSuccess: Bool) -> Void) {
+        MMLOG.debug("self = \(self)")
         let blockOpera = BlockOperation()
         blockOpera.addExecutionBlock { [weak self] in
             guard let `self` = self else { return }
@@ -48,15 +49,20 @@ public class MMSqlite: NSObject {
         let blockOpera = BlockOperation()
         blockOpera.addExecutionBlock { [weak self] in
             guard let `self` = self else { return }
+            
             let isResult:Bool = self.operation.openSqliteWithPath(dbPath)
             self.returnQueue.async {
+                MMLOG.info("打开数据库: \(dbPath), \(isResult)")
                 block(isResult)
             }
         }
         queue.addOperation(blockOpera)
     }
     
-    public func closeSql() {
+    public func closeSql(isSafe: Bool = true) {
+        if isSafe {
+            queue.waitUntilAllOperationsAreFinished()
+        }
         operation.closeSQLite()
     }
     //移除所有任务
@@ -73,7 +79,7 @@ public class MMSqlite: NSObject {
      - parameter parames: 参数字典 [参数1:[属性1,属性2,...],参数2:[属性1,属性2,...],...]
      - parameter block:   是否成功
      */
-    public func createTable(_ sqlName: String, parames: Dictionary<String, Array<String>>, block:@escaping (_ isSuccess: Bool) -> Void) {
+    public func createTable(_ sqlName: String, parames: [(String, [MMSqliteOperationPropertyType])], block:@escaping (_ isSuccess: Bool) -> Void) {
         let blockOpera = BlockOperation()
         blockOpera.addExecutionBlock {[weak self] in
             guard let `self` = self else { return }

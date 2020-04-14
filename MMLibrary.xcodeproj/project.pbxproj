@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		0404EF5123A0DEAA005260CD /* NSObject+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0404EF5023A0DEAA005260CD /* NSObject+Value.swift */; };
+		04377B20242E224500F4C604 /* MMSqliteLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04377B1F242E224500F4C604 /* MMSqliteLink.swift */; };
 		0445738123B86881008F6D70 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445738023B86881008F6D70 /* AppDelegate.swift */; };
 		0445738323B86881008F6D70 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445738223B86881008F6D70 /* SceneDelegate.swift */; };
 		0445738523B86881008F6D70 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0445738423B86881008F6D70 /* ViewController.swift */; };
 		0445738823B86881008F6D70 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0445738623B86881008F6D70 /* Main.storyboard */; };
 		0445738A23B86883008F6D70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0445738923B86883008F6D70 /* Assets.xcassets */; };
 		0445738D23B86883008F6D70 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0445738B23B86883008F6D70 /* LaunchScreen.storyboard */; };
+		046E6352243372C100B1DB14 /* MMLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7274622884AA900727D44 /* MMLibrary.framework */; };
+		046E6353243372C100B1DB14 /* MMLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04E7274622884AA900727D44 /* MMLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		04CE2D44241B5B8B00C39743 /* MMTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE2D43241B5B8B00C39743 /* MMTree.swift */; };
 		04E45F5E2357173F00F9B336 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F372357173F00F9B336 /* DispatchQueue+Extension.swift */; };
 		04E45F5F2357173F00F9B336 /* MMFileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F392357173F00F9B336 /* MMFileData.swift */; };
@@ -41,10 +44,36 @@
 		04E45F752357173F00F9B336 /* MMAtomicVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F5D2357173F00F9B336 /* MMAtomicVar.swift */; };
 		04E7275722884AA900727D44 /* MMLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E7274922884AA900727D44 /* MMLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04F1757E22894E400025999B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F1757D22894E400025999B /* libsqlite3.0.tbd */; };
+		04FC0136242F062500DE0C68 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F1757D22894E400025999B /* libsqlite3.0.tbd */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		046E6354243372C100B1DB14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04E7273D22884AA900727D44 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 04E7274522884AA900727D44;
+			remoteInfo = MMLibrary;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		046E6356243372C100B1DB14 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				046E6353243372C100B1DB14 /* MMLibrary.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0404EF5023A0DEAA005260CD /* NSObject+Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Value.swift"; sourceTree = "<group>"; };
+		04377B1F242E224500F4C604 /* MMSqliteLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSqliteLink.swift; sourceTree = "<group>"; };
 		0445737E23B86881008F6D70 /* MMLibraryTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMLibraryTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0445738023B86881008F6D70 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0445738223B86881008F6D70 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +119,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046E6352243372C100B1DB14 /* MMLibrary.framework in Frameworks */,
+				04FC0136242F062500DE0C68 /* libsqlite3.0.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +282,7 @@
 			children = (
 				04E45F542357173F00F9B336 /* MMSqlite.swift */,
 				04E45F552357173F00F9B336 /* MMSqliteOperation.swift */,
+				04377B1F242E224500F4C604 /* MMSqliteLink.swift */,
 			);
 			path = Sqlite;
 			sourceTree = "<group>";
@@ -346,10 +378,12 @@
 				0445737A23B86881008F6D70 /* Sources */,
 				0445737B23B86881008F6D70 /* Frameworks */,
 				0445737C23B86881008F6D70 /* Resources */,
+				046E6356243372C100B1DB14 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				046E6355243372C100B1DB14 /* PBXTargetDependency */,
 			);
 			name = MMLibraryTest;
 			productName = MMLibraryTest;
@@ -468,6 +502,7 @@
 				04E45F662357173F00F9B336 /* MMColor+Extension.swift in Sources */,
 				04E45F632357173F00F9B336 /* MMNotification.swift in Sources */,
 				04E45F712357173F00F9B336 /* MMSqliteOperation.swift in Sources */,
+				04377B20242E224500F4C604 /* MMSqliteLink.swift in Sources */,
 				04E45F672357173F00F9B336 /* UIImage+Common.swift in Sources */,
 				04E45F612357173F00F9B336 /* NSObject+Extension.swift in Sources */,
 				04E45F692357173F00F9B336 /* MMDispatchQueue.swift in Sources */,
@@ -477,6 +512,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		046E6355243372C100B1DB14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 04E7274522884AA900727D44 /* MMLibrary */;
+			targetProxy = 046E6354243372C100B1DB14 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0445738623B86881008F6D70 /* Main.storyboard */ = {

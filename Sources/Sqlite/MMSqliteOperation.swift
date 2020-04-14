@@ -13,12 +13,15 @@ import SQLite3
 //#define SQL_unique @"unique"   //唯一
 //#define SQL_integer @"integer"   //int类型  无法使用
 //#define SQL_text @"text"   //text类型
-public let SQL_primarykey = "PRIMARY KEY"
-public let SQL_autoincrement = "AUTOINCREMENT"
-public let SQL_unique = "UNIQUE"
-public let SQL_integer = "INTEGER"
-public let SQL_text = "TEXT"
-public let SQL_float = "FLOAT"
+//public let SQL_primarykey = "PRIMARY KEY"
+//public let SQL_autoincrement = "AUTOINCREMENT"
+//public let SQL_unique = "UNIQUE"
+//public let SQL_integer = "INTEGER"
+//public let SQL_text = "TEXT"
+//public let SQL_float = "FLOAT"
+public enum MMSqliteOperationPropertyType: String {
+    case primarykey = "PRIMARY KEY", autoincrement = "AUTOINCREMENT", unique = "UNIQUE", integer = "INTEGER", text = "TEXT", float = "FLOAT"
+}
 
 public class MMSqliteOperation: NSObject {
     //    var _sqlite:sqlite3_vfs? = nil
@@ -72,7 +75,7 @@ public class MMSqliteOperation: NSObject {
      - parameter params: 参数字典 [参数1:[属性1,属性2,...],参数2:[属性1,属性2,...],...]
      - returns: 是否成功
      */
-    public func createTable(_ tableName: String, Parameters params: Dictionary<String, Array<String>>) -> Bool {
+    public func createTable(_ tableName: String, Parameters params: [(String, [MMSqliteOperationPropertyType])]) -> Bool {
         let newParams = splitParams(params)
         
         if db == nil {
@@ -152,7 +155,11 @@ public class MMSqliteOperation: NSObject {
          4. 回调的第一个参数的指针
          5. 错误信息，通常也传入 nil
          */
-        return sqlite3_exec(db, sql.cString(using: String.Encoding.utf8)!, nil, nil, nil) == SQLITE_OK
+        guard let chars = sql.cString(using: String.Encoding.utf8) else {
+            MMLOG.error("数据语句 utf8转换错误 sql = \(sql)")
+            return false
+        }
+        return sqlite3_exec(db, chars, nil, nil, nil) == SQLITE_OK
     }
     /**
      执行sql返回一个结果集(对象数组)
@@ -185,6 +192,7 @@ public class MMSqliteOperation: NSObject {
      关闭数据库
      */
     public func closeSQLite() {
+        
         if db != nil {
             sqlite3_close(db)
             db = nil
@@ -229,13 +237,14 @@ public class MMSqliteOperation: NSObject {
     }
     
     //拆分数据
-    func splitParams(_ sender: Dictionary<String, Array<String>>) -> String {
+    func splitParams(_ sender: [(String, [MMSqliteOperationPropertyType])]) -> String {
         var result: String = ""
         var i: Int = 0
-        for (key, value) in sender {
-            var once: String = key
-            for item in value {
-                once = once+" "+item
+        
+        for property in sender {
+            var once: String = property.0
+            for item in property.1 {
+                once = once+" "+item.rawValue
             }
             
             result+=once
