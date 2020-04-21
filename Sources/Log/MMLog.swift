@@ -247,6 +247,9 @@ public class MMLogger: NSObject {
                 switch type {
                 case .print:
                     print("\(adjustedText)")
+                    
+                    MMLogArchive.saveLog(log: adjustedText)
+                    
                 case .other:
                     if let block = MMLogger.shared.callFunc {
                         block(adjustedText,level.rawValue)

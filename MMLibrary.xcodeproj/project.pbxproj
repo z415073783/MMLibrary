@@ -45,6 +45,7 @@
 		04E7275722884AA900727D44 /* MMLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E7274922884AA900727D44 /* MMLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04F1757E22894E400025999B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F1757D22894E400025999B /* libsqlite3.0.tbd */; };
 		04FC0136242F062500DE0C68 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F1757D22894E400025999B /* libsqlite3.0.tbd */; };
+		04FF6BD4244ECAF50004469B /* MMLogArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF6BD3244ECAF50004469B /* MMLogArchive.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		04E7274A22884AA900727D44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04F1757D22894E400025999B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		04F1757F22894E770025999B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		04FF6BD3244ECAF50004469B /* MMLogArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLogArchive.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				04E45F5B2357173F00F9B336 /* MMLog.swift */,
+				04FF6BD3244ECAF50004469B /* MMLogArchive.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				04E45F6F2357173F00F9B336 /* MMLanguage.swift in Sources */,
 				04E45F732357173F00F9B336 /* MMJSON.swift in Sources */,
 				04E45F662357173F00F9B336 /* MMColor+Extension.swift in Sources */,
+				04FF6BD4244ECAF50004469B /* MMLogArchive.swift in Sources */,
 				04E45F632357173F00F9B336 /* MMNotification.swift in Sources */,
 				04E45F712357173F00F9B336 /* MMSqliteOperation.swift in Sources */,
 				04377B20242E224500F4C604 /* MMSqliteLink.swift in Sources */,
@@ -557,6 +561,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -576,6 +581,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s i386 x86_64";
 			};
 			name = Release;
 		};
@@ -726,6 +732,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -753,6 +760,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s i386 x86_64";
 			};
 			name = Release;
 		};
