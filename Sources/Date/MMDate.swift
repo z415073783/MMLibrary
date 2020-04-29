@@ -20,7 +20,7 @@ open class MMDate: NSObject {
     /// 标准时间  例:2016年1月1日
     ///
     /// - Returns: 标准时间
-    public class func standardTime() -> String {
+    public class func standardTime(format: String = "yyyy年MM月dd日") -> String {
         let dateMatter = mm_DateFormatter()
         dateMatter.dateStyle = DateFormatter.Style.full
         dateMatter.dateFormat = "yyyy年MM月dd日"

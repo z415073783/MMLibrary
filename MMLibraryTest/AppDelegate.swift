@@ -22,6 +22,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         MMLOG.debug("启动程序")
+        
+//        MMZipArchive.createZipPackage(path: <#T##String#>)
+        
+//        DispatchQueue.global().async {
+//            for i in 0 ..< 50000 {
+//                MMLOG.debug("日志打印(多线程1): \(i)")
+//            }
+//        }
+//        DispatchQueue.global().async {
+//            for i in 0 ..< 50000 {
+//                MMLOG.debug("日志打印(多线程2): \(i)")
+//            }
+//        }
+        
+//        return true
+        for i in 0 ..< 50000 {
+            MMLOG.debug("日志打印: \(i)")
+//            print("日志打印: \(i)")
+        }
+        
+//        let debugTest = ["1", "2"]
+//        print("debugTest[2] = \(debugTest[2])")
+        
+        return true
+        
+        
+        DispatchQueue.global().async {
+            MMLOG.debug("DispatchQueue")
+        }
         MMLOG.debug("zlm = 1")
         sqliteLink = MMSqliteLink(name: "test", isQueue: true) { (isFinish, link) in
             MMLOG.debug("zlm = 2")

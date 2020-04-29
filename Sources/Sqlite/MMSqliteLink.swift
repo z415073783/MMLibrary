@@ -161,9 +161,15 @@ public class MMSqliteLink: MMSqliteMake {
     
     
     //打开数据库 数据库名称 路径
-    public init(name: String, path: String = MMFileData.getDocumentsPath(), isQueue: Bool = false, block: @escaping ((_ isSuccess: Bool, _ link: MMSqliteLink?) -> Void)) {
+//    String()
+    public init(name: String, path: URL? = MMFileData.getDocumentsPath(), isQueue: Bool = false, block: @escaping ((_ isSuccess: Bool, _ link: MMSqliteLink?) -> Void)) {
         super.init()
-        let fullPath = path + "/" + name
+        guard let path = path else {
+            MMLOG.debug("path参数为nil")
+            return
+        }
+        
+        let fullPath = path.appendingPathComponent(name)
         MMLOG.debug("path/name = \(fullPath)")
         self._sqliteObj.isQueue = isQueue
         self._sqliteObj.openSqlWithPath(fullPath) { [weak self](isOk) in

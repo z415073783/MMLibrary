@@ -63,7 +63,7 @@ public class MMSqlite: NSObject {
     }
     
     //打开数据库 指定路径
-    public func openSqlWithPath(_ dbPath: String, queue: OperationQueue? = nil, block:@escaping (_ isSuccess:Bool)->Void) -> Void {
+    public func openSqlWithPath(_ dbPath: URL, queue: OperationQueue? = nil, block:@escaping (_ isSuccess:Bool)->Void) -> Void {
         guard let queue = queue ?? self.queue else {
             let isResult:Bool = self.operation.openSqliteWithPath(dbPath)
             MMLOG.info("打开数据库: \(dbPath), \(isResult)")

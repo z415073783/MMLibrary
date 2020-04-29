@@ -66,8 +66,8 @@ public class MMSqliteOperation: NSObject {
     }
     
     //根据路径获取打开数据库
-    public func openSqliteWithPath(_ dbPath: String) -> Bool {
-        if sqlite3_open(dbPath, &db) == SQLITE_OK {
+    public func openSqliteWithPath(_ dbPath: URL) -> Bool {
+        if sqlite3_open(dbPath.path, &db) == SQLITE_OK {
             //            MMLOG.debug("开启数据库成功:path:\(path)")
             return true
         }else{

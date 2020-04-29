@@ -13,10 +13,14 @@ import UIKit
 open class MMFileData: NSObject {
     // MARK: 创建文件夹
     open class func createLocalSupportDicPath(dicName: String) -> Bool {
-        let localPath = MMFileData.getLocalSupportPath()
-        let createPath = localPath+"/"+dicName
+        guard let localPath = MMFileData.getLocalSupportPath() else {
+            MMLOG.error("获取supportPath失败")
+            return false
+        }
+        
+        let createPath = localPath.appendingPathComponent(dicName)
         do {
-            try FileManager.default.createDirectory(atPath: createPath, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(at: createPath, withIntermediateDirectories: true, attributes: nil)
         } catch {
             
             return false
@@ -26,9 +30,12 @@ open class MMFileData: NSObject {
     
     // MARK: 创建文件
     open class func createLocalSupportFile(dicName: String, file: String) -> Bool {
-        let localPath = MMFileData.getLocalSupportPath()
-        let dicPath = localPath+"/"+dicName
-        let isExist = FileManager.default.fileExists(atPath: dicName)
+        guard let localPath = MMFileData.getLocalSupportPath() else {
+            MMLOG.error("获取supportPath失败")
+            return false
+        }
+        let dicPath = localPath.appendingPathComponent(dicName)
+        let isExist = FileManager.default.fileExists(atPath: dicPath.path)
         if !isExist {
             let isSuucess = MMFileData.createLocalSupportDicPath(dicName: dicName)
             if !isSuucess {
@@ -36,20 +43,26 @@ open class MMFileData: NSObject {
                 return false
             }
         }
-        let createPath = dicPath+"/"+file
-        return FileManager.default.createFile(atPath: createPath, contents: nil, attributes: nil)
+        let createPath = dicPath.appendingPathComponent(file)
+        return FileManager.default.createFile(atPath: createPath.path, contents: nil, attributes: nil)
     }
     
     // MARK: 读取文件
     open class func readLocalSupportFile(dicName: String, file: String) -> String? {
-        let localPath = MMFileData.getLocalSupportPath()
-        let writePath = localPath+"/"+dicName+"/"+file
+        guard let localPath = MMFileData.getLocalSupportPath() else {
+            MMLOG.error("获取supportPath失败")
+            return nil
+        }
+        let writePath = localPath.appendingPathComponent(dicName).appendingPathComponent(file)
         
-        let isExist = FileManager.default.fileExists(atPath: writePath)
+//        let writePath = localPath+"/"+dicName+"/"+file
+        
+        let isExist = FileManager.default.fileExists(atPath: writePath.path)
         if !isExist {
             return nil
         }
-        if let data = FileManager.default.contents(atPath: writePath) {
+        
+        if let data = FileManager.default.contents(atPath: writePath.path) {
             let dataStr = String(data: data, encoding: String.Encoding.utf8)
             return dataStr
         }
@@ -59,9 +72,12 @@ open class MMFileData: NSObject {
     
     // MARK: 写入文件
     open class func writeLocalSupportFile(dicName: String, file: String, data: String) -> Bool {
-        let localPath = MMFileData.getLocalSupportPath()
-        let writePath = localPath+"/"+dicName+"/"+file
-        let isExist = FileManager.default.fileExists(atPath: writePath)
+        guard let localPath = MMFileData.getLocalSupportPath() else {
+            MMLOG.error("获取supportPath失败")
+            return false
+        }
+        let writePath = localPath.appendingPathComponent(dicName).appendingPathComponent(file)
+        let isExist = FileManager.default.fileExists(atPath: writePath.path)
         if !isExist {
             let isSuccess = MMFileData.createLocalSupportFile(dicName: dicName, file: file)
             if !isSuccess {
@@ -71,7 +87,7 @@ open class MMFileData: NSObject {
         }
         
         do {
-            try data.write(toFile: writePath, atomically: true, encoding: String.Encoding.utf8)
+            try data.write(to: writePath, atomically: true, encoding: String.Encoding.utf8)
         } catch {
             MMLOG.error("\(writePath) write is fail!")
             return false
@@ -80,29 +96,22 @@ open class MMFileData: NSObject {
     }
     
     // MARK: 获取本地路径
-    open class func getLocalLibraryPath() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
-        let localPath = paths[0]
-        MMLOG.debug("\(paths)")
-        return localPath
+    open class func getLocalLibraryPath() -> URL? {
+        let paths = FileManager.default.urls(for: FileManager.SearchPathDirectory.libraryDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
+        return paths.first
     }
-    open class func getLocalSupportPath() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.applicationSupportDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
-        let localPath = paths[0]
-        MMLOG.debug("\(paths)")
-        return localPath
+    open class func getLocalSupportPath() -> URL? {
+        let paths = FileManager.default.urls(for: FileManager.SearchPathDirectory.applicationSupportDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
+        return paths.first
     }
-    open class func getLocalCachesPath() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
-        let localPath = paths[0]
-        MMLOG.debug("\(paths)")
-        return localPath
+    open class func getLocalCachesPath() -> URL? {
+        let paths = FileManager.default.urls(for: FileManager.SearchPathDirectory.cachesDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
+        return paths.first
     }
     
-    open class func getDocumentsPath() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
-        let localPath = paths[0]
-        return localPath
+    open class func getDocumentsPath() -> URL? {
+        let paths = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
+        return paths.first
     }
     
 #if os(iOS) || os(tvOS)
@@ -110,7 +119,7 @@ open class MMFileData: NSObject {
     ///
     /// - Parameter image: 图片对象
     /// - Returns: [图片名(不包括后缀),图片路径]
-    open class func saveImageToAccountRecord(image: UIImage) -> [String] {
+    open class func saveImageToAccountRecord(image: UIImage) -> (String?, URL?) {
         var uuid = UUID().uuidString
         uuid = uuid.lowercased()
         
@@ -120,29 +129,36 @@ open class MMFileData: NSObject {
         let newImage = image.mm_compressSize()
         
         let data = newImage.jpegData(compressionQuality: 1)
+        guard let cachePath = getLocalCachesPath() else {
+            MMLOG.error("cachePath获取失败")
+            return (nil, nil)
+        }
         
-        let getPath = getLocalCachesPath() + "/" + uuid + ".jpg"
+        let getPath = cachePath.appendingPathComponent(uuid + ".jpg")
         do {
-            try data?.write(to: URL(fileURLWithPath: getPath), options: .atomic)
+            try data?.write(to: getPath, options: .atomic)
             //            try data?.write(to: URL(fileURLWithPath: getPath))
             
             //            FileManager.default.createFile(atPath: getPath, contents: data, attributes: nil)
             
         } catch {
-            return []
+            return (nil, nil)
         }
         
-        return [uuid,getPath]
+        return (uuid,getPath)
     }
     
     //保存图片到缓存
-    @discardableResult open class func saveImageToCache(image: UIImage, namePath: String) -> String? {
-        var path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+    @discardableResult open class func saveImageToCache(image: UIImage, namePath: String) -> URL? {
+        guard let path = getLocalCachesPath() else {
+            MMLOG.error("获取cachePath路径失败")
+            return nil
+        }
         let data = image.pngData()
         
-        let getPath = path[0] + "/" + namePath + ".jpg"
+        let getPath = path.appendingPathComponent(namePath + "jpg")
         do {
-            try data?.write(to: URL(fileURLWithPath: getPath))
+            try data?.write(to: getPath)
             
         } catch {
             return nil
@@ -153,10 +169,15 @@ open class MMFileData: NSObject {
 #endif
     //删除缓存图片
     open class func removeImageFromCache(_ imageName: String) {
-        let getPath = getLocalCachesPath() + "/" + imageName + ".jpg"
-        if FileManager.default.isDeletableFile(atPath: getPath) {
+        guard let cachesPath = getLocalCachesPath() else {
+            MMLOG.error("获取cachePath路径失败")
+            return
+        }
+        
+        let getPath = cachesPath.appendingPathComponent(imageName + ".jpg")
+        if FileManager.default.isDeletableFile(atPath: getPath.path) {
             do {
-                try FileManager.default.removeItem(atPath: getPath)
+                try FileManager.default.removeItem(at: getPath)
             } catch {
             }
         }
