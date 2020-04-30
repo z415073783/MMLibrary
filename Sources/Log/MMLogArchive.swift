@@ -8,44 +8,32 @@
 
 import Foundation
 
-public class MMLogArchive {
-    public static let shared = MMLogArchive()
+@objc public class MMLogArchive: NSObject {
+    @objc public static let shared = MMLogArchive()
 
-    let zipQueue: MMOperationQueue = MMOperationQueue(maxCount: 1)
-    var cacheLogs: [String] = []
-    let cacheLock: NSLock = NSLock()
-    let filemanager = FileManager.default
-    
+//MARK: 对外接口
     //单个日志文件size上限
-    public var fileMaxSize = 10000000
+    @objc public var fileMaxSize = 10000000
     //间隔检查日志大小的调用次数上限
-    public var callCheckMaxNumber = 1000
+    @objc public var callCheckMaxNumber = 1000
     //最大压缩包数量
-    public var zipFilesMaxNumber = 5
-    
-    
-    let currentLogName = "current.log"
-    let rootName = "MMLOG"
-    
-    func getCacheLogs() -> [String] {
-        cacheLock.lock()
-        let copyLogs = cacheLogs
-        cacheLogs = []
-        cacheLock.unlock()
-        return copyLogs
-    }
-    func addCacheLogs(log: String) {
-        cacheLock.lock()
-        cacheLogs.append(log)
-        cacheLock.unlock()
-    }
-    let writeLock = NSLock()
-    public class func saveLog(log: String) {
+    @objc public var zipFilesMaxNumber = 5
+    @objc public var currentLogName = "current.log"
+    @objc public var rootName = "MMLOG"
+    //日志保存接口
+    @objc public class func saveLog(log: String) {
         MMLogArchive.shared.writeLock.lock()
         shared.writeFile(log: log)
         MMLogArchive.shared.writeLock.unlock()
     }
     
+    
+//MARK: 私有变量
+    let zipQueue: MMOperationQueue = MMOperationQueue(maxCount: 1)
+    let filemanager = FileManager.default
+    let writeLock = NSLock()
+    var callCheckNumber = 0
+    var currentHandler: FileHandle?
     lazy var logFolderPath: URL? = {
         //写入数据
         guard let docPath = MMFileData.getDocumentsPath() else {
@@ -75,98 +63,101 @@ public class MMLogArchive {
         let file = logFolderPath.appendingPathComponent(currentLogName)
         return file
     }()
+
+}
+fileprivate typealias _Private = MMLogArchive
+extension _Private {
     //检查并创建currentLog文件
-    func checkCurrentLogFile() -> Bool {
-        guard let currentLogFile = currentLogFile else {
+        func checkCurrentLogFile() -> Bool {
+            guard let currentLogFile = currentLogFile else {
+                return false
+            }
+            var isExist = filemanager.fileExists(atPath: currentLogFile.path)
+            if !isExist {
+                isExist = filemanager.createFile(atPath: currentLogFile.path, contents: Data(), attributes: nil)
+            }
+            if isExist {
+                return true
+            }
             return false
         }
-        var isExist = filemanager.fileExists(atPath: currentLogFile.path)
-        if !isExist {
-            isExist = filemanager.createFile(atPath: currentLogFile.path, contents: Data(), attributes: nil)
-        }
-        if isExist {
-            return true
-        }
-        return false
-    }
-    //将日志文件转存成zip
-    func archiveLogToZip(path: URL, name: String) {
-        zipQueue.addOperation { [weak self] in
-            guard let `self` = self else {
-                return
-            }
-            let logRootPath = path.deletingLastPathComponent()
-            let zipPath = logRootPath.appendingPathComponent(name + ".zip")
-            print("保存日志压缩文件 = \(zipPath)")
-            do {
-                //压缩
-                try MMZip.zipFiles(paths: [path], zipFilePath: zipPath, password: nil, progress: nil)
-                
-                //移除原有日志文件
-                try self.filemanager.removeItem(at: path)
-                
-                //检查压缩包数量并删除上限
-                self.checkAndRemoveMoreTheNumberOfZip(rootPath: logRootPath)
-                
-                
-            } catch {
-                print("压缩失败 zipPath = \(zipPath)")
-            }
-        }
-    }
-    
-    func checkAndRemoveMoreTheNumberOfZip(rootPath: URL) {
-//        print("rootPath.path = \(rootPath.path)")
-        
-        var allLogFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: ".zip", isSuffix: true, onlyOne: false)
-        
-        let logFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: ".log", isSuffix: true, onlyOne: false)
-        
-        for logItem in logFiles {
-            if logItem.name != MMLogArchive.shared.currentLogName {
-                allLogFiles.append(logItem)
-            }
-        }
-        if allLogFiles.count <= zipFilesMaxNumber {
-            return
-        }
-
-        do {
-            var oldTime: TimeInterval = 0
-            var oldFilePath: String = ""
-            for i in 0 ..< allLogFiles.count {
-                let item = allLogFiles[i]
-               
-                let attribute = try filemanager.attributesOfItem(atPath: item.fullPath())
-                if let date = attribute[FileAttributeKey.creationDate] as? Date {
-                    let curTime = date.timeIntervalSince1970
-                    if i == 0 {
-                        oldTime = curTime
-                        oldFilePath = item.fullPath()
-                    } else if oldTime > curTime {
-                        oldTime = curTime
-                        oldFilePath = item.fullPath()
-                    }
+        //将日志文件转存成zip
+        func archiveLogToZip(path: URL, name: String) {
+            zipQueue.addOperation { [weak self] in
+                guard let `self` = self else {
+                    return
+                }
+                let logRootPath = path.deletingLastPathComponent()
+                let zipPath = logRootPath.appendingPathComponent(name + ".zip")
+                print("保存日志压缩文件 = \(zipPath)")
+                do {
+                    //压缩
+                    try MMZip.zipFiles(paths: [path], zipFilePath: zipPath, password: nil, progress: nil)
+                    
+                    //移除原有日志文件
+                    try self.filemanager.removeItem(at: path)
+                    
+                    //检查压缩包数量并删除上限
+                    self.checkAndRemoveMoreTheNumberOfZip(rootPath: logRootPath)
+                    
+                    
+                } catch {
+                    print("压缩失败 zipPath = \(zipPath)")
                 }
             }
-          
-            if oldFilePath.count > 0 {
-                //删除
-                try filemanager.removeItem(atPath: oldFilePath)
-                checkAndRemoveMoreTheNumberOfZip(rootPath: rootPath)
-            } else {
-                print("操作失败, 未获取到文件路径 allLogFiles = \(allLogFiles)")
+        }
+        
+        func checkAndRemoveMoreTheNumberOfZip(rootPath: URL) {
+    //        print("rootPath.path = \(rootPath.path)")
+            
+            var allLogFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: ".zip", isSuffix: true, onlyOne: false)
+            
+            let logFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: ".log", isSuffix: true, onlyOne: false)
+            
+            for logItem in logFiles {
+                if logItem.name != MMLogArchive.shared.currentLogName {
+                    allLogFiles.append(logItem)
+                }
+            }
+            if allLogFiles.count <= zipFilesMaxNumber {
                 return
             }
-            
-        } catch {
-            print("操作失败: error = \(error)")
-        }
 
-    }
+            do {
+                var oldTime: TimeInterval = 0
+                var oldFilePath: String = ""
+                for i in 0 ..< allLogFiles.count {
+                    let item = allLogFiles[i]
+                   
+                    let attribute = try filemanager.attributesOfItem(atPath: item.fullPath())
+                    if let date = attribute[FileAttributeKey.creationDate] as? Date {
+                        let curTime = date.timeIntervalSince1970
+                        if i == 0 {
+                            oldTime = curTime
+                            oldFilePath = item.fullPath()
+                        } else if oldTime > curTime {
+                            oldTime = curTime
+                            oldFilePath = item.fullPath()
+                        }
+                    }
+                }
+              
+                if oldFilePath.count > 0 {
+                    //删除
+                    try filemanager.removeItem(atPath: oldFilePath)
+                    checkAndRemoveMoreTheNumberOfZip(rootPath: rootPath)
+                } else {
+                    print("操作失败, 未获取到文件路径 allLogFiles = \(allLogFiles)")
+                    return
+                }
+                
+            } catch {
+                print("操作失败: error = \(error)")
+            }
+
+        }
+        
     
-    var callCheckNumber = 0
-    var currentHandler: FileHandle?
     func checkSizeAndSaveZip() {
         if callCheckNumber == 0 {
             //检查currentLog是否存在, 不存在则创建
