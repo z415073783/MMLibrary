@@ -162,8 +162,13 @@ public class MMLogger: NSObject {
             for type in outputInfoTypes {
                 switch type {
                 case .time:
+//                    print("Date() = \(Date().timeIntervalSince1970)")
+                    
                     if let dateFormatter = MMLogger.shared.dateFormatter {
-                        extendedDetails += "\(dateFormatter.string(from: Date())) "
+                        let curDate = Date()
+                        let curTime = "\(curDate.timeIntervalSince1970)"
+                        let beginIndex = curTime.index(curTime.endIndex, offsetBy: -3)
+                        extendedDetails += "\(dateFormatter.string(from: curDate))\(String(curTime[beginIndex..<curTime.endIndex])) "
                     }
                 case .logLevel:
                     extendedDetails += "[\(logLevel)] "
