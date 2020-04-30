@@ -368,7 +368,7 @@ extension __TreeControl {
             }
         case .none:
 //            比较数据不存在
-            MMLOG.emerg("数据比较错误node.key = \(node.key ?? "nil"), key = \(key)")
+            MMLOG.error("数据比较错误node.key = \(node.key ?? "nil"), key = \(key)")
             return node
         }
     }

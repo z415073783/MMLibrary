@@ -37,10 +37,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         
 //        return true
+        let begin = Date().timeIntervalSince1970
         for i in 0 ..< 50000 {
             MMLOG.debug("日志打印: \(i)")
 //            print("日志打印: \(i)")
         }
+        let end = Date().timeIntervalSince1970
+        
+        let zbegin = Date().timeIntervalSince1970
+        for i in 0 ..< 50000 {
+//            MMLOG.debug("日志打印: \(i)")
+            print("日志打印: \(i)")
+        }
+        let zend = Date().timeIntervalSince1970
+        MMLOG.debug("耗时 zlm = \(end - begin)")
+        MMLOG.debug("耗时 print = \(zend - zbegin)")
+        
         
 //        let debugTest = ["1", "2"]
 //        print("debugTest[2] = \(debugTest[2])")

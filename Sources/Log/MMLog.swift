@@ -11,56 +11,26 @@ public typealias MMLOG = MMLogger
 
 public extension MMLogger {
     enum LogLevel: Int {
-        case Emerg = 0
-        case Alert
-        case Crit
-        case Error
-        case Warning
-        case Notice
-        case Info
-        case Debug
-        case Severe
-        case Verbose
-        case control
-        case None
+        case none, verbose, debug, info, warn, error, fatal, silent
         
-        
-        /*  致命级(KERN_EMESG),
-         警戒级(KERN_ALERT),
-         临界级(KERN_CRIT),
-         错误级(KERN_ERR),
-         告警级(KERN_WARN),
-         注意级(KERN_NOTICE),
-         通知级(KERN_INFO),
-         调试级(KERN_DEBUG).
-         */
         public var description: String {
             switch self {
-                
-            case .Emerg:
-                return "Emerg"
-            case .Alert:
-                return "Alert"
-            case .Crit:
-                return "Crit"
-            case .Error:
-                return "Error"
-            case .Warning:
-                return "Warning"
-            case .Notice:
-                return "Notice"
-            case .Info:
-                return "Info"
-            case .Debug:
-                return "Debug"
-            case .None:
+            case .none:
                 return "None"
-            case .Severe:
-                return "Severe"
-            case .Verbose:
+            case .verbose:
                 return "Verbose"
-            case .control:
-                return "control"
+            case .debug:
+                return "Debug"
+            case .info:
+                return "Info"
+            case .warn:
+                return "Warn"
+            case .error:
+                return "Error"
+            case .fatal:
+                return "Fatal"
+            case .silent:
+                return "Silent"
             }
         }
     }
@@ -93,124 +63,103 @@ public class MMLogger: NSObject {
         super.init()
     }
     
-    /// 专供打印控制信息
-    ///
-    /// - Parameter closure:
-    public class func controlInfo(_ closure: @autoclosure () -> String?, functionName: String = #function) {
-        guard let logMessage = closure() else {
-            return
-        }
-        let date = Date()
-        var formattedDate: String = date.description
-        if let dateFormatter = shared.dateFormatter {
-            formattedDate = dateFormatter.string(from: date)
-        }
-        output(level: .control, text: "\(formattedDate) [Control] \(functionName)> \(logMessage)")
     
+    @objc public class func logln(logLevel: Int, functionName: String, fileName: String, lineNumber: Int, logMessage: String) {
+        baseLog(logLevel: LogLevel(rawValue: logLevel) ?? .none, functionName: functionName, fileName: fileName, lineNumber: lineNumber, logMessage: logMessage)
     }
     
+    public class func none( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+           logln(closure(), logLevel: .none, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
+    }
+    public class func verbose( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+           logln(closure(), logLevel: .verbose, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
+    }
     
-    @objc public class func debug( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
-        
-        logln(closure(), logLevel: LogLevel.Debug, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
+    public class func debug( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+        logln(closure(), logLevel: .debug, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
     
     public class func info( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
-        logln(closure(), logLevel: LogLevel.Info, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
+        logln(closure(), logLevel: .info, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
+    }
+    public class func warn( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+        logln(closure(), logLevel: .warn, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
+    }
+    public class func error( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+        logln(closure(), logLevel: .error, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
+    }
+    public class func fatal( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+        logln(closure(), logLevel: .fatal, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
+    }
+    public class func silent( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+        logln(closure(), logLevel: .silent, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
     
-    public class func notice( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
-        logln(closure(), logLevel: LogLevel.Notice, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
-    }
-    
-    public class func warning( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
-        logln(closure(), logLevel: LogLevel.Warning, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
-    }
-    
-    public class func error( _ closure:@autoclosure () -> String?, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
-        logln(closure(), logLevel: LogLevel.Error, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
-    }
-    
-    public class func crit( _ closure:@autoclosure () -> String?, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
-        logln(closure(), logLevel: LogLevel.Crit, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
-    }
-    
-    public class func alert( _ closure:@autoclosure () -> String?, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
-        logln(closure(), logLevel: LogLevel.Alert, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
-    }
-    
-    public class func emerg( _ closure:@autoclosure () -> String?, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
-        logln(closure(), logLevel: LogLevel.Emerg, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
-    }
-    
-    private class func logln(_ closure:@autoclosure () -> String?, logLevel: LogLevel = .Debug, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
-        #if DEBUG
-        logln(logLevel: logLevel, functionName: functionName, fileName: fileName, lineNumber: lineNumber, closure: closure)
-        #else
-        if logLevel != .Debug {
-            logln(logLevel: logLevel, functionName: functionName, fileName: fileName, lineNumber: lineNumber, closure: closure)
-        }
-        #endif
-        
-    }
-    
-    private class func logln(logLevel: LogLevel = .Debug, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line, closure: () -> String?) {
+    private class func logln(_ closure:@autoclosure () -> String?, logLevel: LogLevel = .debug, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
+#if DEBUG
         if let logMessage = closure() {
-            
-            var extendedDetails: String = ""
-            let outputInfoTypes = MMLogger.shared.outputInfoTypes
-            for type in outputInfoTypes {
-                switch type {
-                case .time:
+            baseLog(logLevel: logLevel, functionName: functionName, fileName: fileName, lineNumber: lineNumber, logMessage: logMessage)
+        }
+#else
+        if logLevel != .Debug {
+            if let logMessage = closure() {
+                baseLog(logLevel: logLevel, functionName: functionName, fileName: fileName, lineNumber: lineNumber, logMessage: logMessage)
+            }
+        }
+#endif
+    }
+    
+    private class func baseLog(logLevel: LogLevel = .debug, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line, logMessage: String) {
+        var extendedDetails: String = ""
+        let outputInfoTypes = MMLogger.shared.outputInfoTypes
+        for type in outputInfoTypes {
+            switch type {
+            case .time:
 //                    print("Date() = \(Date().timeIntervalSince1970)")
-                    
-                    if let dateFormatter = MMLogger.shared.dateFormatter {
-                        let curDate = Date()
-                        let curTime = "\(curDate.timeIntervalSince1970)"
-                        let beginIndex = curTime.index(curTime.endIndex, offsetBy: -3)
-                        extendedDetails += "\(dateFormatter.string(from: curDate))\(String(curTime[beginIndex..<curTime.endIndex])) "
-                    }
-                case .logLevel:
-                    extendedDetails += "[\(logLevel)] "
-                case .module:
-                    /// 将Module 对应的业务模块信息打入日志作为检查问题模块的方法。
-                    if let moduleSplit = MMLogger.shared.moduleSplit, fileName.contains(moduleSplit) {
-                        let funcPathInfoArray = fileName.split(separator: "/")
-                        for item in funcPathInfoArray {
-                            if item.contains(moduleSplit) {
-                                extendedDetails += "[\(item)]"
-                            }
+                
+                if let dateFormatter = MMLogger.shared.dateFormatter {
+                    let curDate = Date()
+                    let curTime = "\(curDate.timeIntervalSince1970)"
+                    let beginIndex = curTime.index(curTime.endIndex, offsetBy: -3)
+                    extendedDetails += "\(dateFormatter.string(from: curDate))\(String(curTime[beginIndex..<curTime.endIndex])) "
+                }
+            case .logLevel:
+                extendedDetails += "[\(logLevel)] "
+            case .module:
+                /// 将Module 对应的业务模块信息打入日志作为检查问题模块的方法。
+                if let moduleSplit = MMLogger.shared.moduleSplit, fileName.contains(moduleSplit) {
+                    let funcPathInfoArray = fileName.split(separator: "/")
+                    for item in funcPathInfoArray {
+                        if item.contains(moduleSplit) {
+                            extendedDetails += "[\(item)]"
                         }
                     }
-                case .thread:
-                    if Thread.isMainThread {
-                                extendedDetails += "[main] "
-                            } else {
-                    //            Thread.current
-                                if let threadName: String = Thread.current.name, !threadName.isEmpty {
-                                    if threadName.count != 0 {
-                                        extendedDetails += "[\(threadName)] "
-                                    }
-                                } else if let operationName = OperationQueue.current?.name, !operationName.isEmpty {
-                                    extendedDetails += "[\(operationName)] "
-                                } else  if let label = DispatchQueue.accessibilityLabel(), let queueName = String(cString: label, encoding: String.Encoding.utf8), !queueName.isEmpty {
-                                    extendedDetails += "[\(queueName)] "
-                                } else {
-                                    extendedDetails += "[\(Thread.current.description)] "
-                                }
-                            }
-                case .logPos:
-                    extendedDetails += "[\((fileName as NSString).lastPathComponent):\(String(lineNumber))] "
-                    
-                    extendedDetails += "[\(String(lineNumber))] "
-                    
                 }
+            case .thread:
+                if Thread.isMainThread {
+                            extendedDetails += "[main] "
+                        } else {
+                //            Thread.current
+                            if let threadName: String = Thread.current.name, !threadName.isEmpty {
+                                if threadName.count != 0 {
+                                    extendedDetails += "[\(threadName)] "
+                                }
+                            } else if let operationName = OperationQueue.current?.name, !operationName.isEmpty {
+                                extendedDetails += "[\(operationName)] "
+                            } else  if let label = DispatchQueue.accessibilityLabel(), let queueName = String(cString: label, encoding: String.Encoding.utf8), !queueName.isEmpty {
+                                extendedDetails += "[\(queueName)] "
+                            } else {
+                                extendedDetails += "[\(Thread.current.description)] "
+                            }
+                        }
+            case .logPos:
+                extendedDetails += "[\((fileName as NSString).lastPathComponent):\(String(lineNumber))] "
             }
-            
-            extendedDetails += "\(functionName) "
-            output(level: logLevel, text: "\(extendedDetails)> \(logMessage)")
-            
         }
+        
+        extendedDetails += "\(functionName) "
+        output(level: logLevel, text: "\(extendedDetails)> \(logMessage)")
+                    
     }
     
     private class func output(level: LogLevel, text: String) {
