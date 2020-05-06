@@ -109,7 +109,7 @@ public class MMLogger: NSObject {
 #endif
     }
     
-    private class func baseLog(logLevel: LogLevel = .debug, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line, logMessage: String) {
+    private class func baseLog(logLevel: LogLevel = .debug, functionName: String? = #function, fileName: String = #file, lineNumber: Int = #line, logMessage: String) {
         var extendedDetails: String = ""
         let outputInfoTypes = MMLogger.shared.outputInfoTypes
         for type in outputInfoTypes {
@@ -156,8 +156,9 @@ public class MMLogger: NSObject {
                 extendedDetails += "[\((fileName as NSString).lastPathComponent):\(String(lineNumber))] "
             }
         }
-        
-        extendedDetails += "\(functionName) "
+        if let functionName = functionName {
+            extendedDetails += "\(functionName) "
+        }
         output(level: logLevel, text: "\(extendedDetails)> \(logMessage)")
                     
     }
