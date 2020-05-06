@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MMLibrary"
-  spec.version      = "0.0.1"
+  spec.version      = "1.0.3.2"
   spec.summary      = "A short description of MMLibrary."
 
   spec.description  = <<-DESC
@@ -36,8 +36,12 @@ Pod::Spec.new do |spec|
 
   spec.source       = { :git => "./", :tag => "#{spec.version}" }
 
-  spec.source_files  = "MMLibrary"
-  spec.exclude_files = "MMLibrary/Info.plist"
+  spec.vendored_frameworks = "Build/*.framework"
+
+  # spec.source_files  = "MMLibrary"
+  # spec.exclude_files = "MMLibrary/Info.plist"
+
+
 
   spec.libraries = "libz"
 
