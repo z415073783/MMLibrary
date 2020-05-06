@@ -34,7 +34,7 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '8.0'
 
 
-  spec.source       = { :git => "./", :tag => "#{spec.version}" }
+  spec.source       = { :git => "git@github.com:z415073783/MMLibrary.git", :tag => spec.version }
 
   spec.vendored_frameworks = "Build/*.framework"
 
