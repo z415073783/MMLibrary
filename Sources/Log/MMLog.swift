@@ -58,6 +58,8 @@ public class MMLogger: NSObject {
     public var moduleSplit: String?
     //保存日志方式 默认release环境下会保存日志
     public var saveZipConfig: LogSaveZipConfig = .save
+    //release是否打印
+    public var printOfRelease = false
     
     override init() {
         super.init()
@@ -169,7 +171,9 @@ public class MMLogger: NSObject {
         for type in outputList {
             switch type {
             case .print:
-                print(adjustedText)
+                if shared.printOfRelease {
+                    print(adjustedText)
+                }
             case .other:
                 if let block = MMLogger.shared.callFunc {
                     block(adjustedText,level.rawValue)
