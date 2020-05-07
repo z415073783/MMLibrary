@@ -43,6 +43,6 @@ Pod::Spec.new do |spec|
 
 
 
-  spec.libraries = "libz"
+  spec.libraries = "z"
 
 end
