@@ -325,8 +325,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) MMLogArchive
 @property (nonatomic) NSInteger callCheckMaxNumber;
 @property (nonatomic) NSInteger zipFilesMaxNumber;
 @property (nonatomic, copy) NSString * _Nonnull currentLogName;
+@property (nonatomic, copy) NSString * _Nonnull allZipLogName;
 @property (nonatomic, copy) NSString * _Nonnull rootName;
 + (void)saveLogWithLog:(NSString * _Nonnull)log;
++ (NSURL * _Nullable)getLogZipPath SWIFT_WARN_UNUSED_RESULT;
++ (NSString * _Nonnull)getAllLogZip SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -786,8 +789,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) MMLogArchive
 @property (nonatomic) NSInteger callCheckMaxNumber;
 @property (nonatomic) NSInteger zipFilesMaxNumber;
 @property (nonatomic, copy) NSString * _Nonnull currentLogName;
+@property (nonatomic, copy) NSString * _Nonnull allZipLogName;
 @property (nonatomic, copy) NSString * _Nonnull rootName;
 + (void)saveLogWithLog:(NSString * _Nonnull)log;
++ (NSURL * _Nullable)getLogZipPath SWIFT_WARN_UNUSED_RESULT;
++ (NSString * _Nonnull)getAllLogZip SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

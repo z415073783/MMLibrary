@@ -171,9 +171,14 @@ public class MMLogger: NSObject {
         for type in outputList {
             switch type {
             case .print:
+            #if DEBUG
+                print(adjustedText)
+            #else
                 if shared.printOfRelease {
                     print(adjustedText)
                 }
+            #endif
+                
             case .other:
                 if let block = MMLogger.shared.callFunc {
                     block(adjustedText,level.rawValue)
