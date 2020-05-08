@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         MMLOG.debug("启动程序")
+//        let ss = MMLogArchive.getAllLogZip()
         MMCrashManager.setup()
 //        return true
 //        MMZipArchive.createZipPackage(path: <#T##String#>)
@@ -39,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        return true
         let begin = Date().timeIntervalSince1970
-        for i in 0 ..< 20 {
+        for i in 0 ..< 200000 {
             MMLOG.debug("日志打印: \(i)")
         }
         let end = Date().timeIntervalSince1970

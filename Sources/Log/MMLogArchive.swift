@@ -53,41 +53,35 @@ import Foundation
         MMLogArchive.shared.writeLock.unlock()
     }
     @objc public class func getLogZipPath() -> URL? {
-        return shared.currentLogFile?.deletingLastPathComponent().appendingPathComponent(shared.allZipLogName)
+        return shared.logFolderPath?.appendingPathComponent(shared.allZipLogName)
     }
     
     //    将所有日志打包成压缩文件
     @objc public class func getAllLogZip() -> String {
         
-        guard let zipPath = getLogZipPath() else {
+        guard let zipPath = getLogZipPath(), let rootPath = shared.logFolderPath else {
             return ""
         }
-        let rootPath = zipPath.deletingLastPathComponent()
+        
 //
 //        let zipPath = rootPath.appendingPathComponent(shared.allZipLogName)
-        do {
-            //移除原有日志文件
-            try shared.filemanager.removeItem(at: zipPath)
-        } catch  {
-            print("移除失败 error = \(error)")
-        }
-       
-        let zipLogFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: ".zip", isSuffix: true, onlyOne: false)
-        let logFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: ".log", isSuffix: true, onlyOne: false)
-        var goalPaths: [URL] = []
-        for logItem in zipLogFiles {
-            goalPaths.append(URL(fileURLWithPath: logItem.fullPath()))
-        }
-        for logItem in logFiles {
-            goalPaths.append(URL(fileURLWithPath: logItem.fullPath()))
-        }
-
-        
         do {
             //移除原有日志文件
             if shared.filemanager.fileExists(atPath: zipPath.path) {
                 try shared.filemanager.removeItem(at: zipPath)
             }
+        } catch  {
+            print("移除失败 error = \(error)")
+        }
+       
+        let allFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: "", isSuffix: false, onlyOne: false)
+//        let logFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: ".log", isSuffix: true, onlyOne: false)
+        var goalPaths: [URL] = []
+        for logItem in allFiles {
+            goalPaths.append(URL(fileURLWithPath: logItem.fullPath()))
+        }
+        
+        do {
             
             print("goalPaths = \(goalPaths), zipPath = \(zipPath)")
             //压缩
