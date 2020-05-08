@@ -31,13 +31,17 @@ fileprivate func _saveCrash(exception: NSException? = nil) {
     }
     _caughtExceptionCallNum += 1
     
-    if let exception = exception {
-        MMLOG.fatal("exception = \(exception.callStackSymbols)")
-    }
-    
     var crashContainer = ""
     
     crashContainer += "crash:\n"
+    if let exception = exception {
+        crashContainer += "\nexception.callStackSymbols:\n"
+        for item in exception.callStackSymbols {
+            crashContainer += "\(item)\n"
+        }
+    }
+    
+    crashContainer += "\nThread.callStackSymbols:\n"
     for item in Thread.callStackSymbols {
         crashContainer += "\(item)\n"
     }
