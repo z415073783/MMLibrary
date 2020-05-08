@@ -103,12 +103,21 @@ public class MMLogger: NSObject {
             baseLog(logLevel: logLevel, functionName: functionName, fileName: fileName, lineNumber: lineNumber, logMessage: logMessage)
         }
 #else
-        if logLevel != .Debug {
+        if logLevel != .debug {
             if let logMessage = closure() {
                 baseLog(logLevel: logLevel, functionName: functionName, fileName: fileName, lineNumber: lineNumber, logMessage: logMessage)
             }
         }
 #endif
+    }
+    public class func getCurrentTime() -> String {
+        if let dateFormatter = MMLogger.shared.dateFormatter {
+            let curDate = Date()
+            let curTime = "\(curDate.timeIntervalSince1970)"
+            let beginIndex = curTime.index(curTime.endIndex, offsetBy: -3)
+            return "\(dateFormatter.string(from: curDate))\(String(curTime[beginIndex..<curTime.endIndex]))"
+        }
+        return ""
     }
     
     private class func baseLog(logLevel: LogLevel = .debug, functionName: String? = #function, fileName: String = #file, lineNumber: Int = #line, logMessage: String) {
@@ -117,14 +126,8 @@ public class MMLogger: NSObject {
         for type in outputInfoTypes {
             switch type {
             case .time:
-//                    print("Date() = \(Date().timeIntervalSince1970)")
-                
-                if let dateFormatter = MMLogger.shared.dateFormatter {
-                    let curDate = Date()
-                    let curTime = "\(curDate.timeIntervalSince1970)"
-                    let beginIndex = curTime.index(curTime.endIndex, offsetBy: -3)
-                    extendedDetails += "\(dateFormatter.string(from: curDate))\(String(curTime[beginIndex..<curTime.endIndex])) "
-                }
+
+                extendedDetails += "\(getCurrentTime()) "
             case .logLevel:
                 extendedDetails += "[\(logLevel)] "
             case .module:

@@ -21,6 +21,31 @@ import Foundation
     @objc public var currentLogName = "current.log"
     @objc public var allZipLogName = "allLog.zip"
     @objc public var rootName = "MMLOG"
+    
+    //日志保存的root路径
+    public lazy var logFolderPath: URL? = {
+        //写入数据
+        guard let docPath = MMFileData.getDocumentsPath() else {
+            print("获取docPath路径失败")
+            return nil
+        }
+        
+        let file = docPath.appendingPathComponent(MMLogArchive.shared.rootName)
+        var isDirectory:ObjCBool = true
+        let isExist = FileManager.default.fileExists(atPath: file.path, isDirectory: &isDirectory)
+        if !isExist {
+            do {
+                try FileManager.default.createDirectory(at: file, withIntermediateDirectories: true, attributes: nil)
+
+            } catch {
+                print("日志文件夹创建失败")
+                return nil
+            }
+        }
+        
+        return file
+    }()
+    
     //日志保存接口
     @objc public class func saveLog(log: String) {
         MMLogArchive.shared.writeLock.lock()
@@ -82,28 +107,7 @@ import Foundation
     var callCheckNumber = 0
     var currentHandler: FileHandle?
     
-    lazy var logFolderPath: URL? = {
-        //写入数据
-        guard let docPath = MMFileData.getDocumentsPath() else {
-            print("获取docPath路径失败")
-            return nil
-        }
-        
-        let file = docPath.appendingPathComponent(MMLogArchive.shared.rootName)
-        var isDirectory:ObjCBool = true
-        let isExist = FileManager.default.fileExists(atPath: file.path, isDirectory: &isDirectory)
-        if !isExist {
-            do {
-                try FileManager.default.createDirectory(at: file, withIntermediateDirectories: true, attributes: nil)
-
-            } catch {
-                print("日志文件夹创建失败")
-                return nil
-            }
-        }
-        
-        return file
-    }()
+    
     lazy var currentLogFile: URL? = {
         guard let logFolderPath = self.logFolderPath else {
             return nil

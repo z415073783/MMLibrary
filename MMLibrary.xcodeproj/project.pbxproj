@@ -58,6 +58,7 @@
 		482C629F24594CEF005F9939 /* MMQuickZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C629E24594CEF005F9939 /* MMQuickZip.swift */; };
 		482C62A12459A759005F9939 /* MMFileData+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C62A02459A759005F9939 /* MMFileData+Search.swift */; };
 		4839167A245834C800EF6FEF /* MMZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48391679245834C800EF6FEF /* MMZip.swift */; };
+		489DD03C2464FCB600BD67D7 /* MMCrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		482C629E24594CEF005F9939 /* MMQuickZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMQuickZip.swift; sourceTree = "<group>"; };
 		482C62A02459A759005F9939 /* MMFileData+Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MMFileData+Search.swift"; sourceTree = "<group>"; };
 		48391679245834C800EF6FEF /* MMZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMZip.swift; sourceTree = "<group>"; };
+		489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMCrashManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +339,7 @@
 			children = (
 				04E45F5B2357173F00F9B336 /* MMLog.swift */,
 				04FF6BD3244ECAF50004469B /* MMLogArchive.swift */,
+				489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				04FF6BD4244ECAF50004469B /* MMLogArchive.swift in Sources */,
 				04E45F632357173F00F9B336 /* MMNotification.swift in Sources */,
 				04E45F712357173F00F9B336 /* MMSqliteOperation.swift in Sources */,
+				489DD03C2464FCB600BD67D7 /* MMCrashManager.swift in Sources */,
 				04377B20242E224500F4C604 /* MMSqliteLink.swift in Sources */,
 				04E45F672357173F00F9B336 /* UIImage+Common.swift in Sources */,
 				04E45F612357173F00F9B336 /* NSObject+Extension.swift in Sources */,

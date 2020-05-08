@@ -22,7 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         MMLOG.debug("启动程序")
-        
+        MMCrashManager.setup()
+//        return true
 //        MMZipArchive.createZipPackage(path: <#T##String#>)
         
 //        DispatchQueue.global().async {
@@ -38,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        return true
         let begin = Date().timeIntervalSince1970
-        for i in 0 ..< 200000 {
+        for i in 0 ..< 20 {
             MMLOG.debug("日志打印: \(i)")
         }
         let end = Date().timeIntervalSince1970
@@ -52,9 +53,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MMLOG.debug("耗时 zlm = \(end - begin)")
         MMLOG.debug("耗时 print = \(zend - zbegin)")
         
-        
-//        let debugTest = ["1", "2"]
-//        print("debugTest[2] = \(debugTest[2])")
+//        DispatchQueue.global().async {
+//            let debugTest = ["1", "2"]
+//            print("debugTest[2] = \(debugTest[2])")
+//            
+//        }
         
         return true
         
