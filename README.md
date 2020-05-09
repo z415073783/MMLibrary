@@ -6,3 +6,8 @@
 #### 3.Sqlite操作及链式接口
 #### 4.日志模块 提供日志高效率打印和压缩
 #### 5.其他很多小功能
+
+
+## framework编译方式:
+双击运行AutoBuildLibrary执行文件, 在当前目录下会生成Build文件夹
+framework生成路径: Build->MMLibrary.framework
