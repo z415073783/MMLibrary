@@ -842,6 +842,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e armv7 armv7s i386 x86_64";
 			};
@@ -873,6 +874,7 @@
 				SWIFT_INCLUDE_PATHS = "\"$(SRCROOT)/Sources/ZipArchive/minizip\"";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
+				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e armv7 armv7s i386 x86_64";
 			};
