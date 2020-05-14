@@ -10,7 +10,7 @@ import Foundation
 #if os(iOS) || os(tvOS)
 import UIKit
 #endif
-public extension String {
+extension String {
     
     /// 拼音类型
     ///
@@ -18,7 +18,7 @@ public extension String {
     /// - word: 字母
     /// - firtword: 首字母
     /// - xinAndNameFirstWord: 姓名首字母
-    enum MMTransformSpellType {
+    public enum MMTransformSpellType {
         case name, word, firtword, xinAndNameFirstWord
     }
     
@@ -30,7 +30,7 @@ public extension String {
     ///
     /// - Parameter spellType: 拼音类型
     /// - Returns: 拼音字符串
-    func mm_transformSpell(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
+    public func mm_transformSpell(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
         let str: CFMutableString = NSMutableString(string:self) as CFMutableString
         var pinyin: String = ""
         if CFStringTransform(str, nil, kCFStringTransformMandarinLatin, false)==true {
@@ -77,7 +77,7 @@ public extension String {
     ///
     /// - Parameter spellType: 拼音类型
     /// - Returns: 拼音 小写
-    func mm_transformSpellWithLowercased(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
+    public func mm_transformSpellWithLowercased(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
         let spell = mm_transformSpell(spellType: spellType)
         return spell.lowercased()
     }
@@ -86,7 +86,7 @@ public extension String {
     ///
     /// - Parameter spellType: 拼音类型
     /// - Returns: 拼音 大写
-    func mm_transformSpellWithUppercased(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
+    public func mm_transformSpellWithUppercased(spellType: MMTransformSpellType?=MMTransformSpellType.word) -> String {
         let spell = mm_transformSpell(spellType: spellType)
         return spell.uppercased()
     }
@@ -95,7 +95,7 @@ public extension String {
     ///
     /// - Parameter spellArr: 拼音
     /// - Returns: 纠正后的拼音字符串 该接口有修改，未验证
-    func mm_spellCheck(spellArr: [String]) -> String {
+    public func mm_spellCheck(spellArr: [String]) -> String {
         if self.count == 0 {
             return ""
         }
@@ -311,7 +311,7 @@ public extension String {
     /// 判断是否符合字符限制，不包含!&:;<>[]?%
     ///
     /// - Returns: true 是 false 不是
-    func mm_checkSpecialCharacters() -> Bool {
+    public func mm_checkSpecialCharacters() -> Bool {
         let specialCharactersSet = CharacterSet(charactersIn: "!&:;<>[]?%")
         
         if let _ = rangeOfCharacter(from: specialCharactersSet) {
