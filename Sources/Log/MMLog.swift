@@ -59,7 +59,7 @@ public class MMLogger: NSObject {
     //保存日志方式 默认release环境下会保存日志
     public var saveZipConfig: LogSaveZipConfig = .save
     //设置日志过滤等级 默认不过滤
-    public filterLevel: LogLevel = .none
+    public var filterLevel: LogLevel = .none
     
     //release是否打印
     public var printOfRelease = false
@@ -125,7 +125,7 @@ public class MMLogger: NSObject {
     
     private class func baseLog(logLevel: LogLevel = .debug, functionName: String? = #function, fileName: String = #file, lineNumber: Int = #line, logMessage: String) {
         //判断过滤等级
-        if filterLevel >= logLevel {
+        if shared.filterLevel >= logLevel {
             //日志被过滤
             return
         }
