@@ -125,7 +125,7 @@ public class MMLogger: NSObject {
     
     private class func baseLog(logLevel: LogLevel = .debug, functionName: String? = #function, fileName: String = #file, lineNumber: Int = #line, logMessage: String) {
         //判断过滤等级
-        if shared.filterLevel >= logLevel {
+        if shared.filterLevel.rawValue >= logLevel.rawValue {
             //日志被过滤
             return
         }
