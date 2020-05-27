@@ -22,10 +22,8 @@ public class MMXMLElement {
     public var attributeDict: [String: String] = [:]
     public var subElementList: [MMXMLElement] = []
     
-    
     private var _characters: String = ""
     fileprivate var isWriteCharacters = true
-    
 }
 
 public class MMXMLParser: NSObject {
@@ -67,14 +65,12 @@ extension __Public: XMLParserDelegate {
                 subList.append(last)
             }
         }
-        
     }
     public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         let element = MMXMLElement()
         element.elementName = elementName
         element.attributeDict = attributeDict
         heapList.append(element)
-        
     }
     public func parser(_ parser: XMLParser, foundCharacters string: String) {
         if let last = heapList.last, last.isWriteCharacters == true {
