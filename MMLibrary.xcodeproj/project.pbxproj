@@ -58,6 +58,7 @@
 		482C629F24594CEF005F9939 /* MMQuickZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C629E24594CEF005F9939 /* MMQuickZip.swift */; };
 		482C62A12459A759005F9939 /* MMFileData+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C62A02459A759005F9939 /* MMFileData+Search.swift */; };
 		4839167A245834C800EF6FEF /* MMZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48391679245834C800EF6FEF /* MMZip.swift */; };
+		487C7677247E9AF500A48460 /* MMXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C7676247E9AF500A48460 /* MMXMLParser.swift */; };
 		489DD03C2464FCB600BD67D7 /* MMCrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +141,7 @@
 		482C629E24594CEF005F9939 /* MMQuickZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMQuickZip.swift; sourceTree = "<group>"; };
 		482C62A02459A759005F9939 /* MMFileData+Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MMFileData+Search.swift"; sourceTree = "<group>"; };
 		48391679245834C800EF6FEF /* MMZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMZip.swift; sourceTree = "<group>"; };
+		487C7676247E9AF500A48460 /* MMXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMXMLParser.swift; sourceTree = "<group>"; };
 		489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMCrashManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,6 +191,7 @@
 		04E45F352357173F00F9B336 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				487C7675247E9AD900A48460 /* XML */,
 				48391661245833B600EF6FEF /* ZipArchive */,
 				04CE2D42241B5B4A00C39743 /* Container */,
 				04E45F362357173F00F9B336 /* DispatchExtension */,
@@ -433,6 +436,14 @@
 			path = ZipArchive;
 			sourceTree = "<group>";
 		};
+		487C7675247E9AD900A48460 /* XML */ = {
+			isa = PBXGroup;
+			children = (
+				487C7676247E9AF500A48460 /* MMXMLParser.swift */,
+			);
+			path = XML;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -564,6 +575,7 @@
 			files = (
 				04E45F5E2357173F00F9B336 /* DispatchQueue+Extension.swift in Sources */,
 				04E45F6B2357173F00F9B336 /* MMDate.swift in Sources */,
+				487C7677247E9AF500A48460 /* MMXMLParser.swift in Sources */,
 				04E45F6A2357173F00F9B336 /* MMOperationQueue.swift in Sources */,
 				04E45F6D2357173F00F9B336 /* MMTimer.swift in Sources */,
 				04E45F752357173F00F9B336 /* MMAtomicVar.swift in Sources */,
