@@ -7,6 +7,10 @@
 //
 
 import Foundation
+public enum MMXMLAnalysisType {
+    case standard, compatibility
+}
+
 public class MMXMLElement {
     public var elementName: String = ""
     public var characters: String {
@@ -27,8 +31,9 @@ public class MMXMLElement {
 }
 
 public class MMXMLParser: NSObject {
+    public var analysisType: MMXMLAnalysisType = .standard
     public var data: [MMXMLElement] = []
-    public init(url: URL? = nil) {
+    public init(url: URL? = nil, analysisType: MMXMLAnalysisType = .standard) {
         super.init()
         if let url = url {
             self.parse(url: url)
@@ -57,7 +62,18 @@ extension __Public: XMLParserDelegate {
         var subList: [MMXMLElement] = []
         while let last = heapList.popLast() {
             if last.elementName == elementName {
-                last.subElementList = subList.reversed()
+                if last.subElementList.count == 0 {
+                    last.subElementList = subList.reversed()
+                } else {
+                    if analysisType == .standard {
+                        MMLOG.error("xml格式错误, 请检查xml文件->错误标签elementName: </\(elementName)>")
+                        last.subElementList = subList.reversed()
+                    } else {
+                        //走容错机制
+                        last.subElementList.append(contentsOf: subList.reversed())
+                    }
+                }
+                
                 last.isWriteCharacters = false
                 heapList.append(last)
                 break
@@ -74,7 +90,7 @@ extension __Public: XMLParserDelegate {
     }
     public func parser(_ parser: XMLParser, foundCharacters string: String) {
         if let last = heapList.last, last.isWriteCharacters == true {
-            last.characters = string
+            last.characters += string
         }
     }
 }
