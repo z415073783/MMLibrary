@@ -24,6 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MMLOG.debug("启动程序")
 //        let ss = MMLogArchive.getAllLogZip()
         MMCrashManager.setup()
+        var arr: [String] = []
+        var obj: AnyObject!
+        guard let list = obj as? [String] else {
+            return
+        }
 //        return true
 //        MMZipArchive.createZipPackage(path: <#T##String#>)
         

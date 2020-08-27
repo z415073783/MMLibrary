@@ -31,7 +31,7 @@ public extension MMSystem {
     func availableWithiOS(version: String) -> Bool {
         let sysVersion = UIDevice.current.systemVersion
         let arr = sysVersion.components(separatedBy: ".")
-        var curArr = version.components(separatedBy: ".")
+        let curArr = version.components(separatedBy: ".")
         var preGreater = false
         for i in 0 ..< curArr.count {
             if arr.count > i {
@@ -92,25 +92,26 @@ public class MMSystem: NSObject {
     public class func compareVersion(version1: String, version2: String) -> CompareVersion {
         let version1List = version1.mm_split(".")
         let version2List = version2.mm_split(".")
-        
-        if version1List[0] > version2List[0]  {
-            return .greater
-        }else if version1List[0] < version2List[0] {
-            return .less
+        for i in 0 ..< version1List.count {
+            if version2List.count <= i {
+                return .greater
+            }
+            
+            if i == (version1List.count - 1), (version2List.count - 1) > i {
+                return .less
+            }
+            let cur1 = version1List[i]
+            let cur2 = version2List[i]
+            
+            if cur1 > cur2 {
+                return .greater
+            } else if cur1 < cur2 {
+                return .less
+            }
         }
-        if version1List[1] > version2List[1]  {
-            return .greater
-        }else if version1List[1] < version2List[1] {
-            return .less
-        }
-        if version1List[2] > version2List[2]  {
-            return .greater
-        }else if version1List[2] < version2List[2] {
-            return .less
-        }else {
-            return .equal
-        }
+        return .equal
     }
+    
     
     public class func getSystemData() -> String {
         let deviceName = UIDevice.current.name  //获取设备名称 例如：梓辰的手机

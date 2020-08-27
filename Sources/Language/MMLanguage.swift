@@ -116,22 +116,20 @@ public extension MMLanguage {
     public static let shared = MMLanguage()
     public let identifityStr = "default"
 
-    public var kCurrentLanguageType: LanguageType = .English
-    private var _kCurrentLanguage: String? = nil
+    private var kCurrentLanguageType: LanguageType = .English
     public var kCurrentLanguage: String? {
         set {
-            _kCurrentLanguage = newValue
             guard let typeStr = newValue else {
                 return
             }
             kCurrentLanguageType = LanguageType.getType(sender: typeStr)
         }
         get {
-            return _kCurrentLanguage
+            return kCurrentLanguageType.rawValue
         }
     }
     // 配置语言资源路径 必须在localized之前调用
-    public var languageResourcePath = Bundle.main.path(forResource: "YLLanguage", ofType: "plist")
+    public var languageResourcePath = Bundle.main.path(forResource: "MMLanguage", ofType: "plist")
     
     open var languagePlistName: [String: Bool] = [:]
     // 读取plist文件
@@ -142,12 +140,14 @@ public extension MMLanguage {
     var languagePlistDic: [LanguageIdentifity: LanguagePlistModel] = [:]
     
     public class func initLanguageData(path: String? = shared.languageResourcePath, identifity: String = shared.identifityStr) {
+        //工程文件路径
         guard let newPath = path else {
-            MMLOG.error("YLLanguage.plist路径读取失败")
+            MMLOG.error("MMLanguage.plist路径读取失败")
             return
         }
+        //工程文件数据
         guard let data = NSDictionary(contentsOfFile: newPath) else {
-            MMLOG.error("YLLanguage.plist读取失败")
+            MMLOG.error("MMLanguage.plist读取失败")
             return
         }
         
@@ -155,30 +155,51 @@ public extension MMLanguage {
         
         let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         guard let path = paths.first, let name = list?.last else { return }
-        let namePath = path + "/" + name
+        let namePath = path + "/" + name //翻译文件所在的沙盒路径
         shared.languagePlistName[name] = true
-        let recordVersion = UserDefaults.standard.string(forKey: "Language_Version_Number-\(name)")
-        let curVersion = MMSystem.getVersion()
         
-        var newData: NSDictionary = data
+        //读取工程的翻译plist文件的版本号
+        guard let projectLanguageVersion = data.value(forKey: "Version") as? String else {
+            MMLOG.error("工程翻译plist版本号获取失败")
+            return
+        }
+        //最新版本号
+        var currentLanguageVersion = projectLanguageVersion
+        
+        var newData: NSDictionary = data //默认使用工程data数据
         //检查本地是否存在
         let isExist = FileManager.default.fileExists(atPath: namePath)
-        if isExist, let recordV = recordVersion, recordV == curVersion {
+        if isExist {
             //读取本地
             if let _data = NSDictionary(contentsOfFile: namePath) {
+                //对比版本
+                guard let cacheLanguageVersion = newData.value(forKey: "Version") as? String else {
+                    MMLOG.error("沙盒翻译plist版本号获取失败")
+                    return
+                }
                 #if DEBUG
                 #else
-                newData = _data
+                
+                //TODO: 版本判断
+                if MMSystem.compareVersion(version1: projectLanguageVersion, version2: cacheLanguageVersion) == MMSystem.CompareVersion.less {
+                    //沙盒文件版本大于工程文件, 使用沙盒文件数据
+                    currentLanguageVersion = cacheLanguageVersion
+                    newData = _data
+                }
+                
                 #endif
             } else {
                 MMLOG.error("plist数据获取失败 namePath = \(namePath), 使用工程内plist文件")
             }
         } else {
-            //            写入本地
+//            沙盒文件不存在, 直接将工程文件写入沙盒(首次调用)
             newData.write(toFile: namePath, atomically: true)
         }
-        UserDefaults.standard.set(curVersion, forKey: "Language_Version_Number-\(name)")
-        UserDefaults.standard.synchronize()
+        
+//        let recordV = recordVersion, recordV == curVersion
+
+//        UserDefaults.standard.set(currentLanguageVersion, forKey: "Language_Version_Number-\(name)")
+//        UserDefaults.standard.synchronize() //遗弃
         
         guard let languageData = newData.value(forKey: "Language") as? NSDictionary else {
             MMLOG.error("Language资源读取失败")
