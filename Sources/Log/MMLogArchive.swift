@@ -22,6 +22,11 @@ import Foundation
     @objc public var allZipLogName = "allLog.zip"
     @objc public var rootName = "MMLOG"
     
+    //是否异步(缓存)  日志缓存暂未实现自动保存功能
+    @objc public var isAsync = false
+    //异步缓存日志数量上限
+    @objc public var asyncMaxNumber = 10
+    
     //日志保存的root路径
     public lazy var logFolderPath: URL? = {
         //写入数据
@@ -93,6 +98,24 @@ import Foundation
        
         return zipPath.path
     }
+    //将缓存中的日志写入文件
+    @objc public class func saveCacheLogs() {
+        MMLogArchive.shared.writeLock.lock()
+        guard let _handler = MMLogArchive.shared.currentHandler else {
+            return
+        }
+        var saveLog = ""
+        for singleItem in MMLogArchive.shared.asyncCacheList {
+            saveLog += singleItem
+        }
+        MMLogArchive.shared.asyncCacheList.removeAll()
+        if let appendData = saveLog.data(using: String.Encoding.utf8, allowLossyConversion: true) {
+            _handler.seekToEndOfFile()
+            _handler.write(appendData)
+        }
+        MMLogArchive.shared.writeLock.unlock()
+    }
+
     
 //MARK: 私有变量
     let zipQueue: MMOperationQueue = MMOperationQueue(maxCount: 1)
@@ -100,7 +123,7 @@ import Foundation
     let writeLock = NSLock()
     var callCheckNumber = 0
     var currentHandler: FileHandle?
-    
+    fileprivate var asyncCacheList: [String] = []
     
     lazy var currentLogFile: URL? = {
         guard let logFolderPath = self.logFolderPath else {
@@ -268,17 +291,23 @@ extension _Private {
 
         //检查文件大小, 如果过大就进入异步做压缩保存,并重新生成log文件
         self.checkSizeAndSaveZip()
-        guard let _handler = self.currentHandler else {
-            return
-        }
-        
         let _item = log + "\n"
-        if let appendData = _item.data(using: String.Encoding.utf8, allowLossyConversion: true) {
-            _handler.seekToEndOfFile()
-            _handler.write(appendData)
+        if isAsync {
+            asyncCacheList.append(_item)
+            if asyncMaxNumber < asyncCacheList.count {
+                MMLogArchive.saveCacheLogs()
+            }
+            
+        } else {
+            guard let _handler = self.currentHandler else {
+                return
+            }
+            if let appendData = _item.data(using: String.Encoding.utf8, allowLossyConversion: true) {
+                _handler.seekToEndOfFile()
+                _handler.write(appendData)
+            }
         }
     }
-    
 
     
     
