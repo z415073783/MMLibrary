@@ -8,9 +8,9 @@
 
 import Foundation
 //语言改变
-//    func localized(key: String?) -> String {
-//        return localized(key: key)
-//    }
+func mm_localized(key: String?) -> String {
+    return MMLanguage.localized(key)
+}
 
 //public let kMMLanguageChangeNotification = NSNotification.Name("MMLanguageChangeNotification")
 public extension MMLanguage {
@@ -177,17 +177,18 @@ public extension MMLanguage {
                     MMLOG.error("沙盒翻译plist版本号获取失败")
                     return
                 }
-                #if DEBUG
-                #else
+                if MMLibraryConfig.shared.isDebug {
                 
-                //TODO: 版本判断
-                if MMSystem.compareVersion(version1: projectLanguageVersion, version2: cacheLanguageVersion) == MMSystem.CompareVersion.less {
-                    //沙盒文件版本大于工程文件, 使用沙盒文件数据
-                    currentLanguageVersion = cacheLanguageVersion
-                    newData = _data
+                } else {
+                
+                    //TODO: 版本判断
+                    if MMSystem.compareVersion(version1: projectLanguageVersion, version2: cacheLanguageVersion) == MMSystem.CompareVersion.less {
+                        //沙盒文件版本大于工程文件, 使用沙盒文件数据
+                        currentLanguageVersion = cacheLanguageVersion
+                        newData = _data
+                    }
+                    
                 }
-                
-                #endif
             } else {
                 MMLOG.error("plist数据获取失败 namePath = \(namePath), 使用工程内plist文件")
             }

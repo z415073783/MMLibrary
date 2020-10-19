@@ -209,13 +209,15 @@ public class MMJSON {
                 MMLOG.error("未设置Rpc数据获取方法")
                 return
             }
-            #if DEBUG
-            MMLOG.debug("DEBUG rpc Data: Input = \(String(describing: inputStr))")
-            #endif
+
+            if MMLibraryConfig.shared.isDebug {
+                MMLOG.debug("DEBUG rpc Data: Input = \(String(describing: inputStr))")
+            }
+            
             let result = rpcBlock(inputStr)
-            #if DEBUG
-            MMLOG.debug("DEBUG rpc Data: Output = \(String(describing: result))")
-            #endif
+            if MMLibraryConfig.shared.isDebug {
+                MMLOG.debug("DEBUG rpc Data: Output = \(String(describing: result))")
+            }
             let decoder = JSONDecoder()
             let output = try decoder.decode(MMJSONBaseOutputModel<T>.self, from: result.data(using: String.Encoding.utf8)!)
             

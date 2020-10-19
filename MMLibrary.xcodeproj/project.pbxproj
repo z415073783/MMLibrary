@@ -58,6 +58,8 @@
 		482C629F24594CEF005F9939 /* MMQuickZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C629E24594CEF005F9939 /* MMQuickZip.swift */; };
 		482C62A12459A759005F9939 /* MMFileData+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C62A02459A759005F9939 /* MMFileData+Search.swift */; };
 		4839167A245834C800EF6FEF /* MMZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48391679245834C800EF6FEF /* MMZip.swift */; };
+		483A020A253D74ED005F2EAA /* MMLibraryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483A0209253D74ED005F2EAA /* MMLibraryConfig.swift */; };
+		483A0211253DA8AA005F2EAA /* MMLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483A0210253DA8AA005F2EAA /* MMLogManager.swift */; };
 		487C7677247E9AF500A48460 /* MMXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C7676247E9AF500A48460 /* MMXMLParser.swift */; };
 		489DD03C2464FCB600BD67D7 /* MMCrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */; };
 /* End PBXBuildFile section */
@@ -141,6 +143,8 @@
 		482C629E24594CEF005F9939 /* MMQuickZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMQuickZip.swift; sourceTree = "<group>"; };
 		482C62A02459A759005F9939 /* MMFileData+Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MMFileData+Search.swift"; sourceTree = "<group>"; };
 		48391679245834C800EF6FEF /* MMZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMZip.swift; sourceTree = "<group>"; };
+		483A0209253D74ED005F2EAA /* MMLibraryConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLibraryConfig.swift; sourceTree = "<group>"; };
+		483A0210253DA8AA005F2EAA /* MMLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLogManager.swift; sourceTree = "<group>"; };
 		487C7676247E9AF500A48460 /* MMXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMXMLParser.swift; sourceTree = "<group>"; };
 		489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMCrashManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,6 +213,7 @@
 				04E45F582357173F00F9B336 /* JSON */,
 				04E45F5A2357173F00F9B336 /* Log */,
 				04E45F5C2357173F00F9B336 /* AtomicVar */,
+				483A0209253D74ED005F2EAA /* MMLibraryConfig.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -343,6 +348,7 @@
 				04E45F5B2357173F00F9B336 /* MMLog.swift */,
 				04FF6BD3244ECAF50004469B /* MMLogArchive.swift */,
 				489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */,
+				483A0210253DA8AA005F2EAA /* MMLogManager.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -586,6 +592,7 @@
 				04E45F6C2357173F00F9B336 /* MMDateFormatterFactory.swift in Sources */,
 				04E45F652357173F00F9B336 /* MMColor.swift in Sources */,
 				482C629424592B4A005F9939 /* ioapi.c in Sources */,
+				483A020A253D74ED005F2EAA /* MMLibraryConfig.swift in Sources */,
 				0404EF5123A0DEAA005260CD /* NSObject+Value.swift in Sources */,
 				482C62A12459A759005F9939 /* MMFileData+Search.swift in Sources */,
 				04E45F602357173F00F9B336 /* NSObject+ClassName.swift in Sources */,
@@ -608,6 +615,7 @@
 				04E45F672357173F00F9B336 /* UIImage+Common.swift in Sources */,
 				04E45F612357173F00F9B336 /* NSObject+Extension.swift in Sources */,
 				04E45F692357173F00F9B336 /* MMDispatchQueue.swift in Sources */,
+				483A0211253DA8AA005F2EAA /* MMLogManager.swift in Sources */,
 				04E45F722357173F00F9B336 /* MMSystem.swift in Sources */,
 				04E45F6E2357173F00F9B336 /* MMFoundationGlobalDefine.swift in Sources */,
 			);
@@ -816,9 +824,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = MMLibrary/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -852,7 +861,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MMLibrary/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

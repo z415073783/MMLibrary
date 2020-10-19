@@ -34,7 +34,7 @@ import Foundation
             print("获取docPath路径失败")
             return nil
         }
-        
+//        print("docPath = \(docPath)")
         let file = docPath.appendingPathComponent(MMLogArchive.shared.rootName)
         var isDirectory:ObjCBool = true
         let isExist = FileManager.default.fileExists(atPath: file.path, isDirectory: &isDirectory)
@@ -51,10 +51,38 @@ import Foundation
         return file
     }()
     
+    func asyncSaveLog() {
+        let cacheList = MMLogArchive.shared.asyncCacheList
+        MMLogArchive.shared.asyncCacheList = []
+        let op = BlockOperation {[weak self] in
+            guard let `self` = self else {
+                return
+            }
+            var cacheLogs = ""
+            for item in cacheList {
+                cacheLogs += item + "\n"
+            }
+            self.writeFile(log: cacheLogs)
+        }
+        writeQueue.addOperation(op)
+    }
+    
+    public func fireSaveLog() {
+        writeLock.lock()
+        asyncSaveLog()
+        writeLock.unlock()
+    }
     //日志保存接口
     @objc public class func saveLog(log: String) {
         MMLogArchive.shared.writeLock.lock()
-        shared.writeFile(log: log)
+        if MMLogArchive.shared.isAsync {
+            MMLogArchive.shared.asyncCacheList.append(log)
+            if MMLogArchive.shared.asyncMaxNumber < MMLogArchive.shared.asyncCacheList.count {
+                MMLogArchive.shared.asyncSaveLog()
+            }
+        } else {
+            shared.writeFile(log: log + "\n")
+        }
         MMLogArchive.shared.writeLock.unlock()
     }
     @objc public class func getLogZipPath() -> URL? {
@@ -98,32 +126,18 @@ import Foundation
        
         return zipPath.path
     }
-    //将缓存中的日志写入文件
-    @objc public class func saveCacheLogs() {
-        MMLogArchive.shared.writeLock.lock()
-        guard let _handler = MMLogArchive.shared.currentHandler else {
-            return
-        }
-        var saveLog = ""
-        for singleItem in MMLogArchive.shared.asyncCacheList {
-            saveLog += singleItem
-        }
-        MMLogArchive.shared.asyncCacheList.removeAll()
-        if let appendData = saveLog.data(using: String.Encoding.utf8, allowLossyConversion: true) {
-            _handler.seekToEndOfFile()
-            _handler.write(appendData)
-        }
-        MMLogArchive.shared.writeLock.unlock()
-    }
-
     
 //MARK: 私有变量
     let zipQueue: MMOperationQueue = MMOperationQueue(maxCount: 1)
     let filemanager = FileManager.default
-    let writeLock = NSLock()
+    let writeLock = NSRecursiveLock()
+    let asyncWriteLock = NSRecursiveLock()
     var callCheckNumber = 0
     var currentHandler: FileHandle?
     fileprivate var asyncCacheList: [String] = []
+    //写入线程
+    let writeQueue: MMOperationQueue = MMOperationQueue(maxCount: 1)
+    
     
     lazy var currentLogFile: URL? = {
         guard let logFolderPath = self.logFolderPath else {
@@ -288,25 +302,19 @@ extension _Private {
     }
     
     func writeFile(log: String) {
-
+        asyncWriteLock.lock()
         //检查文件大小, 如果过大就进入异步做压缩保存,并重新生成log文件
         self.checkSizeAndSaveZip()
-        let _item = log + "\n"
-        if isAsync {
-            asyncCacheList.append(_item)
-            if asyncMaxNumber < asyncCacheList.count {
-                MMLogArchive.saveCacheLogs()
-            }
-            
-        } else {
-            guard let _handler = self.currentHandler else {
-                return
-            }
-            if let appendData = _item.data(using: String.Encoding.utf8, allowLossyConversion: true) {
-                _handler.seekToEndOfFile()
-                _handler.write(appendData)
-            }
+//        let _item = log + "\n"
+        guard let _handler = self.currentHandler else {
+            asyncWriteLock.unlock()
+            return
         }
+        if let appendData = log.data(using: String.Encoding.utf8, allowLossyConversion: true) {
+            _handler.seekToEndOfFile()
+            _handler.write(appendData)
+        }
+        asyncWriteLock.unlock()
     }
 
     

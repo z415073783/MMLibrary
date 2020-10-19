@@ -7,8 +7,6 @@
 //
 
 import Foundation
-//import MM_Minizip
-
 import MM_Minizip
 
 /// Zip error type

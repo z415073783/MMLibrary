@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>armTypeList</key>
-	<string>iphonesimulator</string>
+	<string>iphoneos,iphonesimulator</string>
 	<key>buildDir</key>
 	<string>Build</string>
 	<key>configType</key>

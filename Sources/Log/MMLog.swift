@@ -66,6 +66,8 @@ public class MMLogger: NSObject {
     
     override init() {
         super.init()
+        MMCrashManager.setup()
+        MMLogManager.setupListen()
     }
     
     
@@ -101,17 +103,19 @@ public class MMLogger: NSObject {
     }
     
     private class func logln(_ closure:@autoclosure () -> String?, logLevel: LogLevel = .debug, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
-#if DEBUG
-        if let logMessage = closure() {
-            baseLog(logLevel: logLevel, functionName: functionName, fileName: fileName, lineNumber: lineNumber, logMessage: logMessage)
-        }
-#else
-        if logLevel != .debug {
+
+        if MMLibraryConfig.shared.isDebug {
             if let logMessage = closure() {
                 baseLog(logLevel: logLevel, functionName: functionName, fileName: fileName, lineNumber: lineNumber, logMessage: logMessage)
             }
+        } else {
+            if logLevel != .debug {
+                if let logMessage = closure() {
+                    baseLog(logLevel: logLevel, functionName: functionName, fileName: fileName, lineNumber: lineNumber, logMessage: logMessage)
+                }
+            }
         }
-#endif
+    
     }
     public class func getCurrentTime() -> String {
         if let dateFormatter = MMLogger.shared.dateFormatter {

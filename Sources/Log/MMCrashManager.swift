@@ -26,6 +26,8 @@ fileprivate func _uncaughtExceptionCall(exception: NSException) {
 }
 
 fileprivate func _saveCrash(exception: NSException? = nil) {
+    MMLogArchive.shared.fireSaveLog()
+    
     if _caughtExceptionCallNum >= 1 {
         return
     }
@@ -65,7 +67,7 @@ public class MMCrashManager: NSObject {
     public var crashName = "exception.crash"
     //调用该函数注册crash收集
     public class func setup() {
-        MMLOG.debug("crash文件保存路径 = \(MMLogArchive.shared.logFolderPath?.path ?? "")")
+//        MMLOG.debug("crash文件保存路径 = \(MMLogArchive.shared.logFolderPath?.path ?? "")")
         NSSetUncaughtExceptionHandler(_uncaughtExceptionCall(exception:))
         signal(SIGABRT, _crashSignCall(sign:))
         signal(SIGILL, _crashSignCall(sign:))

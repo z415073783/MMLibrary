@@ -38,9 +38,11 @@ Pod::Spec.new do |spec|
 
   spec.vendored_frameworks = "Build/*.framework"
 
-  # spec.source_files  = "MMLibrary"
-  # spec.exclude_files = "MMLibrary/Info.plist"
 
+  # spec.source_files  = "Sources", "Sources/**/*"
+  # spec.exclude_files = "MMLibrary/Info.plist"
+  # spec.preserve_path = "Sources/ZipArchive/minizip/module/module.modulemap"
+  # spec.xcconfig = { "SWIFT_INCLUDE_PATHS" => "$(PODS_ROOT)/MMLibrary/Sources/ZipArchive/minizip/module"}
 
 
   spec.libraries = "z"
