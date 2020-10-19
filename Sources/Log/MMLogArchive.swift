@@ -22,10 +22,7 @@ import Foundation
     @objc public var allZipLogName = "allLog.zip"
     @objc public var rootName = "MMLOG"
     
-    //是否异步(缓存)  日志缓存暂未实现自动保存功能
-    @objc public var isAsync = false
-    //异步缓存日志数量上限
-    @objc public var asyncMaxNumber = 10
+    
     
     //日志保存的root路径
     public lazy var logFolderPath: URL? = {
@@ -75,9 +72,9 @@ import Foundation
     //日志保存接口
     @objc public class func saveLog(log: String) {
         MMLogArchive.shared.writeLock.lock()
-        if MMLogArchive.shared.isAsync {
+        if MMLogger.shared.isAsync {
             MMLogArchive.shared.asyncCacheList.append(log)
-            if MMLogArchive.shared.asyncMaxNumber < MMLogArchive.shared.asyncCacheList.count {
+            if MMLogger.shared.asyncMaxNumber < MMLogArchive.shared.asyncCacheList.count {
                 MMLogArchive.shared.asyncSaveLog()
             }
         } else {
@@ -137,7 +134,6 @@ import Foundation
     fileprivate var asyncCacheList: [String] = []
     //写入线程
     let writeQueue: MMOperationQueue = MMOperationQueue(maxCount: 1)
-    
     
     lazy var currentLogFile: URL? = {
         guard let logFolderPath = self.logFolderPath else {

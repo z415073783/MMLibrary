@@ -50,6 +50,10 @@ public class MMLogger: NSObject {
     public var callFunc: mm_CallBlockLogLevelString?
     
     static public let shared = MMLogger()
+    //是否异步(缓存)  日志缓存暂未实现自动保存功能
+    @objc public var isAsync = true
+    //异步缓存日志数量上限
+    @objc public var asyncMaxNumber = 100
     //输出方式列表
     public var outputList: [LogOutputType] = [.print, .other]
     //日志需要打印的信息类型列表 output Info types ,
