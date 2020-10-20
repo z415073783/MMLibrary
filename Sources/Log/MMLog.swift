@@ -90,6 +90,9 @@ public class MMLogger: NSObject {
         logln(closure(), logLevel: .debug, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
     
+    public class func control( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+        logln(closure(), logLevel: .info, functionName:"", fileName: "", lineNumber: 0)
+    }
     public class func info( _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
         logln(closure(), logLevel: .info, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
