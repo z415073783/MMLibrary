@@ -23,20 +23,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         MMLOG.debug("启动程序")
 //        let ss = MMLogArchive.getAllLogZip()
-        MMCrashManager.setup()
-        var arr: [String] = []
-        var obj: AnyObject!
-        guard let list = obj as? [String] else {
-            return
-        }
+//        MMCrashManager.setup()
+//        var arr: [String] = []
+//        var obj: AnyObject!
+//        guard let list = obj as? [String] else {
+//            return
+//        }
 //        return true
 //        MMZipArchive.createZipPackage(path: <#T##String#>)
-        
-//        DispatchQueue.global().async {
-//            for i in 0 ..< 50000 {
-//                MMLOG.debug("日志打印(多线程1): \(i)")
-//            }
-//        }
+        let begin = Date().timeIntervalSince1970
+        DispatchQueue.global().async {
+            for i in 0 ..< 15000 {
+                MMLOG.debug("日志打印(多线程1): \(i)")
+            }
+        }
 //        DispatchQueue.global().async {
 //            for i in 0 ..< 50000 {
 //                MMLOG.debug("日志打印(多线程2): \(i)")
@@ -44,17 +44,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         
 //        return true
-        let begin = Date().timeIntervalSince1970
-        for i in 0 ..< 200000 {
+        
+        for i in 0 ..< 15000 {
             MMLOG.debug("日志打印: \(i)")
         }
         let end = Date().timeIntervalSince1970
         
         let zbegin = Date().timeIntervalSince1970
-//        for i in 0 ..< 200000 {
-////            MMLOG.debug("日志打印: \(i)")
-//            print("日志打印: \(i)")
-//        }
+        for i in 0 ..< 15000 {
+//            MMLOG.debug("日志打印: \(i)")
+            print("日志打印: \(i)")
+        }
         let zend = Date().timeIntervalSince1970
         MMLOG.debug("耗时 zlm = \(end - begin)")
         MMLOG.debug("耗时 print = \(zend - zbegin)")
@@ -158,67 +158,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         treeDic.setNode(key: "r", value: TestObj())
         
         
-        var list: [String] = []
-        for _ in 0 ..< 500000 {
-            let rand = arc4random()
-            list.append("\(rand)")
-
-        }
+//        var list: [String] = []
+//        for _ in 0 ..< 500000 {
+//            let rand = arc4random()
+//            list.append("\(rand)")
+//
+//        }
 
         
         
-        
-        MMLOG.debug("二叉树存入")
-        for i in 0 ..< list.count {
-            let item = list[i]
-            if i == list.count - 1 {
-                MMLOG.debug("二叉树存入 i = \(i)")
-            }
-            let obj = TestObj()
-            obj.key = item
-            obj.value = item
-            treeDic.setNode(key: item, value: obj)
-
-
-        }
-        MMLOG.debug("二叉树存入结束")
-        MMLOG.debug("字典存入")
-        for i in 0 ..< list.count {
-            let item = list[i]
-            let obj = TestObj()
-            obj.key = item
-            obj.value = item
-            if i == list.count - 1 {
-                MMLOG.debug("字典存入 i = \(i)")
-            }
-            systemDic[item] = obj
-
-
-        }
-        MMLOG.debug("字典存入结束")
-
-
-        MMLOG.debug("\n\n\n\n\n-------------------------------------------")
-        MMLOG.debug("二叉树删除")
-        for item in list {
-            treeDic.setNode(key: item, value: nil)
-//            break
-        }
-        MMLOG.debug("二叉树删除结束")
-        MMLOG.debug("字典删除")
-//        var dicSum = ""
-
-        for item in list {
-            systemDic[item] = nil
-//            break
-        }
-        MMLOG.debug("字典删除结束")
-        
-        
-        treeDic.removeAll()
-        MMLOG.debug("二叉树清空结束")
-        systemDic.removeAll()
-        MMLOG.debug("字典清空结束")
+//        
+//        MMLOG.debug("二叉树存入")
+//        for i in 0 ..< list.count {
+//            let item = list[i]
+//            if i == list.count - 1 {
+//                MMLOG.debug("二叉树存入 i = \(i)")
+//            }
+//            let obj = TestObj()
+//            obj.key = item
+//            obj.value = item
+//            treeDic.setNode(key: item, value: obj)
+//
+//
+//        }
+//        MMLOG.debug("二叉树存入结束")
+//        MMLOG.debug("字典存入")
+//        for i in 0 ..< list.count {
+//            let item = list[i]
+//            let obj = TestObj()
+//            obj.key = item
+//            obj.value = item
+//            if i == list.count - 1 {
+//                MMLOG.debug("字典存入 i = \(i)")
+//            }
+//            systemDic[item] = obj
+//
+//
+//        }
+//        MMLOG.debug("字典存入结束")
+//
+//
+//        MMLOG.debug("\n\n\n\n\n-------------------------------------------")
+//        MMLOG.debug("二叉树删除")
+//        for item in list {
+//            treeDic.setNode(key: item, value: nil)
+////            break
+//        }
+//        MMLOG.debug("二叉树删除结束")
+//        MMLOG.debug("字典删除")
+////        var dicSum = ""
+//
+//        for item in list {
+//            systemDic[item] = nil
+////            break
+//        }
+//        MMLOG.debug("字典删除结束")
+//        
+//        
+//        treeDic.removeAll()
+//        MMLOG.debug("二叉树清空结束")
+//        systemDic.removeAll()
+//        MMLOG.debug("字典清空结束")
         //dictionary插入和添加的时间复杂度都是1, 二叉树时间复杂度是logN,但二叉树属于有序容器, 适合应用在有序场景
         return true
     }
