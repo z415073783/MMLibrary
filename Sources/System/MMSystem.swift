@@ -69,7 +69,7 @@ public class MMSystem: NSObject {
         
     }
     
-    //软件版本
+    //软件build版本
     public class func getSoftwareVersion() -> String {
         if let version = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             return version

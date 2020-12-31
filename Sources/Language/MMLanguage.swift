@@ -11,11 +11,19 @@ import Foundation
 func mm_localized(key: String?) -> String {
     return MMLanguage.localized(key)
 }
+public extension String {
+    var mm_localized: String {
+        return MMLanguage.localized(self)
+    }
+    func mm_localized(language: MMLanguage.LanguageType) -> String {
+        return MMLanguage.localized(self, selectLanguage: language)
+    }
+}
 
 //public let kMMLanguageChangeNotification = NSNotification.Name("MMLanguageChangeNotification")
 public extension MMLanguage {
     enum LanguageType: String {
-        case Chinese_Simplified = "zh-Hans", Chinese_Traditional = "zh-Hant", English = "en", Spanish = "es"
+        case Chinese_Simplified = "zh-Hans", Chinese_Traditional = "zh-Hant", English = "en", Spanish = "es", Japanese = "ja"
         static func getType(sender: String) -> LanguageType {
             switch sender {
             case "zh-Hans":
@@ -26,6 +34,8 @@ public extension MMLanguage {
                 return LanguageType.English
             case "es":
                 return LanguageType.Spanish
+            case "ja":
+                return LanguageType.Japanese
             default:
                 return LanguageType.English
             }
@@ -37,7 +47,7 @@ public extension MMLanguage {
     ///
     /// - Parameter key: 默认语言
     /// - Returns: 当前语言
-    static func localized(_ key: String?,_ identifity: String? = shared.identifityStr, _ selectLanguage: LanguageType? = nil) -> String {
+    static func localized(_ key: String?, identifity: String? = shared.identifityStr,  selectLanguage: LanguageType? = nil) -> String {
         guard let key = key else {
             return ""
         }
@@ -69,6 +79,7 @@ public extension MMLanguage {
                         _lan += ("-" + list[j])
                     }
                 }
+                MMLOG.debug("系统语言缩写 = \(_lan)")
                 guard let _isExist = dic[_lan] else {
                     continue
                 }
@@ -92,9 +103,10 @@ public extension MMLanguage {
         }
         
         if let languageData = dic[language] {
-            if languageData.count > 0 {
-                return languageData
+            if languageData.count == 0 {
+                MMLOG.warn("languageData key:\(key) 为空字符串 language = \(language)")
             }
+            return languageData
         }
         
         //获取英语
@@ -116,7 +128,7 @@ public extension MMLanguage {
     public static let shared = MMLanguage()
     public let identifityStr = "default"
 
-    private var kCurrentLanguageType: LanguageType = .English
+    private var kCurrentLanguageType: LanguageType? // = .English
     public var kCurrentLanguage: String? {
         set {
             guard let typeStr = newValue else {
@@ -125,11 +137,11 @@ public extension MMLanguage {
             kCurrentLanguageType = LanguageType.getType(sender: typeStr)
         }
         get {
-            return kCurrentLanguageType.rawValue
+            return kCurrentLanguageType?.rawValue
         }
     }
     // 配置语言资源路径 必须在localized之前调用
-    public var languageResourcePath = Bundle.main.path(forResource: "MMLanguage", ofType: "plist")
+    public var languageResourcePath = Bundle.main.path(forResource: "language", ofType: "plist")
     
     open var languagePlistName: [String: Bool] = [:]
     // 读取plist文件

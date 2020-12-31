@@ -33,14 +33,16 @@ public extension UIImage {
         UIGraphicsEndImageContext()
         return reSizeImage ?? self
     }
+    
+    
     //压缩图片
     func mm_compressSize() -> UIImage {
         
         guard let data = self.jpegData(compressionQuality: 1) else { return self }
         let imageLength = data.count
         MMLOG.debug("Image kb = \(imageLength)")
-        if imageLength > 300000 {
-            let rate = (300000 / (imageLength * 2))
+        if imageLength > 600000 {
+            let rate = (600000 / (imageLength * 2))
             
             guard let data = self.jpegData(compressionQuality: CGFloat(rate)) else { return self }
             MMLOG.debug("newImage kb = \(data.count)")

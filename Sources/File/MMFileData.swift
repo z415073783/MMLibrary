@@ -10,11 +10,19 @@ import Foundation
 #if os(iOS) || os(tvOS)
 import UIKit
 #endif
+
+public enum MMFileDataUserFilePathType {
+    case document, cache
+}
+public enum MMFileDataSaveImageType {
+    case png, jpg
+}
+
 open class MMFileData: NSObject {
     // MARK: 创建文件夹
-    open class func createLocalSupportDicPath(dicName: String) -> Bool {
-        guard let localPath = MMFileData.getLocalSupportPath() else {
-            MMLOG.error("获取supportPath失败")
+    open class func createLocalPath(dicName: String, rootURL: URL? = MMFileData.getLocalSupportPath()) -> Bool {
+        guard let localPath = rootURL else {
+            MMLOG.error("获取rootURL失败")
             return false
         }
         
@@ -37,7 +45,7 @@ open class MMFileData: NSObject {
         let dicPath = localPath.appendingPathComponent(dicName)
         let isExist = FileManager.default.fileExists(atPath: dicPath.path)
         if !isExist {
-            let isSuucess = MMFileData.createLocalSupportDicPath(dicName: dicName)
+            let isSuucess = MMFileData.createLocalPath(dicName: dicName)
             if !isSuucess {
                 MMLOG.error("\(dicPath) create is fail!")
                 return false
@@ -113,63 +121,142 @@ open class MMFileData: NSObject {
         let paths = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
         return paths.first
     }
+    //获取group中的共享路径
+    open class func getApplicationGroupPath(identifity: String) ->URL? {
+//        MMLOG.debug("identifityURL = \(FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: identifity))")
+        let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: identifity)
+        return path
+    }
+    
     
 #if os(iOS) || os(tvOS)
     /// 保存图片到缓存目录下
     ///
     /// - Parameter image: 图片对象
     /// - Returns: [图片名(不包括后缀),图片路径]
-    open class func saveImageToAccountRecord(image: UIImage) -> (String?, URL?) {
-        var uuid = UUID().uuidString
-        uuid = uuid.lowercased()
+//    open class func saveImageToAccountRecord(image: UIImage) -> (String?, URL?) {
+//        var uuid = UUID().uuidString
+//        uuid = uuid.lowercased()
+//
+//        //        let account = UCPersonalInterface.getMyInfo().m_UserData.m_id.components(separatedBy: "@")[0]
+//        //        NSString *uuid = [[NSUUID UUID] UUIDString];
+//        //        var path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+//        let newImage = image.mm_compressSize()
+//
+//        let data = newImage.jpegData(compressionQuality: 1)
+//        guard let cachePath = getLocalCachesPath() else {
+//            MMLOG.error("cachePath获取失败")
+//            return (nil, nil)
+//        }
+//
+//        let getPath = cachePath.appendingPathComponent(uuid + ".jpg")
+//        do {
+//            try data?.write(to: getPath, options: .atomic)
+//            //            try data?.write(to: URL(fileURLWithPath: getPath))
+//
+//            //            FileManager.default.createFile(atPath: getPath, contents: data, attributes: nil)
+//
+//        } catch {
+//            return (nil, nil)
+//        }
+//
+//        return (uuid,getPath)
+//    }
+//
+    //保存图片到缓存 自定义名字
+//    @discardableResult open class func saveImageToCache(image: UIImage, namePath: String) -> URL? {
+//        guard let path = getLocalCachesPath() else {
+//            MMLOG.error("获取cachePath路径失败")
+//            return nil
+//        }
+//        let data = image.pngData()
+//
+//        let getPath = path.appendingPathComponent(namePath + "jpg")
+//        do {
+//            try data?.write(to: getPath)
+//
+//        } catch {
+//            return nil
+//        }
+//
+//        return getPath
+//    }
+
+    //获取图片缓存路径
+    open class func getImageSavePath(type: MMFileDataUserFilePathType) -> URL? {
+        var _savePath: URL?
+        if type == .cache {
+            _savePath = getLocalCachesPath()
+        } else if type == .document {
+            _savePath = getDocumentsPath()
+        }
+        guard var savePath = _savePath else {
+            return nil
+        }
+        savePath.appendPathComponent("image")
         
-        //        let account = UCPersonalInterface.getMyInfo().m_UserData.m_id.components(separatedBy: "@")[0]
-        //        NSString *uuid = [[NSUUID UUID] UUIDString];
-        //        var path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        if !FileManager.default.fileExists(atPath: savePath.path) {
+            do {
+                try FileManager.default.createDirectory(at: savePath, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                MMLOG.error("文件夹创建失败")
+                return nil
+            }
+        }
+        
+        return savePath
+    }
+
+//保存图片到指定路径 名字可为nil,不带后缀
+    open class func saveImageToPath(image: UIImage, name: String? = nil, path: URL?, imageType: MMFileDataSaveImageType) ->(String?, URL?) {
+        var _newName = name
+        if _newName == nil {
+            var uuid =  UUID().uuidString
+            uuid = uuid.lowercased()
+            _newName = uuid
+        }
+
         let newImage = image.mm_compressSize()
-        
-        let data = newImage.jpegData(compressionQuality: 1)
-        guard let cachePath = getLocalCachesPath() else {
-            MMLOG.error("cachePath获取失败")
-            return (nil, nil)
+        var data: Data?
+        if imageType == .jpg {
+            data = newImage.jpegData(compressionQuality: 1)
+        } else if imageType == .png {
+            data = newImage.pngData()
         }
         
-        let getPath = cachePath.appendingPathComponent(uuid + ".jpg")
+        guard let savePath = path, let newName = _newName else {
+            return (nil, nil)
+        }
+
+        //根据当前分辨率设置图片@2x or @3x格式
+//        UIScreen.main.currentMode?.size
+//        UIScreen.main.bounds
+        let currentModelW = UIScreen.main.currentMode?.size.width ?? UIScreen.main.bounds.size.width
+        let scale = Int(currentModelW / UIScreen.main.bounds.size.width)
+        let getPath = savePath.appendingPathComponent(newName + "@\(scale)x" + (imageType == .jpg ? ".jpg" : ".png"))
+        
         do {
+            MMLOG.debug("getPath = \(getPath)")
             try data?.write(to: getPath, options: .atomic)
-            //            try data?.write(to: URL(fileURLWithPath: getPath))
-            
-            //            FileManager.default.createFile(atPath: getPath, contents: data, attributes: nil)
-            
         } catch {
+            MMLOG.error("写入失败 error = \(error)")
             return (nil, nil)
         }
         
-        return (uuid,getPath)
+        return (newName,getPath)
     }
-    
-    //保存图片到缓存
-    @discardableResult open class func saveImageToCache(image: UIImage, namePath: String) -> URL? {
-        guard let path = getLocalCachesPath() else {
-            MMLOG.error("获取cachePath路径失败")
-            return nil
-        }
-        let data = image.pngData()
-        
-        let getPath = path.appendingPathComponent(namePath + "jpg")
-        do {
-            try data?.write(to: getPath)
-            
-        } catch {
-            return nil
-        }
-        
-        return getPath
+
+
+    //保存图片到沙盒 名字可为nil,不带后缀
+    open class func saveImageToSanBox(image: UIImage, name: String? = nil, type: MMFileDataUserFilePathType, imageType: MMFileDataSaveImageType) ->(String?, URL?) {
+        return saveImageToPath(image: image, name: name, path: getImageSavePath(type: type), imageType: imageType)
     }
+
+
 #endif
     //删除缓存图片
     open class func removeImageFromCache(_ imageName: String) {
-        guard let cachesPath = getLocalCachesPath() else {
+        guard let cachesPath = getImageSavePath(type: .cache) else {
             MMLOG.error("获取cachePath路径失败")
             return
         }
@@ -178,6 +265,15 @@ open class MMFileData: NSObject {
         if FileManager.default.isDeletableFile(atPath: getPath.path) {
             do {
                 try FileManager.default.removeItem(at: getPath)
+                return
+            } catch {
+            }
+        }
+        let getPngPath = cachesPath.appendingPathComponent(imageName + ".png")
+        if FileManager.default.isDeletableFile(atPath: getPngPath.path) {
+            do {
+                try FileManager.default.removeItem(at: getPngPath)
+                return
             } catch {
             }
         }

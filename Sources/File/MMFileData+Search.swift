@@ -13,6 +13,9 @@ public struct ProjectPathModel {
     public func fullPath() -> String {
         return path + "/" + name
     }
+    public func fullURL() -> URL {
+        return URL(fileURLWithPath: path).appendingPathComponent(name)
+    }
 }
 
 fileprivate typealias Search = MMFileData
@@ -26,7 +29,7 @@ extension MMFileData {
     ///   - onlyOne: 是否查询到第一个就返回
     ///   - 向下递归次数: 99为无限向下递归, 0为不递归
     /// - Returns: <#return value description#>
-    public class func searchFilePath(rootPath: String, selectFile: String, isSuffix: Bool = false, onlyOne: Bool = true, recursiveNum: Int = 99, isDirectory: Bool = false) -> [ProjectPathModel] {
+    public class func searchFilePath(rootPath: String, selectFile: String, isSuffix: Bool = false, onlyOne: Bool = false, recursiveNum: Int = 99, isDirectory: Bool = false) -> [ProjectPathModel] {
         var _rootPath = rootPath
         if _rootPath.count == 0 {
             _rootPath = "./"

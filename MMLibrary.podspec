@@ -36,7 +36,7 @@ Pod::Spec.new do |spec|
 
   spec.source       = { :git => "git@github.com:z415073783/MMLibrary.git", :tag => spec.version }
 
-  spec.vendored_frameworks = "Build/*.framework"
+  spec.vendored_frameworks = "Build/merge/*.framework"
 
 
   # spec.source_files  = "Sources", "Sources/**/*"

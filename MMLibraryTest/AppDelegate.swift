@@ -32,11 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        return true
 //        MMZipArchive.createZipPackage(path: <#T##String#>)
         let begin = Date().timeIntervalSince1970
-        DispatchQueue.global().async {
-            for i in 0 ..< 15000 {
-                MMLOG.debug("日志打印(多线程1): \(i)")
-            }
-        }
+//        DispatchQueue.global().async {
+//            for i in 0 ..< 15000 {
+//                MMLOG.debug("日志打印(多线程1): \(i)")
+//            }
+//        }
 //        DispatchQueue.global().async {
 //            for i in 0 ..< 50000 {
 //                MMLOG.debug("日志打印(多线程2): \(i)")
@@ -50,14 +50,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         let end = Date().timeIntervalSince1970
         
-        let zbegin = Date().timeIntervalSince1970
-        for i in 0 ..< 15000 {
-//            MMLOG.debug("日志打印: \(i)")
-            print("日志打印: \(i)")
-        }
-        let zend = Date().timeIntervalSince1970
+//        let zbegin = Date().timeIntervalSince1970
+//        for i in 0 ..< 15000 {
+////            MMLOG.debug("日志打印: \(i)")
+//            print("日志打印: \(i)")
+//        }
+//        let zend = Date().timeIntervalSince1970
         MMLOG.debug("耗时 zlm = \(end - begin)")
-        MMLOG.debug("耗时 print = \(zend - zbegin)")
+//        MMLOG.debug("耗时 print = \(zend - zbegin)")
         
 //        DispatchQueue.global().async {
 //            let debugTest = ["1", "2"]

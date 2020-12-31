@@ -57,6 +57,7 @@
 		482C629B24592DAF005F9939 /* MMZipUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C629A24592DAF005F9939 /* MMZipUtilities.swift */; };
 		482C629F24594CEF005F9939 /* MMQuickZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C629E24594CEF005F9939 /* MMQuickZip.swift */; };
 		482C62A12459A759005F9939 /* MMFileData+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C62A02459A759005F9939 /* MMFileData+Search.swift */; };
+		48355D832543E89E00747B3F /* RuntimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48355D822543E89E00747B3F /* RuntimeManager.swift */; };
 		4839167A245834C800EF6FEF /* MMZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48391679245834C800EF6FEF /* MMZip.swift */; };
 		483A020A253D74ED005F2EAA /* MMLibraryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483A0209253D74ED005F2EAA /* MMLibraryConfig.swift */; };
 		483A0211253DA8AA005F2EAA /* MMLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483A0210253DA8AA005F2EAA /* MMLogManager.swift */; };
@@ -142,6 +143,7 @@
 		482C629A24592DAF005F9939 /* MMZipUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMZipUtilities.swift; sourceTree = "<group>"; };
 		482C629E24594CEF005F9939 /* MMQuickZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMQuickZip.swift; sourceTree = "<group>"; };
 		482C62A02459A759005F9939 /* MMFileData+Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MMFileData+Search.swift"; sourceTree = "<group>"; };
+		48355D822543E89E00747B3F /* RuntimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeManager.swift; sourceTree = "<group>"; };
 		48391679245834C800EF6FEF /* MMZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMZip.swift; sourceTree = "<group>"; };
 		483A0209253D74ED005F2EAA /* MMLibraryConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLibraryConfig.swift; sourceTree = "<group>"; };
 		483A0210253DA8AA005F2EAA /* MMLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLogManager.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 		04E45F352357173F00F9B336 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				48355D812543E89E00747B3F /* RunTimeManager */,
 				487C7675247E9AD900A48460 /* XML */,
 				48391661245833B600EF6FEF /* ZipArchive */,
 				04CE2D42241B5B4A00C39743 /* Container */,
@@ -431,6 +434,14 @@
 			path = include;
 			sourceTree = "<group>";
 		};
+		48355D812543E89E00747B3F /* RunTimeManager */ = {
+			isa = PBXGroup;
+			children = (
+				48355D822543E89E00747B3F /* RuntimeManager.swift */,
+			);
+			path = RunTimeManager;
+			sourceTree = "<group>";
+		};
 		48391661245833B600EF6FEF /* ZipArchive */ = {
 			isa = PBXGroup;
 			children = (
@@ -496,6 +507,7 @@
 				04E7274222884AA900727D44 /* Sources */,
 				04E7274322884AA900727D44 /* Frameworks */,
 				04E7274422884AA900727D44 /* Resources */,
+				481FE29925564A5F0080C3AD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -564,6 +576,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		481FE29925564A5F0080C3AD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0445737A23B86881008F6D70 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -617,6 +650,7 @@
 				04E45F692357173F00F9B336 /* MMDispatchQueue.swift in Sources */,
 				483A0211253DA8AA005F2EAA /* MMLogManager.swift in Sources */,
 				04E45F722357173F00F9B336 /* MMSystem.swift in Sources */,
+				48355D832543E89E00747B3F /* RuntimeManager.swift in Sources */,
 				04E45F6E2357173F00F9B336 /* MMFoundationGlobalDefine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -859,6 +893,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = MMLibrary/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

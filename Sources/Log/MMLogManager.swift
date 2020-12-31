@@ -39,7 +39,10 @@ class MMLogManager {
             printInfo(sender: sender)
         }
         
+//        mm_changeInstanceMethod(className: <#T##AnyClass#>, method1: <#T##Selector#>, method2: <#T##Selector#>)
         
+        
+  
     }
     
     

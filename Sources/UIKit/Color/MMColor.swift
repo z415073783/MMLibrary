@@ -9,11 +9,18 @@
 import Foundation
 #if os(iOS) || os(tvOS)
 import UIKit
+public class MMColorManager {
+    public static let shared = MMColorManager()
+    public var enableDynamic: Bool = false
+}
+
 @objc public class MMColor: UIColor {
+    //是否允许动态适配颜色
+    
     
     @objc public convenience init(auto red: Int, green: Int, blue: Int, alpha: CGFloat = 1.0, dynamic: Bool = true) {
         
-        if #available(iOS 13.0, *), dynamic {
+        if #available(iOS 13.0, *), dynamic, MMColorManager.shared.enableDynamic {
             self.init { (trait) -> UIColor in
 //                let alpha = alpha
                 var list: [Int] = [red, green, blue]
@@ -51,7 +58,7 @@ import UIKit
         return MMColor(auto: Int(red), green: Int(green), blue: Int(blue), alpha: alpha, dynamic: dynamic)
     }
 
-    @objc public class func colorWithHex(hexColor: String, alpha: Float, dynamic: Bool = true) -> UIColor {
+    @objc public class func colorWithHex(hexColor: String, alpha: CGFloat, dynamic: Bool = true) -> UIColor {
         var hex = hexColor
         if hex.hasPrefix("#") {
             hex = hex.filter {$0 != "#"}
