@@ -50,7 +50,7 @@ public class MMLogger: NSObject {
     public var callFunc: mm_CallBlockLogLevelString?
     
     static public let shared = MMLogger()
-    //是否异步(缓存)  日志缓存暂未实现自动保存功能
+    //是否异步(缓存)  
     @objc public var isAsync = true
     //异步缓存日志数量上限
     @objc public var asyncMaxNumber = 100
@@ -70,7 +70,9 @@ public class MMLogger: NSObject {
     
     override init() {
         super.init()
+        //崩溃处理
         MMCrashManager.setup()
+        //系统通知处理
         MMLogManager.setupListen()
     }
     

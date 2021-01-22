@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyChainUUID.h"
 //! Project version number for MMLibrary.
 FOUNDATION_EXPORT double MMLibraryVersionNumber;
 

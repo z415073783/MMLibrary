@@ -17,7 +17,6 @@ class MMLogManager {
         }
         
         NotificationCenter.default.addObserver(forName: UIApplication.didFinishLaunchingNotification, object: nil, queue: shared.queue) { (sender) in
-            
             printInfo(sender: sender)
         }
         NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: shared.queue) { (sender) in

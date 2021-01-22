@@ -21,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var sqliteLink: MMSqliteLink?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        MMLOG.debug("启动程序")
+        MMLOG.debug("启动程序 \(KeyChainUUID.getUUID())")
+        return true
 //        let ss = MMLogArchive.getAllLogZip()
 //        MMCrashManager.setup()
 //        var arr: [String] = []

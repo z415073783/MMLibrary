@@ -61,6 +61,13 @@
 		4839167A245834C800EF6FEF /* MMZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48391679245834C800EF6FEF /* MMZip.swift */; };
 		483A020A253D74ED005F2EAA /* MMLibraryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483A0209253D74ED005F2EAA /* MMLibraryConfig.swift */; };
 		483A0211253DA8AA005F2EAA /* MMLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483A0210253DA8AA005F2EAA /* MMLogManager.swift */; };
+		484441A725BACA2600BB848F /* UUIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484441A025BACA2600BB848F /* UUIDManager.swift */; };
+		484441A825BACA2600BB848F /* SAMKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 484441A125BACA2600BB848F /* SAMKeychainQuery.m */; };
+		484441A925BACA2600BB848F /* KeyChainUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 484441A225BACA2600BB848F /* KeyChainUUID.m */; };
+		484441AA25BACA2600BB848F /* SAMKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = 484441A325BACA2600BB848F /* SAMKeychain.h */; };
+		484441AB25BACA2600BB848F /* SAMKeychainQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 484441A425BACA2600BB848F /* SAMKeychainQuery.h */; };
+		484441AC25BACA2600BB848F /* KeyChainUUID.h in Headers */ = {isa = PBXBuildFile; fileRef = 484441A525BACA2600BB848F /* KeyChainUUID.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		484441AD25BACA2600BB848F /* SAMKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 484441A625BACA2600BB848F /* SAMKeychain.m */; };
 		487C7677247E9AF500A48460 /* MMXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C7676247E9AF500A48460 /* MMXMLParser.swift */; };
 		489DD03C2464FCB600BD67D7 /* MMCrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */; };
 /* End PBXBuildFile section */
@@ -147,6 +154,13 @@
 		48391679245834C800EF6FEF /* MMZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMZip.swift; sourceTree = "<group>"; };
 		483A0209253D74ED005F2EAA /* MMLibraryConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLibraryConfig.swift; sourceTree = "<group>"; };
 		483A0210253DA8AA005F2EAA /* MMLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLogManager.swift; sourceTree = "<group>"; };
+		484441A025BACA2600BB848F /* UUIDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDManager.swift; sourceTree = "<group>"; };
+		484441A125BACA2600BB848F /* SAMKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMKeychainQuery.m; sourceTree = "<group>"; };
+		484441A225BACA2600BB848F /* KeyChainUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainUUID.m; sourceTree = "<group>"; };
+		484441A325BACA2600BB848F /* SAMKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMKeychain.h; sourceTree = "<group>"; };
+		484441A425BACA2600BB848F /* SAMKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMKeychainQuery.h; sourceTree = "<group>"; };
+		484441A525BACA2600BB848F /* KeyChainUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainUUID.h; sourceTree = "<group>"; };
+		484441A625BACA2600BB848F /* SAMKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMKeychain.m; sourceTree = "<group>"; };
 		487C7676247E9AF500A48460 /* MMXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMXMLParser.swift; sourceTree = "<group>"; };
 		489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMCrashManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,6 +211,7 @@
 		04E45F352357173F00F9B336 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4844419F25BACA2600BB848F /* Keychain */,
 				48355D812543E89E00747B3F /* RunTimeManager */,
 				487C7675247E9AD900A48460 /* XML */,
 				48391661245833B600EF6FEF /* ZipArchive */,
@@ -453,6 +468,20 @@
 			path = ZipArchive;
 			sourceTree = "<group>";
 		};
+		4844419F25BACA2600BB848F /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				484441A025BACA2600BB848F /* UUIDManager.swift */,
+				484441A125BACA2600BB848F /* SAMKeychainQuery.m */,
+				484441A225BACA2600BB848F /* KeyChainUUID.m */,
+				484441A325BACA2600BB848F /* SAMKeychain.h */,
+				484441A425BACA2600BB848F /* SAMKeychainQuery.h */,
+				484441A525BACA2600BB848F /* KeyChainUUID.h */,
+				484441A625BACA2600BB848F /* SAMKeychain.m */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
 		487C7675247E9AD900A48460 /* XML */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,10 +497,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				484441AC25BACA2600BB848F /* KeyChainUUID.h in Headers */,
 				482C629624592B4A005F9939 /* crypt.h in Headers */,
 				482C629824592B4A005F9939 /* unzip.h in Headers */,
 				04E7275722884AA900727D44 /* MMLibrary.h in Headers */,
+				484441AB25BACA2600BB848F /* SAMKeychainQuery.h in Headers */,
 				482C629924592B4A005F9939 /* ioapi.h in Headers */,
+				484441AA25BACA2600BB848F /* SAMKeychain.h in Headers */,
 				482C629724592B4A005F9939 /* zip.h in Headers */,
 				482C629524592B4A005F9939 /* Minizip.h in Headers */,
 			);
@@ -625,6 +657,7 @@
 				04E45F6C2357173F00F9B336 /* MMDateFormatterFactory.swift in Sources */,
 				04E45F652357173F00F9B336 /* MMColor.swift in Sources */,
 				482C629424592B4A005F9939 /* ioapi.c in Sources */,
+				484441A725BACA2600BB848F /* UUIDManager.swift in Sources */,
 				483A020A253D74ED005F2EAA /* MMLibraryConfig.swift in Sources */,
 				0404EF5123A0DEAA005260CD /* NSObject+Value.swift in Sources */,
 				482C62A12459A759005F9939 /* MMFileData+Search.swift in Sources */,
@@ -637,7 +670,10 @@
 				04E45F6F2357173F00F9B336 /* MMLanguage.swift in Sources */,
 				04E45F732357173F00F9B336 /* MMJSON.swift in Sources */,
 				4839167A245834C800EF6FEF /* MMZip.swift in Sources */,
+				484441A825BACA2600BB848F /* SAMKeychainQuery.m in Sources */,
+				484441A925BACA2600BB848F /* KeyChainUUID.m in Sources */,
 				482C629324592B4A005F9939 /* zip.c in Sources */,
+				484441AD25BACA2600BB848F /* SAMKeychain.m in Sources */,
 				04E45F662357173F00F9B336 /* MMColor+Extension.swift in Sources */,
 				482C629B24592DAF005F9939 /* MMZipUtilities.swift in Sources */,
 				04FF6BD4244ECAF50004469B /* MMLogArchive.swift in Sources */,
