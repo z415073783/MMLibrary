@@ -26,7 +26,7 @@ fileprivate func _uncaughtExceptionCall(exception: NSException) {
 }
 
 fileprivate func _saveCrash(exception: NSException? = nil) {
-    MMLogArchive.shared.fireSaveLog()
+    MMLogArchiveManager.shared.fireSaveLogs()
     
     if _caughtExceptionCallNum >= 1 {
         return
@@ -49,7 +49,9 @@ fileprivate func _saveCrash(exception: NSException? = nil) {
     }
     
     //日志路径:
-    guard let rootPath = MMLogArchive.shared.logFolderPath else {
+    
+    
+    guard let rootPath = MMLogArchiveManager.shared.get(key: "Crash").logFolderPath else {
         return
     }
     //写入crash文件
@@ -60,6 +62,7 @@ fileprivate func _saveCrash(exception: NSException? = nil) {
     }
     //写入日志文件
     MMLOG.fatal(crashContainer)
+    MMLogArchiveManager.shared.fireSaveLogs()
 }
 
 public class MMCrashManager: NSObject {

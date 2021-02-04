@@ -46,6 +46,8 @@
 		04F1757E22894E400025999B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F1757D22894E400025999B /* libsqlite3.0.tbd */; };
 		04FC0136242F062500DE0C68 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F1757D22894E400025999B /* libsqlite3.0.tbd */; };
 		04FF6BD4244ECAF50004469B /* MMLogArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF6BD3244ECAF50004469B /* MMLogArchive.swift */; };
+		480CC49125CB83D9008CA19B /* MMLogArchiveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CC49025CB83D9008CA19B /* MMLogArchiveManager.swift */; };
+		480CC49725CB8646008CA19B /* MMLogDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CC49625CB8646008CA19B /* MMLogDefine.swift */; };
 		482C629224592B4A005F9939 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 482C628724592B4A005F9939 /* unzip.c */; };
 		482C629324592B4A005F9939 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 482C628824592B4A005F9939 /* zip.c */; };
 		482C629424592B4A005F9939 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 482C628924592B4A005F9939 /* ioapi.c */; };
@@ -138,6 +140,8 @@
 		04F1757D22894E400025999B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		04F1757F22894E770025999B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		04FF6BD3244ECAF50004469B /* MMLogArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLogArchive.swift; sourceTree = "<group>"; };
+		480CC49025CB83D9008CA19B /* MMLogArchiveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLogArchiveManager.swift; sourceTree = "<group>"; };
+		480CC49625CB8646008CA19B /* MMLogDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLogDefine.swift; sourceTree = "<group>"; };
 		482C628724592B4A005F9939 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
 		482C628824592B4A005F9939 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
 		482C628924592B4A005F9939 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
@@ -363,8 +367,10 @@
 		04E45F5A2357173F00F9B336 /* Log */ = {
 			isa = PBXGroup;
 			children = (
+				480CC49625CB8646008CA19B /* MMLogDefine.swift */,
 				04E45F5B2357173F00F9B336 /* MMLog.swift */,
 				04FF6BD3244ECAF50004469B /* MMLogArchive.swift */,
+				480CC49025CB83D9008CA19B /* MMLogArchiveManager.swift */,
 				489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */,
 				483A0210253DA8AA005F2EAA /* MMLogManager.swift */,
 			);
@@ -654,6 +660,7 @@
 				482C629224592B4A005F9939 /* unzip.c in Sources */,
 				482C629F24594CEF005F9939 /* MMQuickZip.swift in Sources */,
 				04E45F682357173F00F9B336 /* DispatchSemaphore+Extension.swift in Sources */,
+				480CC49725CB8646008CA19B /* MMLogDefine.swift in Sources */,
 				04E45F6C2357173F00F9B336 /* MMDateFormatterFactory.swift in Sources */,
 				04E45F652357173F00F9B336 /* MMColor.swift in Sources */,
 				482C629424592B4A005F9939 /* ioapi.c in Sources */,
@@ -680,6 +687,7 @@
 				04E45F632357173F00F9B336 /* MMNotification.swift in Sources */,
 				04E45F712357173F00F9B336 /* MMSqliteOperation.swift in Sources */,
 				489DD03C2464FCB600BD67D7 /* MMCrashManager.swift in Sources */,
+				480CC49125CB83D9008CA19B /* MMLogArchiveManager.swift in Sources */,
 				04377B20242E224500F4C604 /* MMSqliteLink.swift in Sources */,
 				04E45F672357173F00F9B336 /* UIImage+Common.swift in Sources */,
 				04E45F612357173F00F9B336 /* NSObject+Extension.swift in Sources */,

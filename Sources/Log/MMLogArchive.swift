@@ -9,8 +9,9 @@
 import Foundation
 
 @objc public class MMLogArchive: NSObject {
-    @objc public static let shared = MMLogArchive()
-
+//    @objc public static let shared = MMLogArchive()
+    //标识符
+    @objc public var identifity: String = "default"
 //MARK: 对外接口
     //单个日志文件size上限
     @objc public var fileMaxSize = 10000000
@@ -18,10 +19,32 @@ import Foundation
     @objc public var callCheckMaxNumber = 1000
     //最大压缩包数量
     @objc public var zipFilesMaxNumber = 5
-    @objc public var currentLogName = "current.log"
-    @objc public var allZipLogName = "allLog.zip"
-    @objc public var rootName = "MMLOG"
+    fileprivate var _currentLogName = "current.log"
+    @objc public var currentLogName: String {
+        set {
+            _currentLogName = newValue
+        }
+        get {
+            return identifity + "_" + _currentLogName
+        }
+    }
     
+    fileprivate var _allZipLogName = "allLog.zip"
+    @objc public var allZipLogName: String {
+        set {
+            _allZipLogName = newValue
+        }
+        get {
+            return identifity + "_" + _allZipLogName
+        }
+    }
+    
+    
+    @objc public var rootName = "MMLOG"
+    //是否异步(缓存)
+    @objc public var isAsync = true
+    //异步缓存日志数量上限
+    @objc public var asyncMaxNumber = 100
     
     
     //日志保存的root路径
@@ -31,8 +54,8 @@ import Foundation
             print("获取docPath路径失败")
             return nil
         }
-//        print("docPath = \(docPath)")
-        let file = docPath.appendingPathComponent(MMLogArchive.shared.rootName)
+        print("docPath = \(docPath)")
+        let file = docPath.appendingPathComponent(rootName)
         var isDirectory:ObjCBool = true
         let isExist = FileManager.default.fileExists(atPath: file.path, isDirectory: &isDirectory)
         if !isExist {
@@ -49,8 +72,8 @@ import Foundation
     }()
     
     func asyncSaveLog() {
-        let cacheList = MMLogArchive.shared.asyncCacheList
-        MMLogArchive.shared.asyncCacheList = []
+        let cacheList = asyncCacheList
+        asyncCacheList = []
         let op = BlockOperation {[weak self] in
             guard let `self` = self else {
                 return
@@ -70,26 +93,27 @@ import Foundation
         writeLock.unlock()
     }
     //日志保存接口
-    @objc public class func saveLog(log: String) {
-        MMLogArchive.shared.writeLock.lock()
-        if MMLogger.shared.isAsync {
-            MMLogArchive.shared.asyncCacheList.append(log)
-            if MMLogger.shared.asyncMaxNumber < MMLogArchive.shared.asyncCacheList.count {
-                MMLogArchive.shared.asyncSaveLog()
+    @objc public func saveLog(log: String) {
+        writeLock.lock()
+        
+        if isAsync {
+            asyncCacheList.append(log)
+            if  asyncMaxNumber < asyncCacheList.count {
+                asyncSaveLog()
             }
         } else {
-            shared.writeFile(log: log + "\n")
+            writeFile(log: log + "\n")
         }
-        MMLogArchive.shared.writeLock.unlock()
+        writeLock.unlock()
     }
-    @objc public class func getLogZipPath() -> URL? {
-        return shared.logFolderPath?.appendingPathComponent(shared.allZipLogName)
+    @objc public func getLogZipPath() -> URL? {
+        return logFolderPath?.appendingPathComponent(allZipLogName)
     }
     
     //    将所有日志打包成压缩文件
-    @objc public class func getAllLogZip() -> String {
+    @objc public func getAllLogZip() -> String {
         
-        guard let zipPath = getLogZipPath(), let rootPath = shared.logFolderPath else {
+        guard let zipPath = getLogZipPath(), let rootPath = logFolderPath else {
             return ""
         }
         
@@ -97,15 +121,14 @@ import Foundation
 //        let zipPath = rootPath.appendingPathComponent(shared.allZipLogName)
         do {
             //移除原有日志文件
-            if shared.filemanager.fileExists(atPath: zipPath.path) {
-                try shared.filemanager.removeItem(at: zipPath)
+            if filemanager.fileExists(atPath: zipPath.path) {
+                try filemanager.removeItem(at: zipPath)
             }
         } catch  {
             print("移除失败 error = \(error)")
         }
-       
-        let allFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: "", isSuffix: false, onlyOne: false)
-//        let logFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: ".log", isSuffix: true, onlyOne: false)
+        
+        let allFiles = MMFileData.searchFilePath(rootPath: rootPath.path, regular: "^\(identifity).*", onlyOne: false)
         var goalPaths: [URL] = []
         for logItem in allFiles {
             goalPaths.append(URL(fileURLWithPath: logItem.fullPath()))
@@ -187,18 +210,17 @@ extension _Private {
         }
         
         func checkAndRemoveMoreTheNumberOfZip(rootPath: URL) {
-    //        print("rootPath.path = \(rootPath.path)")
             var allLogFiles: [ProjectPathModel] = []
             let zipFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: ".zip", isSuffix: true, onlyOne: false)
             let logFiles = MMFileData.searchFilePath(rootPath: rootPath.path, selectFile: ".log", isSuffix: true, onlyOne: false)
             for zipItem in zipFiles {
-                if zipItem.name != allZipLogName {
+                if zipItem.name != allZipLogName && zipItem.name.hasPrefix(identifity) {
                     allLogFiles.append(zipItem)
                 }
             }
             
             for logItem in logFiles {
-                if logItem.name != MMLogArchive.shared.currentLogName {
+                if logItem.name != currentLogName && logItem.name.hasPrefix(identifity) {
                     allLogFiles.append(logItem)
                 }
             }
@@ -260,7 +282,7 @@ extension _Private {
         
         //做间隔检查
         callCheckNumber += 1
-        if callCheckNumber < callCheckMaxNumber {
+        if callCheckNumber < (callCheckMaxNumber / asyncMaxNumber) {
             return
         }
         callCheckNumber = 0
@@ -277,8 +299,14 @@ extension _Private {
             if fileSize < fileMaxSize {
                 return
             }
-            let timeName = String(format: "\(attribute[FileAttributeKey.creationDate] ?? "")")
-            let fileCreateTime = timeName + ".log"
+            guard let date = attribute[FileAttributeKey.creationDate] as? Date else {
+                return
+            }
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH_mm_ss"
+            let timeName = formatter.string(from: date)
+//            let timeName = String(format: "\(attribute[FileAttributeKey.creationDate] ?? "")")
+            let fileCreateTime = identifity + "_" + timeName + ".log"
             //文件移动
             let newLogFile = currentLogFile.deletingLastPathComponent().appendingPathComponent(fileCreateTime)
             do {
@@ -287,13 +315,13 @@ extension _Private {
                 print("移动currentLogFile:\(currentLogFile) -> newLogFile:\(newLogFile) 失败")
             }
             
-            archiveLogToZip(path: newLogFile, name: timeName)
+            archiveLogToZip(path: newLogFile, name: identifity + "_" + timeName)
 
             //重新运行该方法, 保证currentLog创建流程正常
             checkSizeAndSaveZip()
             
         } catch {
-            print("获取log文件属性失败")
+            print("获取log文件属性失败 currentLogFile.path = \(currentLogFile.path)")
         }
     }
     
@@ -312,7 +340,4 @@ extension _Private {
         }
         asyncWriteLock.unlock()
     }
-
-    
-    
 }

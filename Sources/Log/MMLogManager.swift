@@ -13,7 +13,7 @@ class MMLogManager {
     class func setupListen() {
         func printInfo(sender: Notification) {
             MMLOG.control("Application Notification: \(sender.name)")
-            MMLogArchive.shared.fireSaveLog()
+            MMLogArchiveManager.shared.fireSaveLogs()
         }
         
         NotificationCenter.default.addObserver(forName: UIApplication.didFinishLaunchingNotification, object: nil, queue: shared.queue) { (sender) in
@@ -37,12 +37,6 @@ class MMLogManager {
         NotificationCenter.default.addObserver(forName: UIApplication.didReceiveMemoryWarningNotification, object: nil, queue: shared.queue) { (sender) in
             printInfo(sender: sender)
         }
-        
-//        mm_changeInstanceMethod(className: <#T##AnyClass#>, method1: <#T##Selector#>, method2: <#T##Selector#>)
-        
-        
-  
+
     }
-    
-    
 }

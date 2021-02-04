@@ -21,7 +21,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var sqliteLink: MMSqliteLink?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        MMLOG.debug("启动程序 \(KeyChainUUID.getUUID())")
+//        MMLOG.shared.outputList = []
+        MMLOG.info("启动程序 \(KeyChainUUID.getUUID())")
+//        MMLOG.info("测试 1")
+        print("测试 1")
+        let maxNumber = 20000
+        DispatchQueue.global().async {
+            for i in 0 ..< maxNumber {
+                MMLOG.debug(archiveName: "test1", "i4 = \(i)")
+            }
+        }
+        DispatchQueue.global().async {
+            for i in 0 ..< maxNumber {
+                MMLOG.debug(archiveName: "test2", "i2 = \(i)")
+            }
+        }
+        DispatchQueue.global().async {
+            for i in 0 ..< maxNumber {
+                MMLOG.debug(archiveName: "test1", "i11 = \(i)")
+            }
+        }
+        DispatchQueue.global().async {
+            for i in 0 ..< maxNumber {
+                MMLOG.debug(archiveName: "test4", "i3 = \(i)")
+            }
+        }
+        for i in 0 ..< maxNumber {
+            MMLOG.debug(archiveName: "test1", "i1 = \(i)")
+        }
+//        DispatchQueue.global().async {
+//            for i in 0 ..< 999 {
+//                MMLOG.debug("i5 = \(i)")
+//            }
+//        }
+//        DispatchQueue.global().async {
+//            for i in 0 ..< 999 {
+//                MMLOG.debug("i6 = \(i)")
+//            }
+//        }
+
+//        MMLOG.info("测试 2")
+        print("测试 2")
         return true
 //        let ss = MMLogArchive.getAllLogZip()
 //        MMCrashManager.setup()
