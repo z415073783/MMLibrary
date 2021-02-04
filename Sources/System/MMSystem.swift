@@ -69,6 +69,14 @@ public class MMSystem: NSObject {
         
     }
     
+    public class func getAppName() -> String {
+//        print("Bundle.main = \(Bundle.main.infoDictionary)")
+        if let name = Bundle.main.infoDictionary?["CFBundleName"] as? String {
+            return name
+        }
+        return "default"
+    }
+    
     //软件build版本
     public class func getSoftwareVersion() -> String {
         if let version = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {

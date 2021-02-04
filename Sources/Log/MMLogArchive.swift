@@ -11,7 +11,7 @@ import Foundation
 @objc public class MMLogArchive: NSObject {
 //    @objc public static let shared = MMLogArchive()
     //标识符
-    @objc public var identifity: String = "default"
+    @objc public var identifity: String = MMSystem.getAppName()
 //MARK: 对外接口
     //单个日志文件size上限
     @objc public var fileMaxSize = 10000000

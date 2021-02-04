@@ -39,41 +39,41 @@ public class MMLogger: NSObject {
     }
     
     
-    @objc public class func logln(logLevel: Int, archiveName: String = "default", functionName: String, fileName: String, lineNumber: Int, logMessage: String) {
+    @objc public class func logln(logLevel: Int, archiveName: String? = nil, functionName: String, fileName: String, lineNumber: Int, logMessage: String) {
         baseLog(logLevel: MMLogDefine.LogLevel(rawValue: logLevel) ?? .none, archiveName: archiveName, functionName: functionName, fileName: fileName, lineNumber: lineNumber, logMessage: logMessage)
     }
     
-    public class func none(archiveName: String = "default", _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+    public class func none(archiveName: String? = nil, _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
            logln(archiveName: archiveName, closure(), logLevel: .none, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
-    public class func verbose(archiveName: String = "default", _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+    public class func verbose(archiveName: String? = nil, _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
            logln(archiveName: archiveName, closure(), logLevel: .verbose, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
     
-    public class func debug(archiveName: String = "default", _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+    public class func debug(archiveName: String? = nil, _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
         logln(archiveName: archiveName, closure(), logLevel: .debug, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
     
-    public class func control(archiveName: String = "default", _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+    public class func control(archiveName: String? = nil, _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
         logln(archiveName: archiveName, closure(), logLevel: .info, functionName:"", fileName: "", lineNumber: 0)
     }
-    public class func info(archiveName: String = "default", _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+    public class func info(archiveName: String? = nil, _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
         logln(archiveName: archiveName, closure(), logLevel: .info, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
-    public class func warn(archiveName: String = "default", _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+    public class func warn(archiveName: String? = nil, _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
         logln(archiveName: archiveName, closure(), logLevel: .warn, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
-    public class func error(archiveName: String = "default", _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+    public class func error(archiveName: String? = nil, _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
         logln(archiveName: archiveName, closure(), logLevel: .error, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
-    public class func fatal(archiveName: String = "default", _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+    public class func fatal(archiveName: String? = nil, _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
         logln(archiveName: archiveName, closure(), logLevel: .fatal, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
-    public class func silent(archiveName: String = "default", _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
+    public class func silent(archiveName: String? = nil, _ closure: @autoclosure () -> String?, functionName: String = #function, fileName: String=#file, lineNumber: Int = #line) {
         logln(archiveName: archiveName, closure(), logLevel: .silent, functionName:functionName, fileName: fileName, lineNumber: lineNumber)
     }
     
-    private class func logln(archiveName: String, _ closure:@autoclosure () -> String?, logLevel: MMLogDefine.LogLevel = .debug, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
+    private class func logln(archiveName: String? = nil, _ closure:@autoclosure () -> String?, logLevel: MMLogDefine.LogLevel = .debug, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
 
         if MMLibraryConfig.shared.isDebug {
             if let logMessage = closure() {
@@ -88,13 +88,13 @@ public class MMLogger: NSObject {
         }
     
     }
-    private class func baseLog(logLevel: MMLogDefine.LogLevel = .debug, archiveName: String, functionName: String? = #function, fileName: String = #file, lineNumber: Int = #line, logMessage: String) {
+    private class func baseLog(logLevel: MMLogDefine.LogLevel = .debug, archiveName: String? = nil, functionName: String? = #function, fileName: String = #file, lineNumber: Int = #line, logMessage: String) {
         //判断过滤等级
         if shared.filterLevel.rawValue >= logLevel.rawValue {
             //日志被过滤
             return
         }
-        
+    
         var extendedDetails: String = ""
         let outputInfoTypes = MMLogger.shared.outputInfoTypes
         for type in outputInfoTypes {
@@ -102,7 +102,10 @@ public class MMLogger: NSObject {
             case .time:
                 extendedDetails += "\(getCurrentTime()) "
             case .archiveName:
-                extendedDetails += "[\(archiveName)] "
+                if let _archiveName = archiveName {
+                    extendedDetails += "[\(_archiveName)] "
+                }
+                
             case .logLevel:
                 extendedDetails += "[\(logLevel)] "
             case .module:
@@ -141,11 +144,11 @@ public class MMLogger: NSObject {
             extendedDetails += "\(functionName) "
         }
         
-        output(level: logLevel, archiveName: archiveName, text: "\(extendedDetails)> \(logMessage)")
+        output(level: logLevel, archiveName: archiveName ?? MMSystem.getAppName(), text: "\(extendedDetails)> \(logMessage)")
 
     }
     
-    private class func output(level: MMLogDefine.LogLevel, archiveName: String = "default", text: String) {
+    private class func output(level: MMLogDefine.LogLevel, archiveName: String, text: String) {
         let outputList = MMLogger.shared.outputList
         let adjustedText = text
         for type in outputList {
