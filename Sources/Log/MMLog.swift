@@ -30,7 +30,7 @@ public class MMLogger: NSObject {
     //release是否打印
 //    public var printOfRelease = false
     //是否打印 默认true
-    public var isPrint = true
+//    public var isPrint = true
     
     override init() {
         super.init()
@@ -105,11 +105,11 @@ public class MMLogger: NSObject {
                 extendedDetails += "\(getCurrentTime()) "
             case .archiveName:
                 if let _archiveName = archiveName {
-                    extendedDetails += "[\(_archiveName)] "
+                    extendedDetails += "[\(_archiveName)]"
                 }
                 
             case .logLevel:
-                extendedDetails += "[\(logLevel)] "
+                extendedDetails += "[\(logLevel)]"
             case .module:
                 /// 将Module 对应的业务模块信息打入日志作为检查问题模块的方法。
                 if let moduleSplit = MMLogger.shared.moduleSplit, fileName.contains(moduleSplit) {
@@ -122,31 +122,31 @@ public class MMLogger: NSObject {
                 }
             case .thread:
                 if Thread.isMainThread {
-                            extendedDetails += "[main] "
+                            extendedDetails += "[main]"
                         } else {
                 //            Thread.current
                             if let threadName: String = Thread.current.name, !threadName.isEmpty {
                                 if threadName.count != 0 {
-                                    extendedDetails += "[\(threadName)] "
+                                    extendedDetails += "[\(threadName)]"
                                 }
                             } else if let operationName = OperationQueue.current?.name, !operationName.isEmpty {
-                                extendedDetails += "[\(operationName)] "
+                                extendedDetails += "[\(operationName)]"
                             } else  if let label = DispatchQueue.accessibilityLabel(), let queueName = String(cString: label, encoding: String.Encoding.utf8), !queueName.isEmpty {
-                                extendedDetails += "[\(queueName)] "
+                                extendedDetails += "[\(queueName)]"
                             } else {
                                 extendedDetails += "[\(Thread.current.description)] "
                             }
                         }
             case .logPos:
-                extendedDetails += "[\((fileName as NSString).lastPathComponent):\(String(lineNumber))] "
+                extendedDetails += "[\((fileName as NSString).lastPathComponent):\(String(lineNumber))]"
            
             }
         }
         if let functionName = functionName {
-            extendedDetails += "\(functionName) "
+            extendedDetails += " \(functionName)"
         }
         
-        output(level: logLevel, archiveName: archiveName ?? MMSystem.getAppName(), text: "\(extendedDetails)> \(logMessage)")
+        output(level: logLevel, archiveName: archiveName ?? MMSystem.getAppName(), text: "\(extendedDetails) > \(logMessage)")
 
     }
     
@@ -156,14 +156,14 @@ public class MMLogger: NSObject {
         for type in outputList {
             switch type {
             case .print:
-                if shared.isPrint {
-                    print(adjustedText)
-                }
+//                if shared.isPrint {
+//                    print(adjustedText)
+//                }
 //            #if DEBUG
 //                print(adjustedText)
 //            #else
 //                if shared.printOfRelease {
-//                    print(adjustedText)
+                print(adjustedText)
 //                }
 //            #endif
                 
