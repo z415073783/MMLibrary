@@ -28,7 +28,9 @@ public class MMLogger: NSObject {
     public var filterLevel: MMLogDefine.LogLevel = .none
     
     //release是否打印
-    public var printOfRelease = false
+//    public var printOfRelease = false
+    //是否打印 默认true
+    public var isPrint = true
     
     override init() {
         super.init()
@@ -154,13 +156,16 @@ public class MMLogger: NSObject {
         for type in outputList {
             switch type {
             case .print:
-            #if DEBUG
-                print(adjustedText)
-            #else
-                if shared.printOfRelease {
+                if shared.isPrint {
                     print(adjustedText)
                 }
-            #endif
+//            #if DEBUG
+//                print(adjustedText)
+//            #else
+//                if shared.printOfRelease {
+//                    print(adjustedText)
+//                }
+//            #endif
                 
             case .other:
                 if let block = MMLogger.shared.callFunc {

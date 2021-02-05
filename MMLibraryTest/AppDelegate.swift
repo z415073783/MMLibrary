@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MMLOG.info("启动程序 \(KeyChainUUID.getUUID())")
 //        MMLOG.info("测试 1")
         print("测试 1")
-        let maxNumber = 20000
+        let maxNumber = 200000
         DispatchQueue.global().async {
             for i in 0 ..< maxNumber {
                 MMLOG.debug(archiveName: "test1", "i4 = \(i)")

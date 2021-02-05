@@ -55,7 +55,7 @@ import Foundation
             return nil
         }
         print("docPath = \(docPath)")
-        let file = docPath.appendingPathComponent(rootName)
+        let file = docPath.appendingPathComponent(rootName).appendingPathComponent(identifity)
         var isDirectory:ObjCBool = true
         let isExist = FileManager.default.fileExists(atPath: file.path, isDirectory: &isDirectory)
         if !isExist {
