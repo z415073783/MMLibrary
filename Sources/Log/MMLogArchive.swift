@@ -40,7 +40,7 @@ import Foundation
     }
     
     
-    @objc public var rootName = "MMLOG"
+    
     //是否异步(缓存)
     @objc public var isAsync = true
     //异步缓存日志数量上限
@@ -50,12 +50,10 @@ import Foundation
     //日志保存的root路径
     public lazy var logFolderPath: URL? = {
         //写入数据
-        guard let docPath = MMFileData.getDocumentsPath() else {
+        guard let file = MMLogArchiveManager.shared.logRootPath?.appendingPathComponent(identifity) else {
             print("获取docPath路径失败")
             return nil
         }
-        print("docPath = \(docPath)")
-        let file = docPath.appendingPathComponent(rootName).appendingPathComponent(identifity)
         var isDirectory:ObjCBool = true
         let isExist = FileManager.default.fileExists(atPath: file.path, isDirectory: &isDirectory)
         if !isExist {

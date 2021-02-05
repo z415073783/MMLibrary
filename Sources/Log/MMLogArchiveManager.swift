@@ -19,6 +19,31 @@ class MMLogArchiveManager {
 //        _shared.setupDefaultArchive()
         return _shared
     }()
+    @objc public var rootName = "MMLOG"
+    //日志保存的root路径
+    public lazy var logRootPath: URL? = {
+        //写入数据
+        guard let docPath = MMFileData.getDocumentsPath() else {
+            print("获取docPath路径失败")
+            return nil
+        }
+        print("docPath = \(docPath)")
+        lock.lock()
+        let file = docPath.appendingPathComponent(rootName)
+        var isDirectory:ObjCBool = true
+        let isExist = FileManager.default.fileExists(atPath: file.path, isDirectory: &isDirectory)
+        if !isExist {
+            do {
+                try FileManager.default.createDirectory(at: file, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                lock.unlock()
+                print("日志文件夹创建失败")
+                return nil
+            }
+        }
+        lock.unlock()
+        return file
+    }()
     
 //    String: MMLogArchive
     var moduleList: NSMutableDictionary = NSMutableDictionary()
