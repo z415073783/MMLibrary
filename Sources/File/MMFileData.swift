@@ -235,6 +235,17 @@ open class MMFileData: NSObject {
         let scale = Int(currentModelW / UIScreen.main.bounds.size.width)
         let getPath = savePath.appendingPathComponent(newName + "@\(scale)x" + (imageType == .jpg ? ".jpg" : ".png"))
         
+        if FileManager.default.fileExists(atPath: getPath.path) {
+            //删除同名缓存文件
+            if FileManager.default.isDeletableFile(atPath: getPath.path) {
+                do {
+                    try FileManager.default.removeItem(at: getPath)
+                } catch {
+                    MMLOG.error("删除失败 error = \(error)")
+                }
+            }
+        }
+        
         do {
             MMLOG.debug("getPath = \(getPath)")
             try data?.write(to: getPath, options: .atomic)

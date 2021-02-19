@@ -40,6 +40,7 @@ import Foundation
 
 import Foundation
 public typealias MMJSONCodable = Codable
+public typealias MMJSONEncodable = Encodable
 public enum MMJSONResultType: String, MMJSONCodable {
     case fail = "resultType::FAIL",
     success = "resultType::SUCCESS"
@@ -248,7 +249,7 @@ public class MMJSON {
     }
 }
 
-extension String {
+public extension String {
     /// 字符串转model
     ///
     /// - Parameter DataClass: model对象
@@ -266,4 +267,37 @@ extension String {
     
 }
 
+public extension NSDictionary {
+    /// json转model
+    ///
+    /// - Parameter DataClass: model对象
+    /// - Returns: 返回实例
+    func getJSONModelSync<T: MMJSONCodable> (_ DataClass: T.Type) ->T? {
+        
+        do {
+            let data = try JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.fragmentsAllowed)
+            let decoder = JSONDecoder()
+            let output = try decoder.decode(DataClass, from: data)
+            return output
+        } catch {
+            print("字符串转换错误: OutputClass = \(DataClass)\n value = \(self)")
+            return nil
+        }
+    }
+}
+
+public extension MMJSONEncodable {
+    func getJSONString() -> String? {
+        guard let data = try? JSONEncoder().encode(self) else {
+            return nil
+        }
+        return String(data: data, encoding: .utf8)
+    }
+    func getJSONObject() -> Any? {
+        guard let data = try? JSONEncoder().encode(self) else {
+            return nil
+        }
+        return try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+    }
+}
 

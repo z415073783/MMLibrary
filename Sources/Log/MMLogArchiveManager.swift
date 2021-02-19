@@ -8,17 +8,18 @@
 
 import Foundation
 
-class MMLogArchiveManager {
+public class MMLogArchiveManager {
 //    let crashArchiveName = "crash"
 //    let defaultArchiveName = "default"
     var lock = NSLock()
     
-    static let shared: MMLogArchiveManager = {
+    public static let shared: MMLogArchiveManager = {
         let _shared = MMLogArchiveManager()
 //        _shared.setupCrashArchive()
 //        _shared.setupDefaultArchive()
         return _shared
     }()
+
     @objc public var rootName = "MMLOG"
     //日志保存的root路径
     public lazy var logRootPath: URL? = {
@@ -47,12 +48,12 @@ class MMLogArchiveManager {
     
 //    String: MMLogArchive
     var moduleList: NSMutableDictionary = NSMutableDictionary()
-    func set(key: String, archive: MMLogArchive) {
+    public func set(key: String, archive: MMLogArchive) {
         lock.lock()
         moduleList[key] = archive
         lock.unlock()
     }
-    func get(key: String) -> MMLogArchive {
+    public func get(key: String) -> MMLogArchive {
         //如果没有, 则默认添加crash日志路径和default路径
         lock.lock()
         if let archive = moduleList[key] as? MMLogArchive {
@@ -66,13 +67,13 @@ class MMLogArchiveManager {
     }
 
     
-    func delete(key: String) {
+    public func delete(key: String) {
         lock.lock()
         moduleList[key] = nil
         lock.unlock()
     }
 
-    func fireSaveLogs() {
+    public func fireSaveLogs() {
         lock.lock()
         
         _ = moduleList.map { (archive) in
@@ -80,14 +81,14 @@ class MMLogArchiveManager {
         }
         lock.unlock()
     }
-    func writeLogs(log: String) {
+    public func writeLogs(log: String) {
         lock.lock()
         _ = moduleList.map { (archive) in
             (archive.value as? MMLogArchive)?.writeFile(log: log)
         }
         lock.unlock()
     }
-    func saveLog(archiveName: String, log: String) {
+    public func saveLog(archiveName: String, log: String) {
         lock.lock()
         var archive = moduleList[archiveName]
         if archive == nil {

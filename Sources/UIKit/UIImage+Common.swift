@@ -57,6 +57,23 @@ public extension UIImage {
 //        return self.MMimageGrayTranslate()
 //        //        return self.addFilter("CIPhotoEffectNoir")
 //    }
-    
+    //高斯模糊
+    func createBlurEffect(image: UIImage?, radius: CGFloat = 8) -> UIImage? {
+        guard let image = image else {
+            return nil
+        }
+        let ciImage = CIImage(image: image)
+        let filter = CIFilter(name: "CIGaussianBlur")
+        filter?.setValue(ciImage, forKey: kCIInputImageKey)
+//        let number = NSNumber(value: radius) //模糊值
+        filter?.setValue(radius, forKey: "inputRadius")
+        let context = CIContext(options: nil)
+        if let result = filter?.value(forKey: kCIOutputImageKey) as? CIImage, let cgimage = context.createCGImage(result, from: CGRect(origin: CGPoint.zero, size: image.size))
+        {
+            let newImage = UIImage(cgImage: cgimage)
+            return newImage
+        }
+        return nil
+    }
 }
 

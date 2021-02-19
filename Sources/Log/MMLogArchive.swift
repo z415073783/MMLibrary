@@ -233,7 +233,7 @@ extension _Private {
                     let item = allLogFiles[i]
                    
                     let attribute = try filemanager.attributesOfItem(atPath: item.fullPath())
-                    if let date = attribute[FileAttributeKey.creationDate] as? Date {
+                    if let date = attribute[FileAttributeKey.modificationDate] as? Date {
                         let curTime = date.timeIntervalSince1970
                         if i == 0 {
                             oldTime = curTime
