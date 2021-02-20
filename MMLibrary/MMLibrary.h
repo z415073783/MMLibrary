@@ -5,8 +5,11 @@
 //  Created by mac on 2019/5/12.
 //  Copyright © 2019 zlm. All rights reserved.
 //
+//#if !os(macOS)
+//#import <UIKit/UIKit.h>
+//#endif
 
-#import <UIKit/UIKit.h>
+
 #import "KeyChainUUID.h"
 //! Project version number for MMLibrary.
 FOUNDATION_EXPORT double MMLibraryVersionNumber;

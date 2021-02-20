@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if os(iOS) || os(tvOS)
+import UIKit
+#endif
 class MMLogManager {
     static let shared = MMLogManager()
     let queue = MMOperationQueue()
@@ -15,7 +18,7 @@ class MMLogManager {
             MMLOG.control("Application Notification: \(sender.name)")
             MMLogArchiveManager.shared.fireSaveLogs()
         }
-        
+        #if os(iOS) || os(tvOS)
         NotificationCenter.default.addObserver(forName: UIApplication.didFinishLaunchingNotification, object: nil, queue: shared.queue) { (sender) in
             printInfo(sender: sender)
         }
@@ -37,6 +40,8 @@ class MMLogManager {
         NotificationCenter.default.addObserver(forName: UIApplication.didReceiveMemoryWarningNotification, object: nil, queue: shared.queue) { (sender) in
             printInfo(sender: sender)
         }
+        #endif
+        
 
     }
 }

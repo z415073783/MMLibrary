@@ -4,9 +4,8 @@
 //
 //  Created by zlm on 2017/10/12.
 //
-
+#if !os(macOS)
 import UIKit
-
 /// UUID获取工厂类
 public class UUIDManager: NSObject {
     /// 获取UUID
@@ -16,3 +15,6 @@ public class UUIDManager: NSObject {
         return (UIDevice.current.identifierForVendor?.uuidString)!
     }
 }
+#endif
+
+

@@ -129,7 +129,7 @@ open class MMFileData: NSObject {
     }
     
     
-#if os(iOS) || os(tvOS)
+
     /// 保存图片到缓存目录下
     ///
     /// - Parameter image: 图片对象
@@ -206,7 +206,7 @@ open class MMFileData: NSObject {
         
         return savePath
     }
-
+#if os(iOS) || os(tvOS)
 //保存图片到指定路径 名字可为nil,不带后缀
     open class func saveImageToPath(image: UIImage, name: String? = nil, path: URL?, imageType: MMFileDataSaveImageType) ->(String?, URL?) {
         var _newName = name

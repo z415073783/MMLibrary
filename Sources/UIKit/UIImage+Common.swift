@@ -9,7 +9,6 @@
 import Foundation
 #if os(iOS) || os(tvOS)
     import UIKit
-#endif
 public extension UIImage {
     
     class func mm_imageWithColor(color: UIColor) -> UIImage? {
@@ -76,4 +75,6 @@ public extension UIImage {
         return nil
     }
 }
+
+#endif
 

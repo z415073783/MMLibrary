@@ -122,21 +122,26 @@ public class MMLogger: NSObject {
                 }
             case .thread:
                 if Thread.isMainThread {
-                            extendedDetails += "[main]"
-                        } else {
-                //            Thread.current
-                            if let threadName: String = Thread.current.name, !threadName.isEmpty {
-                                if threadName.count != 0 {
-                                    extendedDetails += "[\(threadName)]"
-                                }
-                            } else if let operationName = OperationQueue.current?.name, !operationName.isEmpty {
-                                extendedDetails += "[\(operationName)]"
-                            } else  if let label = DispatchQueue.accessibilityLabel(), let queueName = String(cString: label, encoding: String.Encoding.utf8), !queueName.isEmpty {
-                                extendedDetails += "[\(queueName)]"
-                            } else {
-                                extendedDetails += "[\(Thread.current.description)] "
-                            }
+                    extendedDetails += "[main]"
+                } else {
+                    if let threadName: String = Thread.current.name, !threadName.isEmpty {
+                        if threadName.count != 0 {
+                            extendedDetails += "[\(threadName)]"
                         }
+                    } else if let operationName = OperationQueue.current?.name, !operationName.isEmpty {
+                        extendedDetails += "[\(operationName)]"
+                    } else {
+                        let description = Thread.current.description
+                        let pre = "number = "
+                        let end = ", name"
+                        if let startRange = description.range(of: pre), let endRange = description.range(of: end) {
+                            let number = String(description[startRange.upperBound ..< endRange.lowerBound])
+                            extendedDetails += "[thread \(number)]"
+                        } else {
+                            extendedDetails += "[\(description)]"
+                        }
+                    }
+                }
             case .logPos:
                 extendedDetails += "[\((fileName as NSString).lastPathComponent):\(String(lineNumber))]"
            

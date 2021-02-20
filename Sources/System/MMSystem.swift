@@ -9,6 +9,7 @@
 import Foundation
 #if os(iOS) || os(tvOS)
 import UIKit
+#endif
 public extension MMSystem {
     //版本比较
     enum CompareVersion {
@@ -17,6 +18,7 @@ public extension MMSystem {
 
     
     //获取当前版本的前两位  例: 如当前版本为9.3.2,则返回9.3
+    #if os(iOS) || os(tvOS)
     func getiOSVersion() -> Double {
         var version = UIDevice.current.systemVersion
         MMLOG.debug("UIDevice.current.systemVersion = \(version)")
@@ -46,12 +48,16 @@ public extension MMSystem {
         }
         return true
     }
+    #endif
+    
+   
 
 }
 
 public class MMSystem: NSObject {
     
     //判断机型
+    #if os(iOS) || os(tvOS)
     public let isIphone: Bool =  UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone
     public let isIpad: Bool = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad
     
@@ -62,7 +68,7 @@ public class MMSystem: NSObject {
     public let isLandscape: Bool = {
         return UIDevice.current.orientation.isLandscape
     }()
-    
+    #endif
     public class func logVersion() {
         
         MMLOG.debug("------------手机信息:\(getSystemData())------------")
@@ -122,6 +128,7 @@ public class MMSystem: NSObject {
     
     
     public class func getSystemData() -> String {
+        #if os(iOS) || os(tvOS)
         let deviceName = UIDevice.current.name  //获取设备名称 例如：梓辰的手机
         let sysName = UIDevice.current.systemName //获取系统名称 例如：iPhone OS
         let sysVersion = UIDevice.current.systemVersion //获取系统版本 例如：9.2
@@ -131,10 +138,13 @@ public class MMSystem: NSObject {
         
         let result = "设备名称:\(deviceName) 系统名称:\(sysName) 系统版本:\(sysVersion) 设备标识:\(String(describing: deviceUUID)) 设备型号:\(deviceModel) 机型:\(deviceModelName) 客户端版本号:\(getVersion())"
         return result
+        #endif
+        return ""
     }
     
 }
 // MARK: - UIDevice延展
+#if os(iOS) || os(tvOS)
 public extension UIDevice {
     
     var mm_modelName: String {
