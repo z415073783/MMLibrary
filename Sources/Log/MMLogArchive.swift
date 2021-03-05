@@ -29,13 +29,9 @@ import Foundation
         }
     }
     
-    fileprivate var _allZipLogName = "allLog.zip"
     @objc public var allZipLogName: String {
-        set {
-            _allZipLogName = newValue
-        }
         get {
-            return identifity + "_" + _allZipLogName
+            return MMLogArchiveManager.shared.allZipLogName
         }
     }
     
@@ -104,47 +100,47 @@ import Foundation
         }
         writeLock.unlock()
     }
-    @objc public func getLogZipPath() -> URL? {
-        return logFolderPath?.appendingPathComponent(allZipLogName)
-    }
+//    @objc public func getLogZipPath() -> URL? {
+//        return logFolderPath?.appendingPathComponent(allZipLogName)
+//    }
     
     //    将所有日志打包成压缩文件
-    @objc public func getAllLogZip() -> String {
-        
-        guard let zipPath = getLogZipPath(), let rootPath = logFolderPath else {
-            return ""
-        }
-        
+//    @objc public func getAllLogZip() -> String {
 //
-//        let zipPath = rootPath.appendingPathComponent(shared.allZipLogName)
-        do {
-            //移除原有日志文件
-            if filemanager.fileExists(atPath: zipPath.path) {
-                try filemanager.removeItem(at: zipPath)
-            }
-        } catch  {
-            print("移除失败 error = \(error)")
-        }
-        
-        let allFiles = MMFileData.searchFilePath(rootPath: rootPath.path, regular: "^\(identifity).*", onlyOne: false)
-        var goalPaths: [URL] = []
-        for logItem in allFiles {
-            goalPaths.append(URL(fileURLWithPath: logItem.fullPath()))
-        }
-        
-        do {
-            
-            print("goalPaths = \(goalPaths), zipPath = \(zipPath)")
-            //压缩
-            try MMZip.zipFiles(paths: goalPaths, zipFilePath: zipPath, password: nil, progress: nil)
-        } catch  {
-            print("操作失败 error = \(error)")
-        }
-        
-       
-        return zipPath.path
-    }
-    
+//        guard let zipPath = getLogZipPath(), let rootPath = logFolderPath else {
+//            return ""
+//        }
+//
+////
+////        let zipPath = rootPath.appendingPathComponent(shared.allZipLogName)
+//        do {
+//            //移除原有日志文件
+//            if filemanager.fileExists(atPath: zipPath.path) {
+//                try filemanager.removeItem(at: zipPath)
+//            }
+//        } catch  {
+//            print("移除失败 error = \(error)")
+//        }
+//
+//        let allFiles = MMFileData.searchFilePath(rootPath: rootPath.path, regular: "^\(identifity).*", onlyOne: false)
+//        var goalPaths: [URL] = []
+//        for logItem in allFiles {
+//            goalPaths.append(URL(fileURLWithPath: logItem.fullPath()))
+//        }
+//
+//        do {
+//
+//            print("goalPaths = \(goalPaths), zipPath = \(zipPath)")
+//            //压缩
+//            try MMZip.zipFiles(paths: goalPaths, zipFilePath: zipPath, password: nil, progress: nil)
+//        } catch  {
+//            print("操作失败 error = \(error)")
+//        }
+//
+//
+//        return zipPath.path
+//    }
+//
 //MARK: 私有变量
     let zipQueue: MMOperationQueue = MMOperationQueue(maxCount: 1)
     let filemanager = FileManager.default

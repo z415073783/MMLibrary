@@ -12,7 +12,7 @@ public class MMLogArchiveManager {
 //    let crashArchiveName = "crash"
 //    let defaultArchiveName = "default"
     var lock = NSLock()
-    
+    @objc public var identifity: String = MMSystem.getAppName()
     public static let shared: MMLogArchiveManager = {
         let _shared = MMLogArchiveManager()
 //        _shared.setupCrashArchive()
@@ -100,6 +100,59 @@ public class MMLogArchiveManager {
         moduleList[archiveName] = archive
         lock.unlock()
     }
+    
+    
+    fileprivate var _allZipLogName = "allLog.zip"
+    @objc public var allZipLogName: String {
+        set {
+            _allZipLogName = newValue
+        }
+        get {
+            return identifity + "_" + _allZipLogName
+        }
+    }
+    
+//    @objc public func getLogZipPath() -> URL? {
+//        return MMLogArchiveManager.shared.logRootPath?.appendPathComponent(allZipLogName)
+//    }
+    
+    @objc public func getAllZipLogFile() ->String {
+        
+        guard let rootPath = MMLogArchiveManager.shared.logRootPath else {
+            return ""
+        }
+        let zipPath = rootPath.appendingPathComponent(allZipLogName)
+        
+        do {
+            let filemanager = FileManager.default
+            //移除原有日志文件
+            if filemanager.fileExists(atPath: zipPath.path) {
+                try filemanager.removeItem(at: zipPath)
+            }
+        } catch  {
+            print("移除失败 error = \(error)")
+        }
+        
+        let allFiles = MMFileData.searchFilePath(rootPath: rootPath.path, regular: "^\(identifity).*", onlyOne: false)
+        var goalPaths: [URL] = []
+        for logItem in allFiles {
+            goalPaths.append(URL(fileURLWithPath: logItem.fullPath()))
+        }
+        
+        do {
+            
+            print("goalPaths = \(goalPaths), zipPath = \(zipPath)")
+            //压缩
+            try MMZip.zipFiles(paths: goalPaths, zipFilePath: zipPath, password: nil, progress: nil)
+        } catch  {
+            print("操作失败 error = \(error)")
+        }
+        
+       
+        return zipPath.path
+        
+    }
+    
 }
 
 

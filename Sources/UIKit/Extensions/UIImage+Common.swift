@@ -8,7 +8,8 @@
 
 import Foundation
 #if os(iOS) || os(tvOS)
-    import UIKit
+import UIKit
+import CoreGraphics
 public extension UIImage {
     
     class func mm_imageWithColor(color: UIColor) -> UIImage? {
@@ -56,24 +57,82 @@ public extension UIImage {
 //        return self.MMimageGrayTranslate()
 //        //        return self.addFilter("CIPhotoEffectNoir")
 //    }
-    //高斯模糊
-    func createBlurEffect(image: UIImage?, radius: CGFloat = 8) -> UIImage? {
-        guard let image = image else {
-            return nil
-        }
-        let ciImage = CIImage(image: image)
+    
+    /// 高斯模糊
+    /// - Parameters:
+    ///   - radius: radius description
+    /// - Returns: description
+    func mm_createBlurEffect( radius: CGFloat = 8) -> UIImage? {
+//        guard let image = image else {
+//            return nil
+//        }
+        let ciImage = CIImage(image: self)
         let filter = CIFilter(name: "CIGaussianBlur")
         filter?.setValue(ciImage, forKey: kCIInputImageKey)
 //        let number = NSNumber(value: radius) //模糊值
         filter?.setValue(radius, forKey: "inputRadius")
         let context = CIContext(options: nil)
-        if let result = filter?.value(forKey: kCIOutputImageKey) as? CIImage, let cgimage = context.createCGImage(result, from: CGRect(origin: CGPoint.zero, size: image.size))
+        if let result = filter?.value(forKey: kCIOutputImageKey) as? CIImage, let cgimage = context.createCGImage(result, from: CGRect(origin: CGPoint.zero, size: self.size))
         {
             let newImage = UIImage(cgImage: cgimage)
             return newImage
         }
         return nil
     }
+    
+    
+    /// 转成灰度图
+    /// - Returns: description
+    func mm_toGrayscale() -> UIImage? {
+        let width: Int = Int(size.width)
+        let height: Int = Int(size.height)
+        
+        let colorSpace = CGColorSpaceCreateDeviceGray()
+//        var con = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: CGImageAlphaInfo.none)
+//        UIGraphicsGetCurrentContext()
+
+        guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: CGImageAlphaInfo.none.rawValue), let cgImage = self.cgImage else {
+            return nil
+        }
+        context.draw(cgImage, in: CGRect(origin: CGPoint.zero, size: CGSize(width: width, height: height)))
+        guard let grayImageRef = context.makeImage() else {
+            return nil
+        }
+        let grayImage = UIImage(cgImage: grayImageRef)
+        return grayImage
+    }
+    
+    
+    /// 添加滤镜
+    /// - Parameter name: 滤镜名称
+    /// - Returns: description
+    func mm_addFilter(name: String) -> UIImage? {
+        guard let ciImage = CIImage(image: self) else {
+            return nil
+        }
+        //创建滤镜
+        guard let filter = CIFilter(name: name, parameters: [kCIInputImageKey: ciImage]) else {
+            return nil
+        }
+        //已有的值不变, 其他设为默认
+        filter.setDefaults()
+        EAGLContext.setCurrent(nil)
+        //获取上下文
+        let context = CIContext(options: nil)
+        //渲染并输出ciimage
+        guard let outputImage = filter.outputImage else {
+            return nil
+        }
+        //创建cgimage句柄
+        guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else {
+            return nil
+        }
+        let image = UIImage(cgImage: cgImage)
+        
+        return image
+    }
+    
+    
 }
 
 #endif

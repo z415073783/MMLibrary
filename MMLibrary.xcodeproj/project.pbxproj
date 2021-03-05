@@ -27,7 +27,6 @@
 		04E45F642357173F00F9B336 /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F402357173F00F9B336 /* NotificationCenter+Extension.swift */; };
 		04E45F652357173F00F9B336 /* MMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F432357173F00F9B336 /* MMColor.swift */; };
 		04E45F662357173F00F9B336 /* MMColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F442357173F00F9B336 /* MMColor+Extension.swift */; };
-		04E45F672357173F00F9B336 /* UIImage+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F452357173F00F9B336 /* UIImage+Common.swift */; };
 		04E45F682357173F00F9B336 /* DispatchSemaphore+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F472357173F00F9B336 /* DispatchSemaphore+Extension.swift */; };
 		04E45F692357173F00F9B336 /* MMDispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F482357173F00F9B336 /* MMDispatchQueue.swift */; };
 		04E45F6A2357173F00F9B336 /* MMOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E45F492357173F00F9B336 /* MMOperationQueue.swift */; };
@@ -70,6 +69,18 @@
 		484441AB25BACA2600BB848F /* SAMKeychainQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 484441A425BACA2600BB848F /* SAMKeychainQuery.h */; };
 		484441AC25BACA2600BB848F /* KeyChainUUID.h in Headers */ = {isa = PBXBuildFile; fileRef = 484441A525BACA2600BB848F /* KeyChainUUID.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		484441AD25BACA2600BB848F /* SAMKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 484441A625BACA2600BB848F /* SAMKeychain.m */; };
+		486D363125E8E20F00CFF609 /* CheckLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D363025E8E20F00CFF609 /* CheckLeaks.swift */; };
+		4875653625F1DDE50081492A /* MMNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4875653525F1DDE50081492A /* MMNavigationViewController.swift */; };
+		4875653925F1DEA80081492A /* MMTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4875653825F1DEA80081492A /* MMTabbarViewController.swift */; };
+		487565D925F20AE90081492A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565C525F20AE80081492A /* UIColor+Extension.swift */; };
+		487565DA25F20AE90081492A /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565C625F20AE80081492A /* UILabel+Extension.swift */; };
+		487565DB25F20AE90081492A /* UIView+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565C825F20AE80081492A /* UIView+ViewController.swift */; };
+		487565DC25F20AE90081492A /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565C925F20AE80081492A /* UIButton+Extension.swift */; };
+		487565DD25F20AE90081492A /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565CA25F20AE80081492A /* UIView+Extension.swift */; };
+		487565DE25F20AE90081492A /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565CB25F20AE80081492A /* UINavigationController+Extension.swift */; };
+		487565E425F20AE90081492A /* String+YLUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565D225F20AE80081492A /* String+YLUIKit.swift */; };
+		487565E525F20AE90081492A /* UIImage+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565D325F20AE80081492A /* UIImage+Common.swift */; };
+		4875661F25F20DFF0081492A /* MMUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4875661E25F20DFF0081492A /* MMUIKit.swift */; };
 		487C7677247E9AF500A48460 /* MMXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C7676247E9AF500A48460 /* MMXMLParser.swift */; };
 		489DD03C2464FCB600BD67D7 /* MMCrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */; };
 /* End PBXBuildFile section */
@@ -119,7 +130,6 @@
 		04E45F402357173F00F9B336 /* NotificationCenter+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		04E45F432357173F00F9B336 /* MMColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMColor.swift; sourceTree = "<group>"; };
 		04E45F442357173F00F9B336 /* MMColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MMColor+Extension.swift"; sourceTree = "<group>"; };
-		04E45F452357173F00F9B336 /* UIImage+Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Common.swift"; sourceTree = "<group>"; };
 		04E45F472357173F00F9B336 /* DispatchSemaphore+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchSemaphore+Extension.swift"; sourceTree = "<group>"; };
 		04E45F482357173F00F9B336 /* MMDispatchQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMDispatchQueue.swift; sourceTree = "<group>"; };
 		04E45F492357173F00F9B336 /* MMOperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMOperationQueue.swift; sourceTree = "<group>"; };
@@ -165,6 +175,18 @@
 		484441A425BACA2600BB848F /* SAMKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMKeychainQuery.h; sourceTree = "<group>"; };
 		484441A525BACA2600BB848F /* KeyChainUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainUUID.h; sourceTree = "<group>"; };
 		484441A625BACA2600BB848F /* SAMKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMKeychain.m; sourceTree = "<group>"; };
+		486D363025E8E20F00CFF609 /* CheckLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckLeaks.swift; sourceTree = "<group>"; };
+		4875653525F1DDE50081492A /* MMNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMNavigationViewController.swift; sourceTree = "<group>"; };
+		4875653825F1DEA80081492A /* MMTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTabbarViewController.swift; sourceTree = "<group>"; };
+		487565C525F20AE80081492A /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		487565C625F20AE80081492A /* UILabel+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		487565C825F20AE80081492A /* UIView+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ViewController.swift"; sourceTree = "<group>"; };
+		487565C925F20AE80081492A /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		487565CA25F20AE80081492A /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		487565CB25F20AE80081492A /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		487565D225F20AE80081492A /* String+YLUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+YLUIKit.swift"; sourceTree = "<group>"; };
+		487565D325F20AE80081492A /* UIImage+Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Common.swift"; sourceTree = "<group>"; };
+		4875661E25F20DFF0081492A /* MMUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMUIKit.swift; sourceTree = "<group>"; };
 		487C7676247E9AF500A48460 /* MMXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMXMLParser.swift; sourceTree = "<group>"; };
 		489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMCrashManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,6 +222,8 @@
 				0445738923B86883008F6D70 /* Assets.xcassets */,
 				0445738B23B86883008F6D70 /* LaunchScreen.storyboard */,
 				0445738E23B86883008F6D70 /* Info.plist */,
+				4875653525F1DDE50081492A /* MMNavigationViewController.swift */,
+				4875653825F1DEA80081492A /* MMTabbarViewController.swift */,
 			);
 			path = MMLibraryTest;
 			sourceTree = "<group>";
@@ -215,6 +239,7 @@
 		04E45F352357173F00F9B336 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				486D362F25E8E1FD00CFF609 /* CheckLeaks */,
 				4844419F25BACA2600BB848F /* Keychain */,
 				48355D812543E89E00747B3F /* RunTimeManager */,
 				487C7675247E9AD900A48460 /* XML */,
@@ -280,8 +305,9 @@
 		04E45F412357173F00F9B336 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				4875661E25F20DFF0081492A /* MMUIKit.swift */,
+				487565BE25F20AE80081492A /* Extensions */,
 				04E45F422357173F00F9B336 /* Color */,
-				04E45F452357173F00F9B336 /* UIImage+Common.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -488,6 +514,37 @@
 			path = Keychain;
 			sourceTree = "<group>";
 		};
+		486D362F25E8E1FD00CFF609 /* CheckLeaks */ = {
+			isa = PBXGroup;
+			children = (
+				486D363025E8E20F00CFF609 /* CheckLeaks.swift */,
+			);
+			path = CheckLeaks;
+			sourceTree = "<group>";
+		};
+		487565BE25F20AE80081492A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				487565C525F20AE80081492A /* UIColor+Extension.swift */,
+				487565C625F20AE80081492A /* UILabel+Extension.swift */,
+				487565C725F20AE80081492A /* UIView */,
+				487565C925F20AE80081492A /* UIButton+Extension.swift */,
+				487565CA25F20AE80081492A /* UIView+Extension.swift */,
+				487565CB25F20AE80081492A /* UINavigationController+Extension.swift */,
+				487565D225F20AE80081492A /* String+YLUIKit.swift */,
+				487565D325F20AE80081492A /* UIImage+Common.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		487565C725F20AE80081492A /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				487565C825F20AE80081492A /* UIView+ViewController.swift */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
 		487C7675247E9AD900A48460 /* XML */ = {
 			isa = PBXGroup;
 			children = (
@@ -640,8 +697,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4875653625F1DDE50081492A /* MMNavigationViewController.swift in Sources */,
 				0445738523B86881008F6D70 /* ViewController.swift in Sources */,
 				0445738123B86881008F6D70 /* AppDelegate.swift in Sources */,
+				4875653925F1DEA80081492A /* MMTabbarViewController.swift in Sources */,
 				0445738323B86881008F6D70 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -661,35 +720,44 @@
 				482C629F24594CEF005F9939 /* MMQuickZip.swift in Sources */,
 				04E45F682357173F00F9B336 /* DispatchSemaphore+Extension.swift in Sources */,
 				480CC49725CB8646008CA19B /* MMLogDefine.swift in Sources */,
+				487565DE25F20AE90081492A /* UINavigationController+Extension.swift in Sources */,
+				486D363125E8E20F00CFF609 /* CheckLeaks.swift in Sources */,
 				04E45F6C2357173F00F9B336 /* MMDateFormatterFactory.swift in Sources */,
 				04E45F652357173F00F9B336 /* MMColor.swift in Sources */,
 				482C629424592B4A005F9939 /* ioapi.c in Sources */,
 				484441A725BACA2600BB848F /* UUIDManager.swift in Sources */,
+				487565DB25F20AE90081492A /* UIView+ViewController.swift in Sources */,
 				483A020A253D74ED005F2EAA /* MMLibraryConfig.swift in Sources */,
 				0404EF5123A0DEAA005260CD /* NSObject+Value.swift in Sources */,
 				482C62A12459A759005F9939 /* MMFileData+Search.swift in Sources */,
+				487565D925F20AE90081492A /* UIColor+Extension.swift in Sources */,
 				04E45F602357173F00F9B336 /* NSObject+ClassName.swift in Sources */,
 				04E45F5F2357173F00F9B336 /* MMFileData.swift in Sources */,
+				487565DA25F20AE90081492A /* UILabel+Extension.swift in Sources */,
 				04E45F642357173F00F9B336 /* NotificationCenter+Extension.swift in Sources */,
 				04CE2D44241B5B8B00C39743 /* MMTree.swift in Sources */,
 				04E45F622357173F00F9B336 /* String+Extension.swift in Sources */,
 				04E45F742357173F00F9B336 /* MMLog.swift in Sources */,
 				04E45F6F2357173F00F9B336 /* MMLanguage.swift in Sources */,
 				04E45F732357173F00F9B336 /* MMJSON.swift in Sources */,
+				487565E525F20AE90081492A /* UIImage+Common.swift in Sources */,
+				487565DD25F20AE90081492A /* UIView+Extension.swift in Sources */,
 				4839167A245834C800EF6FEF /* MMZip.swift in Sources */,
 				484441A825BACA2600BB848F /* SAMKeychainQuery.m in Sources */,
 				484441A925BACA2600BB848F /* KeyChainUUID.m in Sources */,
 				482C629324592B4A005F9939 /* zip.c in Sources */,
 				484441AD25BACA2600BB848F /* SAMKeychain.m in Sources */,
 				04E45F662357173F00F9B336 /* MMColor+Extension.swift in Sources */,
+				4875661F25F20DFF0081492A /* MMUIKit.swift in Sources */,
 				482C629B24592DAF005F9939 /* MMZipUtilities.swift in Sources */,
+				487565E425F20AE90081492A /* String+YLUIKit.swift in Sources */,
+				487565DC25F20AE90081492A /* UIButton+Extension.swift in Sources */,
 				04FF6BD4244ECAF50004469B /* MMLogArchive.swift in Sources */,
 				04E45F632357173F00F9B336 /* MMNotification.swift in Sources */,
 				04E45F712357173F00F9B336 /* MMSqliteOperation.swift in Sources */,
 				489DD03C2464FCB600BD67D7 /* MMCrashManager.swift in Sources */,
 				480CC49125CB83D9008CA19B /* MMLogArchiveManager.swift in Sources */,
 				04377B20242E224500F4C604 /* MMSqliteLink.swift in Sources */,
-				04E45F672357173F00F9B336 /* UIImage+Common.swift in Sources */,
 				04E45F612357173F00F9B336 /* NSObject+Extension.swift in Sources */,
 				04E45F692357173F00F9B336 /* MMDispatchQueue.swift in Sources */,
 				483A0211253DA8AA005F2EAA /* MMLogManager.swift in Sources */,
