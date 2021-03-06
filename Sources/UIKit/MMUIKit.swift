@@ -11,20 +11,20 @@ import UIKit
 
 
 /** 屏幕宽度  */
-public var kScreenWidth: Float {
+public var mm_kScreenWidth: Float {
     get {
         return Float(UIScreen.main.bounds.size.width)
     }
 }
 
 /** 屏幕高度  */
-public var kScreenHight: Float {
+public var mm_kScreenHight: Float {
     get {
         return Float(UIScreen.main.bounds.size.height)
     }
 }
 
-public var kRootViewController: UIViewController? {
+public var mm_kRootViewController: UIViewController? {
     if #available(iOS 13.0, *) {
         guard let winScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
             return nil

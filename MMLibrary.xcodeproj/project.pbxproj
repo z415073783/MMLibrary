@@ -77,7 +77,6 @@
 		487565DB25F20AE90081492A /* UIView+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565C825F20AE80081492A /* UIView+ViewController.swift */; };
 		487565DC25F20AE90081492A /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565C925F20AE80081492A /* UIButton+Extension.swift */; };
 		487565DD25F20AE90081492A /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565CA25F20AE80081492A /* UIView+Extension.swift */; };
-		487565DE25F20AE90081492A /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565CB25F20AE80081492A /* UINavigationController+Extension.swift */; };
 		487565E425F20AE90081492A /* String+YLUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565D225F20AE80081492A /* String+YLUIKit.swift */; };
 		487565E525F20AE90081492A /* UIImage+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565D325F20AE80081492A /* UIImage+Common.swift */; };
 		4875661F25F20DFF0081492A /* MMUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4875661E25F20DFF0081492A /* MMUIKit.swift */; };
@@ -183,7 +182,6 @@
 		487565C825F20AE80081492A /* UIView+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ViewController.swift"; sourceTree = "<group>"; };
 		487565C925F20AE80081492A /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		487565CA25F20AE80081492A /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		487565CB25F20AE80081492A /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		487565D225F20AE80081492A /* String+YLUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+YLUIKit.swift"; sourceTree = "<group>"; };
 		487565D325F20AE80081492A /* UIImage+Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Common.swift"; sourceTree = "<group>"; };
 		4875661E25F20DFF0081492A /* MMUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMUIKit.swift; sourceTree = "<group>"; };
@@ -530,7 +528,6 @@
 				487565C725F20AE80081492A /* UIView */,
 				487565C925F20AE80081492A /* UIButton+Extension.swift */,
 				487565CA25F20AE80081492A /* UIView+Extension.swift */,
-				487565CB25F20AE80081492A /* UINavigationController+Extension.swift */,
 				487565D225F20AE80081492A /* String+YLUIKit.swift */,
 				487565D325F20AE80081492A /* UIImage+Common.swift */,
 			);
@@ -720,7 +717,6 @@
 				482C629F24594CEF005F9939 /* MMQuickZip.swift in Sources */,
 				04E45F682357173F00F9B336 /* DispatchSemaphore+Extension.swift in Sources */,
 				480CC49725CB8646008CA19B /* MMLogDefine.swift in Sources */,
-				487565DE25F20AE90081492A /* UINavigationController+Extension.swift in Sources */,
 				486D363125E8E20F00CFF609 /* CheckLeaks.swift in Sources */,
 				04E45F6C2357173F00F9B336 /* MMDateFormatterFactory.swift in Sources */,
 				04E45F652357173F00F9B336 /* MMColor.swift in Sources */,

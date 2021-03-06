@@ -15,7 +15,7 @@ extension String {
         let maxRect = CGSize(width: CGFloat(MAXFLOAT), height: height)
         let attributes = [NSAttributedString.Key.font: font as Any]
         let rect: CGRect = self.boundingRect(with: maxRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil)
-        let textHeight = CGFloat(ceilf(Float(rect.width / CGFloat(kScreenWidth - 24.0)))) * height
+        let textHeight = CGFloat(ceilf(Float(rect.width / CGFloat(mm_kScreenWidth - 24.0)))) * height
         return CGSize(width: rect.width, height: textHeight)
     }
 
