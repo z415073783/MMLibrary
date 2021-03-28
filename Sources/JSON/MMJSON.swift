@@ -280,11 +280,12 @@ public extension NSDictionary {
             let output = try decoder.decode(DataClass, from: data)
             return output
         } catch {
-            print("字符串转换错误: OutputClass = \(DataClass)\n value = \(self)")
+            print("字符串转换错误: OutputClass = \(DataClass)\n value = \(self) error = \(error)")
             return nil
         }
     }
 }
+
 
 public extension MMJSONEncodable {
     func getJSONString() -> String? {
