@@ -10,14 +10,12 @@ import Foundation
 
 
 enum MMSqliteOperationType {
-    case createTable, select, insert, delete, update
+    case createTable, deleteTable, select, insert, delete, update
 }
 
 class MMSqliteOperationModel {
     
 }
-
-
 
 class MMSqliteOperationCreateModel: MMSqliteOperationModel {
     //保存索引属性列表
@@ -43,9 +41,9 @@ class MMSqliteOperationDeleteModel: MMSqliteOperationModel {
 
 
 public class MMSqliteMake: NSObject {
-    lazy var _sqliteObj = MMSqlite()
+     lazy var _sqliteObj = MMSqlite()
     //是否开启多线程
-    var isQueue: Bool {
+    public var isQueue: Bool {
         get {
             return _sqliteObj.isQueue
         }
@@ -77,19 +75,14 @@ public class MMSqliteMake: NSObject {
        return self
     }
 //    var executeLock = NSLock()
-    //执行
+    //执行 queue == nil 不开启多线程
     public func execute(queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool,_ result: NSMutableArray) ->Void) {
 
         guard let name = tableName else {
             block(false, [])
             return
         }
-        
-//        let _block = block
-//        if queue {
-//            executeLock.lock()
-//        }
-         
+    
         
         
         while operations.count > 0 {
@@ -102,6 +95,15 @@ public class MMSqliteMake: NSObject {
                 }
                 _sqliteObj.createTable(name, parames: model.propertys, queue: queue, block: { (isOk) in
                     MMLOG.info("创建表: \(name), \(isOk)")
+                    block(isOk, [])
+                })
+            case .deleteTable:
+//                guard let model = operation.1 as? MMSqliteOperationCreateModel else {
+//                    block(false, [])
+//                    return
+//                }
+                _sqliteObj.deleteTable(name, queue: queue, block: { (isOk) in
+                    MMLOG.info("删除表: \(name), \(isOk)")
                     block(isOk, [])
                 })
             case .select:
@@ -192,7 +194,11 @@ extension __CreateTableMake {
         operations.append((MMSqliteOperationType.createTable, MMSqliteOperationCreateModel()))
         return self
     }
-    
+    //删除表命令
+    public var deleteTable: MMSqliteMake {
+        operations.append((MMSqliteOperationType.deleteTable, MMSqliteOperationModel()))
+        return self
+    }
     
 //MARK:创建表 -> 设置属性
     //设置key属性

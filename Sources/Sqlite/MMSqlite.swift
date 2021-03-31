@@ -124,6 +124,25 @@ public class MMSqlite: NSObject {
             })
         }
     }
+//    deleteTable
+    public func deleteTable(_ sqlName: String, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) -> Void) {
+        guard let queue = queue ?? self.queue else {
+            let isResult: Bool = self.operation.deleteTable(sqlName)
+            if isResult == false {
+                print("sqlite创建表失败")
+            }
+            block(isResult)
+            return
+        }
+        let currentQueue = OperationQueue.current
+        queue.addOperation { [weak self] in
+            guard let `self` = self else { return }
+            let isResult: Bool = self.operation.deleteTable(sqlName)
+            currentQueue?.addOperation({
+                block(isResult)
+            })
+        }
+    }
     
     /**
      //执行没有返回值的数据库语句

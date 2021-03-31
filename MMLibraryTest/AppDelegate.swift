@@ -116,6 +116,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MMLOG.debug("zlm = 1")
         sqliteLink = MMSqliteLink(name: "test", isQueue: true) { (isFinish, link) in
             MMLOG.debug("zlm = 2")
+            // 删除表
+            link?.tableName(name: "table1").deleteTable.execute(block: { (finish, list) in
+                MMLOG.debug("删除表结果: \(finish)")
+            })
             link?.tableName(name: "table1").createTable.property(name: "uid").primarykey.integer.autoincrement.property(name: "姓名").text.property(name: "年龄").integer.property(name: "身高").text.execute(block: { (isSuccess, result) in
                 MMLOG.debug("创建表结果: \(isSuccess)")
                 MMLOG.debug("zlm = 3")

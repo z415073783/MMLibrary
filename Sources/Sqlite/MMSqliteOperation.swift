@@ -110,6 +110,8 @@ public class MMSqliteOperation: NSObject {
         }
         return true
     }
+    
+ 
     /**
      创建表
      
@@ -147,6 +149,35 @@ public class MMSqliteOperation: NSObject {
         }
         return true
     }
+    
+    /// 删除表
+    /// - Parameter tableName: tableName description
+    /// - Returns: description
+    public func deleteTable(_ tableName: String) -> Bool {
+        if db == nil {
+            MMLOG.error("数据库实例不存在")
+            return false
+        }
+        let sql = "DROP TABLE \(tableName)"
+        MMLOG.debug("执行sql: \(sql)")
+        var stmt: OpaquePointer? = nil
+        //        MMLOG.debug(sql)
+        let sqlReturn = sqlite3_prepare_v2(db, sql.cString(using: String.Encoding.utf8)!, -1, &stmt, nil)
+        if sqlReturn != SQLITE_OK {
+            MMLOG.error("sqlite操作:\(tableName)创建失败")
+            return false
+        }
+        //执行sql
+        let success = sqlite3_step(stmt)
+        //释放stms
+        sqlite3_finalize(stmt)
+        if success != SQLITE_DONE {
+            MMLOG.error("sqlite操作:执行语句失败")
+            return false
+        }
+        return true
+    }
+    
     /**
      执行没有返回值的数据库语句
      
