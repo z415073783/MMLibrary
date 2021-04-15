@@ -154,7 +154,8 @@ public class MMSqlite: NSObject {
         guard let queue = queue ?? self.queue else {
             let isResult: Bool = self.operation.execSQL(sql)
             if isResult == false {
-                print("sqlite操作失败: sql = \(sql)")
+                MMLOG.debug("sqlite操作失败: sql = \(sql)")
+                
             }
             block(isResult)
             return
@@ -166,7 +167,9 @@ public class MMSqlite: NSObject {
             guard let `self` = self else { return }
             let isResult: Bool = self.operation.execSQL(sql)
             if isResult == false {
-                print("sqlite操作失败: sql = \(sql)")
+                MMLOG.debug("sqlite操作失败: sql = \(sql)")
+//                print("sqlite操作失败")
+
             }
             currentQueue?.addOperation({
                 block(isResult)

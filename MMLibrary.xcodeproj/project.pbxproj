@@ -79,7 +79,10 @@
 		487565E525F20AE90081492A /* UIImage+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487565D325F20AE80081492A /* UIImage+Common.swift */; };
 		4875661F25F20DFF0081492A /* MMUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4875661E25F20DFF0081492A /* MMUIKit.swift */; };
 		487C7677247E9AF500A48460 /* MMXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C7676247E9AF500A48460 /* MMXMLParser.swift */; };
+		488158D92624194600035464 /* String+Regular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488158D82624194600035464 /* String+Regular.swift */; };
+		488158DC2624196D00035464 /* String+Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488158DB2624196D00035464 /* String+Encryption.swift */; };
 		489DD03C2464FCB600BD67D7 /* MMCrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */; };
+		48D6051E26268F79002B5115 /* MMSqliteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D6051D26268F78002B5115 /* MMSqliteProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,7 +185,10 @@
 		487565D325F20AE80081492A /* UIImage+Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Common.swift"; sourceTree = "<group>"; };
 		4875661E25F20DFF0081492A /* MMUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMUIKit.swift; sourceTree = "<group>"; };
 		487C7676247E9AF500A48460 /* MMXMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMXMLParser.swift; sourceTree = "<group>"; };
+		488158D82624194600035464 /* String+Regular.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Regular.swift"; sourceTree = "<group>"; };
+		488158DB2624196D00035464 /* String+Encryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Encryption.swift"; sourceTree = "<group>"; };
 		489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMCrashManager.swift; sourceTree = "<group>"; };
+		48D6051D26268F78002B5115 /* MMSqliteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSqliteProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,8 +285,10 @@
 			children = (
 				04E45F3B2357173F00F9B336 /* NSObject+ClassName.swift */,
 				04E45F3C2357173F00F9B336 /* NSObject+Extension.swift */,
-				04E45F3D2357173F00F9B336 /* String+Extension.swift */,
 				0404EF5023A0DEAA005260CD /* NSObject+Value.swift */,
+				04E45F3D2357173F00F9B336 /* String+Extension.swift */,
+				488158D82624194600035464 /* String+Regular.swift */,
+				488158DB2624196D00035464 /* String+Encryption.swift */,
 			);
 			path = FoundationExtension;
 			sourceTree = "<group>";
@@ -362,6 +370,7 @@
 				04E45F542357173F00F9B336 /* MMSqlite.swift */,
 				04E45F552357173F00F9B336 /* MMSqliteOperation.swift */,
 				04377B1F242E224500F4C604 /* MMSqliteLink.swift */,
+				48D6051D26268F78002B5115 /* MMSqliteProtocol.swift */,
 			);
 			path = Sqlite;
 			sourceTree = "<group>";
@@ -707,11 +716,13 @@
 				04E45F702357173F00F9B336 /* MMSqlite.swift in Sources */,
 				482C629224592B4A005F9939 /* unzip.c in Sources */,
 				482C629F24594CEF005F9939 /* MMQuickZip.swift in Sources */,
+				488158D92624194600035464 /* String+Regular.swift in Sources */,
 				04E45F682357173F00F9B336 /* DispatchSemaphore+Extension.swift in Sources */,
 				480CC49725CB8646008CA19B /* MMLogDefine.swift in Sources */,
 				486D363125E8E20F00CFF609 /* CheckLeaks.swift in Sources */,
 				04E45F6C2357173F00F9B336 /* MMDateFormatterFactory.swift in Sources */,
 				04E45F652357173F00F9B336 /* MMColor.swift in Sources */,
+				488158DC2624196D00035464 /* String+Encryption.swift in Sources */,
 				482C629424592B4A005F9939 /* ioapi.c in Sources */,
 				484441A725BACA2600BB848F /* UUIDManager.swift in Sources */,
 				487565DB25F20AE90081492A /* UIView+ViewController.swift in Sources */,
@@ -749,6 +760,7 @@
 				04E45F612357173F00F9B336 /* NSObject+Extension.swift in Sources */,
 				04E45F692357173F00F9B336 /* MMDispatchQueue.swift in Sources */,
 				483A0211253DA8AA005F2EAA /* MMLogManager.swift in Sources */,
+				48D6051E26268F79002B5115 /* MMSqliteProtocol.swift in Sources */,
 				04E45F722357173F00F9B336 /* MMSystem.swift in Sources */,
 				48355D832543E89E00747B3F /* RuntimeManager.swift in Sources */,
 				04E45F6E2357173F00F9B336 /* MMFoundationGlobalDefine.swift in Sources */,

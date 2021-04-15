@@ -329,6 +329,23 @@ extension String {
         return self.split { $0 == separator }.map(String.init)
     }
     
+    func ranges(of string: String) -> [Range<String.Index>] {
+        var rangeArray = [Range<String.Index>]()
+        var searchedRange: Range<String.Index>
+        guard let sr = self.range(of: self) else {
+            return rangeArray
+        }
+        searchedRange = sr
+
+        var resultRange = self.range(of: string, options: .regularExpression, range: searchedRange, locale: nil)
+        while let range = resultRange {
+            rangeArray.append(range)
+            searchedRange = Range(uncheckedBounds: (range.upperBound, searchedRange.upperBound))
+            resultRange = self.range(of: string, options: .regularExpression, range: searchedRange, locale: nil)
+        }
+        return rangeArray
+    }
+    
 //    func compare(sender: String) -> MMStringCompareType {
 //
 //

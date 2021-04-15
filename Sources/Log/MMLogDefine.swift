@@ -39,7 +39,7 @@ public class MMLogDefine {
         case time, archiveName, logLevel, thread, module, logPos
     }
     public enum LogSaveZipConfig {
-        case noSave, releaseSave, save
+        case noSave, save
     }
     
 

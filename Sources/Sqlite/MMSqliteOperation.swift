@@ -19,8 +19,10 @@ import SQLite3
 //public let SQL_integer = "INTEGER"
 //public let SQL_text = "TEXT"
 //public let SQL_float = "FLOAT"
+
+/// REAL(DOUBLE, FLOAT, REAL) 高精度类型, NUMERIC(NUMERIC, DECIMAL, BOOLEAN, DATE, DATETIME), NONE (BLOB, no datatype specified) 二进制数据流
 public enum MMSqliteOperationPropertyType: String {
-    case primarykey = "PRIMARY KEY", autoincrement = "AUTOINCREMENT", unique = "UNIQUE", integer = "INTEGER", text = "TEXT", float = "FLOAT"
+    case primarykey = "PRIMARY KEY", autoincrement = "AUTOINCREMENT", unique = "UNIQUE", integer = "INTEGER", text = "TEXT", float = "FLOAT", real = "REAL", numeric = "NUMERIC", none = "NONE"
 }
 public class MMSqliteOperationCreateProperty {
     var name: String = ""
@@ -36,6 +38,24 @@ public class MMSqliteOperation: NSObject {
     //    var _sqlite:sqlite3_vfs? = nil
     var db: OpaquePointer?
     
+    public lazy var sqliteRootPath: String = {
+        //获取根路径
+        let doc = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        
+        guard let docPath = doc.first else {
+            MMLOG.error("开启数据库失败,无法获取根路径")
+            return ""
+        }
+        let sqlitePath = docPath + "/MMSqlite"
+        if !FileManager.default.fileExists(atPath: sqlitePath) {
+            do {
+                try FileManager.default.createDirectory(at: URL(fileURLWithPath: sqlitePath), withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                MMLOG.error("error = \(error)")
+            }
+        }
+        return sqlitePath
+    }()
     /**
      打开数据库
      
@@ -45,12 +65,7 @@ public class MMSqliteOperation: NSObject {
      */
     public func openSqlite(_ dbName: String) -> Bool {
         //获取根路径
-        let doc = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
-        
-        guard let docPath = doc.first else {
-            MMLOG.error("开启数据库失败,无法获取根路径")
-            return false
-        }
+        let docPath = sqliteRootPath
         
         //拼接完整数据库路径
         let path = docPath + "/" + dbName
@@ -159,9 +174,9 @@ public class MMSqliteOperation: NSObject {
             return false
         }
         let sql = "DROP TABLE \(tableName)"
-        MMLOG.debug("执行sql: \(sql)")
+//        MMLOG.debug("执行sql: \(sql)")
         var stmt: OpaquePointer? = nil
-        //        MMLOG.debug(sql)
+                MMLOG.debug(sql)
         let sqlReturn = sqlite3_prepare_v2(db, sql.cString(using: String.Encoding.utf8)!, -1, &stmt, nil)
         if sqlReturn != SQLITE_OK {
             MMLOG.error("sqlite操作:\(tableName)创建失败")
@@ -190,7 +205,6 @@ public class MMSqliteOperation: NSObject {
             MMLOG.error("数据库未初始化")
             return false
         }
-        MMLOG.debug("执行sql: \(sql)")
         /**
          1. 数据库指针
          2. SQL 字符串的 C 语言格式
@@ -198,11 +212,19 @@ public class MMSqliteOperation: NSObject {
          4. 回调的第一个参数的指针
          5. 错误信息，通常也传入 nil
          */
+        
         guard let chars = sql.cString(using: String.Encoding.utf8) else {
             MMLOG.error("数据语句 utf8转换错误 sql = \(sql)")
             return false
         }
-        return sqlite3_exec(db, chars, nil, nil, nil) == SQLITE_OK
+        var err: UnsafeMutablePointer<Int8>? //需要修改
+        let result = sqlite3_exec(db, chars, nil, nil, &err) == SQLITE_OK
+        if err != nil {
+            let mirror = err.customMirror
+            MMLOG.error("错误信息: err = \(mirror.description)")
+            MMLOG.debug("执行sql失败: \(sql)")
+        }
+        return result
     }
     
     
@@ -219,7 +241,7 @@ public class MMSqliteOperation: NSObject {
             MMLOG.error("数据库未初始化")
             return allData
         }
-        MMLOG.debug("执行sql: \(sql)")
+//        MMLOG.debug("执行sql: \(sql)")
         var stmt: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, sql.cString(using: String.Encoding.utf8)!, -1, &stmt, nil) == SQLITE_OK {
             
@@ -253,6 +275,7 @@ public class MMSqliteOperation: NSObject {
             if let col_name = sqlite3_column_name(stmt, i),
                 let name = String(validatingUTF8: col_name) {
                 let type = sqlite3_column_type(stmt, i)
+                
                 //根据字段类型,提取对应列的值
                 switch type {
                 case SQLITE_INTEGER:
@@ -274,6 +297,15 @@ public class MMSqliteOperation: NSObject {
                     
                     onceData.setObject(str, forKey: name as NSCopying)
 //                    MMLOG.debug("str = \(str)")
+                case SQLITE_BLOB:
+                    
+                    guard let data = sqlite3_column_blob(stmt, i) else {
+                        return onceData
+                    }
+                    let valueCount = sqlite3_column_count(stmt)
+                    let _data: Data = Data(bytes: data, count: Int(valueCount))
+                    onceData.setObject(_data, forKey: name as NSCopying)
+//
                 case let type:
                     MMLOG.error("数据库不支持该类型:\(type)")
                 }
@@ -313,6 +345,12 @@ public class MMSqliteOperation: NSObject {
                     case .text:
                         fallthrough
                     case .float:
+                        fallthrough
+                    case .real:
+                        fallthrough
+                    case .none:
+                        fallthrough
+                    case .numeric:
                         sort.append(item)
                     }
                 }

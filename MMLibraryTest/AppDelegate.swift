@@ -8,10 +8,16 @@
 
 import UIKit
 import MMLibrary
+
+struct TestModel: MMSqliteProtocol {
+    var identify: Int? = 0
+    var name: String = ""
+    var ago: Int = 0
+    var num: Double = 0
+}
+
+
 @UIApplicationMain
-
-
-
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     class TestObj: NSObject {
@@ -22,9 +28,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 //        MMLOG.shared.outputList = []
-        MMLOG.info("启动程序 \(KeyChainUUID.getUUID())")
+//        MMLOG.info("启动程序 \(KeyChainUUID.getUUID())")
 //        MMLOG.info("测试 1")
-
+        sqliteLink = MMSqliteLink(name: "test", isQueue: true) { (isFinish, link) in
+            link?.tableName(name: "表名").createTable(bodyClass: TestModel()) { (finish, list) in
+                MMLOG.info("finish = \(finish)")
+//                link?.update()
+                let model = TestModel(identify: 1, name: "小白", ago: 19, num: 5)
+                link?.insert(bodyClass: model) { (finish) in
+                    
+                    link?.replace(bodyClass: model, block: { (finish) in
+                        link?.select(bodyClass: TestModel.self, confitions: ["ago": "18"], block: { (finish, list) in
+                        })
+                    })
+                }
+            }
+        }
+        
+        return true
         print("测试 1")
         let maxNumber = 2000
         DispatchQueue.global().async {

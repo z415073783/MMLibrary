@@ -18,46 +18,6 @@ public struct ProjectPathModel {
     }
 }
 
-extension String {
-    func split(_ separator: Character) -> [String] {
-        return self.split { $0 == separator }.map(String.init)
-    }
-    /// 正则表达式查询
-    ///
-    /// - Parameters:
-    ///   - pattern: 表达式
-    /// - Returns: 结果列表
-    func regularExpressionFind(pattern: String, options: NSRegularExpression.Options = .caseInsensitive) -> [NSTextCheckingResult] {
-        do {
-            let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
-
-            /// 在string中有emoji时，text.count在regex中的字符数不一致，text.utf16.count
-            let textRange = NSRange(self.startIndex..., in: self)
-            let res = regex.matches(in: self,
-                                    options: .reportProgress,
-                                    range: textRange)
-            return res
-        } catch {
-            return []
-        }
-    }
-
-    //使用正则表达式替换
-    func regularExpressionReplace(pattern: String, with: String,
-                                  options: NSRegularExpression.Options = []) -> String? {
-        do {
-            let regex = try NSRegularExpression(pattern: pattern, options: options)
-            return regex.stringByReplacingMatches(in: self, options: [],
-                                                  range: NSMakeRange(0, self.count),
-                                                  withTemplate: with)
-        } catch {
-            MMLOG.error("正则表达式替换失败 pattern = \(pattern); with = \(with); self = \(self); error = \(error)")
-            return nil
-        }
-    }
-
-}
-
 fileprivate typealias Search = MMFileData
 extension MMFileData {
     

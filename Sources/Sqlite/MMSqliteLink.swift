@@ -10,7 +10,7 @@ import Foundation
 
 
 enum MMSqliteOperationType {
-    case createTable, deleteTable, select, insert, delete, update
+    case createTable, deleteTable, select, insert, replace, delete, update
 }
 
 class MMSqliteOperationModel {
@@ -122,6 +122,14 @@ public class MMSqliteMake: NSObject {
                 _sqliteObj.update(getInsertSql(model: model), queue: queue) { (isOk) in
                     block(isOk, [])
                 }
+            case .replace:
+                guard let model = operation.1 as? MMSqliteOperationInsertModel else {
+                    block(false, [])
+                    return
+                }
+                _sqliteObj.update(getReplaceSql(model: model), queue: queue) { (isOk) in
+                    block(isOk, [])
+                }
             case .delete:
 //                getDeleteSql
                 guard let model = operation.1 as? MMSqliteOperationDeleteModel else {
@@ -164,13 +172,20 @@ public class MMSqliteLink: MMSqliteMake {
     
     //打开数据库 数据库名称 路径
 //    String()
-    public init(name: String, path: URL? = MMFileData.getDocumentsPath(), isQueue: Bool = false, block: @escaping ((_ isSuccess: Bool, _ link: MMSqliteLink?) -> Void)) {
+    public init(name: String, path: URL? = MMFileData.getDocumentsPath()?.appendingPathComponent("MMSqlite"), isQueue: Bool = false, block: @escaping ((_ isSuccess: Bool, _ link: MMSqliteLink?) -> Void)) {
         super.init()
         guard let path = path else {
             MMLOG.debug("path参数为nil")
             return
         }
-        
+        let sqlitePath = path
+        if !FileManager.default.fileExists(atPath: sqlitePath.path) {
+            do {
+                try FileManager.default.createDirectory(at: sqlitePath, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                MMLOG.error("error = \(error)")
+            }
+        }
         let fullPath = path.appendingPathComponent(name)
         MMLOG.debug("path/name = \(fullPath)")
         self._sqliteObj.isQueue = isQueue
@@ -186,6 +201,149 @@ public class MMSqliteLink: MMSqliteMake {
 
 
 
+fileprivate typealias __TableModelMake = MMSqliteMake
+public extension __TableModelMake {
+    //通过model创建属性
+    func createTable<T: MMJSONCodable>(bodyClass: T, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool,_ result: NSMutableArray) ->Void) {
+        _ = self.createTable
+        
+        let mir = Mirror(reflecting: bodyClass)
+        let children = mir.children
+        children.forEach { (child) in
+            let childMir = Mirror(reflecting: child.value)
+            //变量名
+            let name = child.label ?? ""
+            let type = "\(childMir.subjectType)"
+            MMLOG.error("name = \(name), type = \(type)")
+        
+            _ = self.property(name: name)
+            switch type {
+            case "Int", "Optional<Int>":
+                if name == "identify" {
+                    _ = self.primarykey.integer.autoincrement
+                } else {
+                    _ = self.integer
+                }
+            case "Double", "Optional<Double>":
+                _ = self.real
+            case "Float", "Optional<Float>":
+                _ = self.float
+            case "String", "Optional<String>":
+                _ = self.text
+            case "Data", "Optional<Data>":
+                _ = self.none
+            default:
+                MMLOG.error("未处理类型 => \(type), name = \(name)")
+                break
+            }
+
+        }
+        self.execute(queue: queue, block: block)
+    }
+    
+    //通过model添加属性
+    func insert<T: MMJSONCodable>(bodyClass: T, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) ->Void) {
+        var values: [String: Any] = [:]
+        
+        let mir = Mirror(reflecting: bodyClass)
+        let children = mir.children
+        children.forEach { (child) in
+            let childMir = Mirror(reflecting: child.value)
+            //变量名
+            let name = child.label ?? ""
+            let type = "\(childMir.subjectType)"
+            MMLOG.error("name = \(name), type = \(type), value = \(child.value)")
+            
+            if name == "identify" {
+                //identify为0, 自动赋值
+                guard let valueInt = child.value as? Int, valueInt != 0 else {
+                    return
+                }
+                values[name] = valueInt
+            } else {
+                values[name] = child.value
+            }
+        }
+        self.insert(values: values).execute(queue: queue) { (finish, list) in
+            
+            block(finish)
+        }
+    }
+    //通过model添加(更新)属性 根据唯一标识符判断是否是添加或者更新
+    func replace<T: MMJSONCodable>(bodyClass: T, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) ->Void) {
+        var values: [String: Any] = [:]
+    
+        let mir = Mirror(reflecting: bodyClass)
+        let children = mir.children
+        children.forEach { (child) in
+            let childMir = Mirror(reflecting: child.value)
+            //变量名
+            let name = child.label ?? ""
+            let type = "\(childMir.subjectType)"
+            MMLOG.error("name = \(name), type = \(type), value = \(child.value)")
+            
+            if name == "identify" {
+                //identify为0, 自动赋值
+                guard let valueInt = child.value as? Int, valueInt != 0 else {
+                    return
+                }
+                values[name] = valueInt
+            } else {
+                values[name] = child.value
+            }
+        }
+        self.replace(values: values).execute(queue: queue) { (finish, list) in
+            block(finish)
+        }
+    }
+    //目前只支持单条件查询
+    func select<T: MMJSONCodable>(bodyClass: T.Type, confitions: [String: Any], queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool, _ list: [T]) ->Void) {
+        var values: [String] = []
+    
+        let mir = Mirror(reflecting: bodyClass)
+        let children = mir.children
+        children.forEach { (child) in
+            let childMir = Mirror(reflecting: child.value)
+            //变量名
+            let name = child.label ?? ""
+            let type = "\(childMir.subjectType)"
+            MMLOG.error("name = \(name), type = \(type), value = \(child.value)")
+            
+            if name == "identify", let valueInt = child.value as? Int, valueInt == 0 {
+                return
+            }
+            values.append(name)
+        }
+        
+        
+        _ = self.select(names: [])
+        for (key, value) in confitions {
+            _ = self.whereEqual(key: key, value: value)
+        }
+        self.execute(queue: queue) { (finish, list) in
+            
+            MMLOG.debug("测试")
+            if !finish {
+                
+                
+                block(finish, [])
+                return
+            }
+            var result: [T] = []
+            for item in list {
+                guard let dic = item as? NSDictionary, let model = dic.getJSONModelSync(bodyClass) else {
+                    continue
+                }
+                
+                result.append(model)
+            }
+            block(finish, result)
+            
+        }
+
+    }
+    
+}
 fileprivate typealias __CreateTableMake = MMSqliteMake
 extension __CreateTableMake {
 
@@ -217,6 +375,7 @@ extension __CreateTableMake {
         
         return self
     }
+    
     //设置自增属性需要遵循右侧顺序,否则会失败 -> integer.primarykey.autoincrement
     public var autoincrement: MMSqliteMake {
         if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
@@ -260,7 +419,35 @@ extension __CreateTableMake {
         }
         return self
     }
-        
+    
+    /// 双精度
+    public var real: MMSqliteMake {
+        if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
+            if let set = model.propertys.last {
+                set.types.append(.real)
+            }
+        }
+        return self
+    }
+    
+    /// 日期 时间 bool
+    public var numeric: MMSqliteMake {
+        if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
+            if let set = model.propertys.last {
+                set.types.append(.numeric)
+            }
+        }
+        return self
+    }
+    //二进制数据 data
+    public var none: MMSqliteMake {
+        if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
+            if let set = model.propertys.last {
+                set.types.append(.none)
+            }
+        }
+        return self
+    }
 }
 
 
@@ -347,6 +534,19 @@ extension __InsertMake {
     public func insert(values: [String: Any] = [:]) -> MMSqliteMake {
         let model = MMSqliteOperationInsertModel()
         operations.append((.insert, model))
+        model.values = values
+        return self
+    }
+}
+fileprivate typealias __ReplaceMake = MMSqliteMake
+extension __ReplaceMake {
+    
+    /// 插入或者更新
+    /// - Parameter values: values description
+    /// - Returns: description
+    public func replace(values: [String: Any] = [:]) -> MMSqliteMake {
+        let model = MMSqliteOperationInsertModel()
+        operations.append((.replace, model))
         model.values = values
         return self
     }
@@ -444,6 +644,39 @@ extension __PrivateMake {
             return ""
         }
     }
+    func getReplaceSql(model: MMSqliteOperationInsertModel) -> String {
+        guard let name = tableName else {
+            MMLOG.error("未设置表名")
+            return ""
+        }
+//        var sql = ""
+        var keysString = ""
+        var valuesString = ""
+        var i = 0
+        for (key, value) in model.values {
+            if i != 0 {
+                keysString += ","
+                valuesString += ","
+            }
+            keysString += key
+            if let _ = value as? String {
+                valuesString += "'\(value)'"
+            } else {
+                valuesString += "\(value)"
+            }
+            
+            
+            i += 1
+        }
+      
+        
+        if keysString.count > 0 {
+            return "REPLACE INTO \(name) (\(keysString)) VALUES (\(valuesString))"
+        } else {
+            MMLOG.error("未设置插入参数")
+            return ""
+        }
+    }
     
     func getUpdateSql(model: MMSqliteOperationUpdateModel) -> String {
         guard let name = tableName else {
@@ -469,7 +702,8 @@ extension __PrivateMake {
         let whereStr = getWheres(wheres: model.wheres)
         
         if model.values.count > 0 {
-            return "UPDATE \(name) SET \(setValues) WHERE (\(whereStr))"
+            
+            return "UPDATE \(name) SET \(setValues) \(whereStr.count > 0 ? "WHERE (\(whereStr))" : "")"
         } else {
             return ""
         }

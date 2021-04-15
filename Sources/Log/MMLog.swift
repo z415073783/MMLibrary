@@ -178,7 +178,10 @@ public class MMLogger: NSObject {
                 }
             }
         }
-        MMLogArchiveManager.shared.saveLog(archiveName: archiveName, log: adjustedText)
+        if shared.saveZipConfig == .save {
+            MMLogArchiveManager.shared.saveLog(archiveName: archiveName, log: adjustedText)
+        }
+        
 
         
     }
