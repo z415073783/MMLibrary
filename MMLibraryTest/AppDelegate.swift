@@ -9,11 +9,12 @@
 import UIKit
 import MMLibrary
 
-struct TestModel: MMSqliteProtocol {
+struct TestModel: MMJSONCodable {
     var identify: Int? = 0
-    var name: String = ""
-    var ago: Int = 0
-    var num: Double = 0
+    var name: String? = ""
+    var ago: Int? = 0
+    var num: Double? = 0
+
 }
 
 

@@ -12,4 +12,3 @@ public protocol MMSqliteProtocol: MMJSONCodable {
     var identify: Int? { get set }
 }
 
-

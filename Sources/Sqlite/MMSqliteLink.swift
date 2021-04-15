@@ -200,12 +200,74 @@ public class MMSqliteLink: MMSqliteMake {
 }
 
 
+extension String {
+    func removeOptional() -> (String, Bool) {
+        if self.hasPrefix("Optional") {
+            let result = self[self.index(self.startIndex, offsetBy: "Optional(".count) ..< self.index(self.endIndex, offsetBy: -(")".count))]
+            return (String(result), true)
+        }
+        return (self, false)
+    }
+    
+    func isOptionType() -> Bool {
+        if self.hasPrefix("Optional") {
+            return true
+        }
+        return false
+    }
+}
 
 fileprivate typealias __TableModelMake = MMSqliteMake
+extension __TableModelMake {
+    func optionValue(value: Any?) -> Any {
+        if let newValue = value as? Int {
+            return newValue
+        } else if let newValue = value as? Double {
+            return newValue
+        } else if let newValue = value as? Float {
+            return newValue
+        } else if let newValue = value as? String {
+            return newValue
+        } else if let newValue = value as? Data {
+            return newValue
+        } else {
+            return value ?? 0
+        }
+    }
+    
+    func getValues<T: MMJSONCodable>(bodyClass: T) -> [String: Any] {
+        var values: [String: Any] = [:]
+        let mir = Mirror(reflecting: bodyClass)
+        let children = mir.children
+        children.forEach { (child) in
+            let childMir = Mirror(reflecting: child.value)
+            //变量名
+            let name = child.label ?? ""
+            let type = "\(childMir.subjectType)"
+            MMLOG.error("name = \(name), type = \(type), value = \(child.value)")
+            
+            var value = child.value
+            if type.isOptionType() {
+                value = optionValue(value: value)
+            }
+            
+            if name == "identify" {
+                //identify为0, 自动赋值
+                guard let valueInt = value as? Int, valueInt != 0 else {
+                    return
+                }
+                values[name] = valueInt
+            } else {
+                values[name] = value
+            }
+        }
+        return values
+    }
+}
 public extension __TableModelMake {
     //通过model创建属性
     func createTable<T: MMJSONCodable>(bodyClass: T, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool,_ result: NSMutableArray) ->Void) {
-        _ = self.createTable
+        _ = createTable
         
         let mir = Mirror(reflecting: bodyClass)
         let children = mir.children
@@ -243,89 +305,27 @@ public extension __TableModelMake {
     
     //通过model添加属性
     func insert<T: MMJSONCodable>(bodyClass: T, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) ->Void) {
-        var values: [String: Any] = [:]
-        
-        let mir = Mirror(reflecting: bodyClass)
-        let children = mir.children
-        children.forEach { (child) in
-            let childMir = Mirror(reflecting: child.value)
-            //变量名
-            let name = child.label ?? ""
-            let type = "\(childMir.subjectType)"
-            MMLOG.error("name = \(name), type = \(type), value = \(child.value)")
-            
-            if name == "identify" {
-                //identify为0, 自动赋值
-                guard let valueInt = child.value as? Int, valueInt != 0 else {
-                    return
-                }
-                values[name] = valueInt
-            } else {
-                values[name] = child.value
-            }
-        }
-        self.insert(values: values).execute(queue: queue) { (finish, list) in
-            
+        let values = getValues(bodyClass: bodyClass)
+        insert(values: values).execute(queue: queue) { (finish, list) in
             block(finish)
         }
     }
     //通过model添加(更新)属性 根据唯一标识符判断是否是添加或者更新
     func replace<T: MMJSONCodable>(bodyClass: T, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) ->Void) {
-        var values: [String: Any] = [:]
-    
-        let mir = Mirror(reflecting: bodyClass)
-        let children = mir.children
-        children.forEach { (child) in
-            let childMir = Mirror(reflecting: child.value)
-            //变量名
-            let name = child.label ?? ""
-            let type = "\(childMir.subjectType)"
-            MMLOG.error("name = \(name), type = \(type), value = \(child.value)")
-            
-            if name == "identify" {
-                //identify为0, 自动赋值
-                guard let valueInt = child.value as? Int, valueInt != 0 else {
-                    return
-                }
-                values[name] = valueInt
-            } else {
-                values[name] = child.value
-            }
-        }
-        self.replace(values: values).execute(queue: queue) { (finish, list) in
+        let values = getValues(bodyClass: bodyClass)
+        replace(values: values).execute(queue: queue) { (finish, list) in
             block(finish)
         }
     }
     //目前只支持单条件查询
     func select<T: MMJSONCodable>(bodyClass: T.Type, confitions: [String: Any], queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool, _ list: [T]) ->Void) {
-        var values: [String] = []
     
-        let mir = Mirror(reflecting: bodyClass)
-        let children = mir.children
-        children.forEach { (child) in
-            let childMir = Mirror(reflecting: child.value)
-            //变量名
-            let name = child.label ?? ""
-            let type = "\(childMir.subjectType)"
-            MMLOG.error("name = \(name), type = \(type), value = \(child.value)")
-            
-            if name == "identify", let valueInt = child.value as? Int, valueInt == 0 {
-                return
-            }
-            values.append(name)
-        }
-        
-        
-        _ = self.select(names: [])
+        _ = select(names: [])
         for (key, value) in confitions {
-            _ = self.whereEqual(key: key, value: value)
+            _ = whereEqual(key: key, value: value)
         }
-        self.execute(queue: queue) { (finish, list) in
-            
-            MMLOG.debug("测试")
+        execute(queue: queue) { (finish, list) in
             if !finish {
-                
-                
                 block(finish, [])
                 return
             }
@@ -338,9 +338,7 @@ public extension __TableModelMake {
                 result.append(model)
             }
             block(finish, result)
-            
         }
-
     }
     
 }
