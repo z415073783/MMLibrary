@@ -33,7 +33,7 @@ struct TestModel: MMSqliteProtocol {
     
     var identify: Int? = 0
     var isOk: Bool = false
-    var sub: SubModel = SubModel(secondNumber: 11)
+    var sub: SubModel?
 
 }
 

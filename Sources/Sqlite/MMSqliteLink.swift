@@ -411,11 +411,15 @@ public extension __TableModelMake {
                     default:
                         //未知类型转换
                         if let curValue = dic[name] as? String, let curData = curValue.data(using: String.Encoding.utf8) {
-                            do {
-                                let subDic = try JSONSerialization.jsonObject(with: curData, options: JSONSerialization.ReadingOptions.mutableLeaves)
-                                dic[name] = subDic
-                            } catch {
-                                MMLOG.error("string转json错误 error = \(error)")
+                            if curValue != "null" {
+                                do {
+                                    let subDic = try JSONSerialization.jsonObject(with: curData, options: JSONSerialization.ReadingOptions.mutableLeaves)
+                                    dic[name] = subDic
+                                } catch {
+                                    MMLOG.error("string转json错误 error = \(error)")
+                                }
+                            } else {
+                                dic[name] = nil
                             }
                         }
                     }
