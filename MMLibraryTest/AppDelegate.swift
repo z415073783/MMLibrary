@@ -10,6 +10,14 @@ import UIKit
 import MMLibrary
 
 struct TestModel: MMSqliteProtocol {
+    static func setPrimaryKey() -> [String] {
+        return ["identify"]
+    }
+    
+    static func setAutoincrement() -> [String] {
+        return ["identify"]
+    }
+    
     var identify: Int? = 0
     var isOk: Bool = false
 

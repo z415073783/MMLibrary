@@ -8,8 +8,10 @@
 
 import Foundation
 public protocol MMSqliteProtocol: MMJSONCodable {
-    /// 唯一 递增
-    var identify: Int? { get set }
-    init() 
+    init()
+    //返回需要设置的primaryKey
+    static func setPrimaryKey() -> [String]
+    //返回需要设置的autoincrement
+    static func setAutoincrement() -> [String]
 }
 

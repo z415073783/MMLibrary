@@ -276,15 +276,7 @@ extension __TableModelMake {
                 }
             }
             
-            if name == "identify" {
-                //identify为0, 自动赋值
-                guard let valueInt = value as? Int, valueInt != 0 else {
-                    return
-                }
-                values[name] = valueInt
-            } else {
-                values[name] = value
-            }
+            values[name] = value
         }
         return values
     }
@@ -304,15 +296,15 @@ public extension __TableModelMake {
             let name = child.label ?? ""
             let type = "\(childMir.subjectType)"
             MMLOG.error("name = \(name), type = \(type)")
-        
             _ = self.property(name: name)
+            for key in T.setPrimaryKey() {
+                if key == name {
+                    _ = self.primarykey
+                }
+            }
             switch type {
             case "Int", "Optional<Int>":
-                if name == "identify" {
-                    _ = self.primarykey.integer.autoincrement
-                } else {
-                    _ = self.integer
-                }
+                _ = self.integer
             case "Double", "Optional<Double>":
                 _ = self.real
             case "Float", "Optional<Float>":
@@ -329,7 +321,11 @@ public extension __TableModelMake {
                 MMLOG.error("未处理类型 => \(type), name = \(name)")
                 break
             }
-
+            for key in T.setAutoincrement() {
+                if key == name {
+                    _ = self.autoincrement
+                }
+            }
         }
         self.execute(queue: queue) { (finish, list) in
             block(finish)
@@ -386,10 +382,6 @@ public extension __TableModelMake {
                     default:
                         break
                     }
-                    
-            
-                        
-//                        values[name] = value
                     
                 }
                 
