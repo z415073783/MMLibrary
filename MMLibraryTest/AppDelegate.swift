@@ -33,7 +33,7 @@ struct TestModel: MMSqliteProtocol {
     
     var identify: Int? = 0
     var isOk: Bool = false
-    var sub: SubModel = SubModel()
+    var sub: SubModel = SubModel(secondNumber: 11)
 
 }
 
@@ -54,11 +54,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sqliteLink = MMSqliteLink(name: "test", isQueue: true) { (isFinish, link) in
             link?.tableName(name: "表名").createTable(bodyClass: TestModel.self) { (finish) in
                 MMLOG.info("finish = \(finish)")
-                let model = TestModel()
+                var model = TestModel()
+//                model.sub = SubModel(secondNumber: 123)
                 link?.replace(bodyClass: model) { (finish) in
                     
 //                    link?.replace(bodyClass: model, block: { (finish) in
                         link?.select(bodyClass: TestModel.self, block: { (finish, list) in
+                            MMLOG.info("asd = \(list)")
                         })
 //                    })
                 }

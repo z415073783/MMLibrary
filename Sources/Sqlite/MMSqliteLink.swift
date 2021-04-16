@@ -248,7 +248,6 @@ extension __TableModelMake {
             case "Bool", "Optional<Bool>":
                 return false
             default:
-                MMLOG.error("未处理类型 => \(type)")
                 return nil
             }
         }
@@ -270,8 +269,11 @@ extension __TableModelMake {
                 
                 if let _value = optionValue(value: value, type: childMir.subjectType) {
                     value = _value
-                } else {
+                } else if let _value = value as? MMJSONCodable {
                     //不存在
+                    value = _value
+                } else {
+                    MMLOG.error("未处理数据 type => \(type), value = \(value), name = \(name)")
                     return
                 }
             }
@@ -293,7 +295,7 @@ extension __TableModelMake {
                         MMLOG.error("类型转换错误 => \(valueCotable)")
                     }
                 } else {
-                    MMLOG.error("未处理类型 => \(type)")
+                    MMLOG.warn("未处理类型 => \(type)")
                 }
             }
             
@@ -340,7 +342,7 @@ public extension __TableModelMake {
             case "Numeric", "Optional<Numeric>":
                 _ = self.numeric
             default:
-                MMLOG.error("未处理类型 => \(type), name = \(name), 强制=>String")
+                MMLOG.debug("未处理类型 => \(type), name = \(name), 强制=>String")
                 _ = self.text
             }
             for key in T.setAutoincrement() {
@@ -408,9 +410,13 @@ public extension __TableModelMake {
                         }
                     default:
                         //未知类型转换
-                        if let subModel = child.value as? MMJSONCodable {
-                            let model = subModel.getJSONObject()
-                            dic[name] = model
+                        if let curValue = dic[name] as? String, let curData = curValue.data(using: String.Encoding.utf8) {
+                            do {
+                                let subDic = try JSONSerialization.jsonObject(with: curData, options: JSONSerialization.ReadingOptions.mutableLeaves)
+                                dic[name] = subDic
+                            } catch {
+                                MMLOG.error("string转json错误 error = \(error)")
+                            }
                         }
                     }
                 }
