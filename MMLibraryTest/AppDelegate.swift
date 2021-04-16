@@ -8,8 +8,21 @@
 
 import UIKit
 import MMLibrary
-
+struct SubModel: MMSqliteProtocol {
+    static func setPrimaryKey() -> [String] {
+        return []
+    }
+    
+    static func setAutoincrement() -> [String] {
+        return []
+    }
+    
+    var secondNumber: Int = 1
+}
 struct TestModel: MMSqliteProtocol {
+    init() {
+    }
+    
     static func setPrimaryKey() -> [String] {
         return ["identify"]
     }
@@ -20,6 +33,7 @@ struct TestModel: MMSqliteProtocol {
     
     var identify: Int? = 0
     var isOk: Bool = false
+    var sub: SubModel = SubModel()
 
 }
 
@@ -40,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sqliteLink = MMSqliteLink(name: "test", isQueue: true) { (isFinish, link) in
             link?.tableName(name: "表名").createTable(bodyClass: TestModel.self) { (finish) in
                 MMLOG.info("finish = \(finish)")
-                let model = TestModel(identify: 1)
+                let model = TestModel()
                 link?.replace(bodyClass: model) { (finish) in
                     
 //                    link?.replace(bodyClass: model, block: { (finish) in

@@ -275,6 +275,27 @@ extension __TableModelMake {
                     return
                 }
             }
+            switch "\(type)" {
+            case "Int", "Optional<Int>": break
+            case "Double", "Optional<Double>": break
+            case "Float", "Optional<Float>": break
+            case "String", "Optional<String>": break
+            case "Data", "Optional<Data>": break
+            case "Bool", "Optional<Bool>": break
+            default:
+                
+                //强制转换成字符串
+                if let valueCotable = value as? MMJSONCodable {
+                    let result = valueCotable.getJSONString() ?? ""
+                    value = result
+                    if result == "" {
+                        //类型转换错误
+                        MMLOG.error("类型转换错误 => \(valueCotable)")
+                    }
+                } else {
+                    MMLOG.error("未处理类型 => \(type)")
+                }
+            }
             
             values[name] = value
         }
@@ -283,6 +304,7 @@ extension __TableModelMake {
  
     
 }
+//MARK: model操作
 public extension __TableModelMake {
     //通过model创建属性
     func createTable<T: MMSqliteProtocol>(bodyClass: T.Type, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) ->Void) {
@@ -318,8 +340,8 @@ public extension __TableModelMake {
             case "Numeric", "Optional<Numeric>":
                 _ = self.numeric
             default:
-                MMLOG.error("未处理类型 => \(type), name = \(name)")
-                break
+                MMLOG.error("未处理类型 => \(type), name = \(name), 强制=>String")
+                _ = self.text
             }
             for key in T.setAutoincrement() {
                 if key == name {
@@ -374,24 +396,28 @@ public extension __TableModelMake {
                     let type = "\(childMir.subjectType)"
                     
                     switch type {
+                    case "Int", "Optional<Int>": break
+                    case "Double", "Optional<Double>": break
+                    case "Float", "Optional<Float>": break
+                    case "String", "Optional<String>": break
+                    case "Data", "Optional<Data>": break
                     case "Bool", "Optional<Bool>":
                         if let curValue = dic[name] as? Int {
                             let newValue: Bool = curValue == 0 ? false : true
                             dic[name] = newValue
                         }
                     default:
-                        break
+                        //未知类型转换
+                        if let subModel = child.value as? MMJSONCodable {
+                            let model = subModel.getJSONObject()
+                            dic[name] = model
+                        }
                     }
-                    
                 }
-                
-                
                 
                 guard let model = dic.getJSONModelSync(bodyClass) else {
                     continue
                 }
-                
-                
                 result.append(model)
             }
             block(finish, result)

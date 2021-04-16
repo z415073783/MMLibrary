@@ -286,7 +286,6 @@ public extension NSDictionary {
     }
 }
 
-
 public extension MMJSONEncodable {
     func getJSONString() -> String? {
         guard let data = try? JSONEncoder().encode(self) else {
