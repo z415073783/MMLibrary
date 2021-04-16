@@ -9,11 +9,9 @@
 import UIKit
 import MMLibrary
 
-struct TestModel: MMJSONCodable {
+struct TestModel: MMSqliteProtocol {
     var identify: Int? = 0
-    var name: String? = ""
-    var ago: Int? = 0
-    var num: Double? = 0
+    var isOk: Bool = false
 
 }
 
@@ -32,16 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        MMLOG.info("启动程序 \(KeyChainUUID.getUUID())")
 //        MMLOG.info("测试 1")
         sqliteLink = MMSqliteLink(name: "test", isQueue: true) { (isFinish, link) in
-            link?.tableName(name: "表名").createTable(bodyClass: TestModel()) { (finish, list) in
+            link?.tableName(name: "表名").createTable(bodyClass: TestModel.self) { (finish) in
                 MMLOG.info("finish = \(finish)")
-//                link?.update()
-                let model = TestModel(identify: 1, name: "小白", ago: 19, num: 5)
-                link?.insert(bodyClass: model) { (finish) in
+                let model = TestModel(identify: 1)
+                link?.replace(bodyClass: model) { (finish) in
                     
-                    link?.replace(bodyClass: model, block: { (finish) in
-                        link?.select(bodyClass: TestModel.self, confitions: ["ago": "18"], block: { (finish, list) in
+//                    link?.replace(bodyClass: model, block: { (finish) in
+                        link?.select(bodyClass: TestModel.self, block: { (finish, list) in
                         })
-                    })
+//                    })
                 }
             }
         }

@@ -219,7 +219,7 @@ extension String {
 
 fileprivate typealias __TableModelMake = MMSqliteMake
 extension __TableModelMake {
-    func optionValue(value: Any?) -> Any {
+    func optionValue(value: Any?, type: Any.Type) -> Any? {
         if let newValue = value as? Int {
             return newValue
         } else if let newValue = value as? Double {
@@ -230,8 +230,27 @@ extension __TableModelMake {
             return newValue
         } else if let newValue = value as? Data {
             return newValue
+        } else if let newValue = value as? Bool {
+            return newValue
         } else {
-            return value ?? 0
+            //数据为nil
+            switch "\(type)" {
+            case "Int", "Optional<Int>":
+                return 0
+            case "Double", "Optional<Double>":
+                return 0.0
+            case "Float", "Optional<Float>":
+                return 0.0
+            case "String", "Optional<String>":
+                return ""
+            case "Data", "Optional<Data>":
+                return Data()
+            case "Bool", "Optional<Bool>":
+                return false
+            default:
+                MMLOG.error("未处理类型 => \(type)")
+                return nil
+            }
         }
     }
     
@@ -244,11 +263,17 @@ extension __TableModelMake {
             //变量名
             let name = child.label ?? ""
             let type = "\(childMir.subjectType)"
-            MMLOG.error("name = \(name), type = \(type), value = \(child.value)")
+//            MMLOG.error("name = \(name), type = \(type), value = \(child.value)")
             
             var value = child.value
             if type.isOptionType() {
-                value = optionValue(value: value)
+                
+                if let _value = optionValue(value: value, type: childMir.subjectType) {
+                    value = _value
+                } else {
+                    //不存在
+                    return
+                }
             }
             
             if name == "identify" {
@@ -263,13 +288,15 @@ extension __TableModelMake {
         }
         return values
     }
+ 
+    
 }
 public extension __TableModelMake {
     //通过model创建属性
-    func createTable<T: MMJSONCodable>(bodyClass: T, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool,_ result: NSMutableArray) ->Void) {
+    func createTable<T: MMSqliteProtocol>(bodyClass: T.Type, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) ->Void) {
         _ = createTable
         
-        let mir = Mirror(reflecting: bodyClass)
+        let mir = Mirror(reflecting: T())
         let children = mir.children
         children.forEach { (child) in
             let childMir = Mirror(reflecting: child.value)
@@ -294,31 +321,37 @@ public extension __TableModelMake {
                 _ = self.text
             case "Data", "Optional<Data>":
                 _ = self.none
+            case "Bool", "Optional<Bool>":
+                _ = self.numeric
+            case "Numeric", "Optional<Numeric>":
+                _ = self.numeric
             default:
                 MMLOG.error("未处理类型 => \(type), name = \(name)")
                 break
             }
 
         }
-        self.execute(queue: queue, block: block)
+        self.execute(queue: queue) { (finish, list) in
+            block(finish)
+        }
     }
     
     //通过model添加属性
-    func insert<T: MMJSONCodable>(bodyClass: T, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) ->Void) {
+    func insert<T: MMSqliteProtocol>(bodyClass: T, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) ->Void) {
         let values = getValues(bodyClass: bodyClass)
         insert(values: values).execute(queue: queue) { (finish, list) in
             block(finish)
         }
     }
     //通过model添加(更新)属性 根据唯一标识符判断是否是添加或者更新
-    func replace<T: MMJSONCodable>(bodyClass: T, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) ->Void) {
+    func replace<T: MMSqliteProtocol>(bodyClass: T, queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) ->Void) {
         let values = getValues(bodyClass: bodyClass)
         replace(values: values).execute(queue: queue) { (finish, list) in
             block(finish)
         }
     }
     //目前只支持单条件查询
-    func select<T: MMJSONCodable>(bodyClass: T.Type, confitions: [String: Any], queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool, _ list: [T]) ->Void) {
+    func select<T: MMSqliteProtocol>(bodyClass: T.Type, confitions: [String: Any] = [:], queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool, _ list: [T]) ->Void) {
     
         _ = select(names: [])
         for (key, value) in confitions {
@@ -330,10 +363,42 @@ public extension __TableModelMake {
                 return
             }
             var result: [T] = []
+            
             for item in list {
-                guard let dic = item as? NSDictionary, let model = dic.getJSONModelSync(bodyClass) else {
+                guard let dic = item as? NSMutableDictionary else {
                     continue
                 }
+                //遍历类型, 把bool类型的数据 数字 转换成 false和true
+                let mir = Mirror(reflecting: T())
+                let children = mir.children
+                children.forEach { (child) in
+                    let childMir = Mirror(reflecting: child.value)
+                    //变量名
+                    let name = child.label ?? ""
+                    let type = "\(childMir.subjectType)"
+                    
+                    switch type {
+                    case "Bool", "Optional<Bool>":
+                        if let curValue = dic[name] as? Int {
+                            let newValue: Bool = curValue == 0 ? false : true
+                            dic[name] = newValue
+                        }
+                    default:
+                        break
+                    }
+                    
+            
+                        
+//                        values[name] = value
+                    
+                }
+                
+                
+                
+                guard let model = dic.getJSONModelSync(bodyClass) else {
+                    continue
+                }
+                
                 
                 result.append(model)
             }
@@ -437,6 +502,15 @@ extension __CreateTableMake {
         }
         return self
     }
+    public var bool: MMSqliteMake {
+        if let model = operations.last?.1 as? MMSqliteOperationCreateModel {
+            if let set = model.propertys.last {
+                set.types.append(.numeric)
+            }
+        }
+        return self
+    }
+    
     //二进制数据 data
     public var none: MMSqliteMake {
         if let model = operations.last?.1 as? MMSqliteOperationCreateModel {

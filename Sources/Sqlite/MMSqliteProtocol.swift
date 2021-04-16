@@ -10,5 +10,6 @@ import Foundation
 public protocol MMSqliteProtocol: MMJSONCodable {
     /// 唯一 递增
     var identify: Int? { get set }
+    init() 
 }
 

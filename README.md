@@ -22,16 +22,11 @@ framework生成路径: Build->MMLibrary.framework
 ## 数据库使用方式
 ```
 sqliteLink = MMSqliteLink(name: "test", isQueue: true) { (isFinish, link) in
-    link?.tableName(name: "表名").createTable(bodyClass: TestModel()) { (finish, list) in
+    link?.tableName(name: "表名").createTable(bodyClass: TestModel()) { (finish) in
         MMLOG.info("finish = \(finish)")
-//                link?.update()
-        let model = TestModel()
-        model.name = "小曾"
-        model.num = 1
-        model.ago = 18
-        model.identify = 1
+        let model = TestModel(identify: 1, name: "小白", ago: 19, num: 5)
         link?.insert(bodyClass: model) { (finish) in
-            model.ago = 19
+            
             link?.replace(bodyClass: model, block: { (finish) in
                 link?.select(bodyClass: TestModel.self, confitions: ["ago": "18"], block: { (finish, list) in
                 })
@@ -39,6 +34,7 @@ sqliteLink = MMSqliteLink(name: "test", isQueue: true) { (isFinish, link) in
         }
     }
 }
+
 ```
 
 ```
