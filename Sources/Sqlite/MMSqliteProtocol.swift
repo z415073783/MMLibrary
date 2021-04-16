@@ -13,5 +13,12 @@ public protocol MMSqliteProtocol: MMJSONCodable {
     static func setPrimaryKey() -> [String]
     //返回需要设置的autoincrement
     static func setAutoincrement() -> [String]
+    //需要忽视的key
+    static func needIgnoreKey() -> [String]
 }
-
+//方法默认实现 
+public extension MMSqliteProtocol {
+    static func setPrimaryKey() -> [String] { return [] }
+    static func setAutoincrement() -> [String] { return [] }
+    static func needIgnoreKey() -> [String] { return [] }
+}
