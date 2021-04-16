@@ -30,6 +30,9 @@ struct TestModel: MMSqliteProtocol {
     static func setAutoincrement() -> [String] {
         return ["identify"]
     }
+    static func needIgnoreKey() -> [String] {
+        return ["isOk"]
+    }
     
     var identify: Int? = 0
     var isOk: Bool = false

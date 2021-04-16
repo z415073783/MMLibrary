@@ -253,7 +253,7 @@ extension __TableModelMake {
         }
     }
     
-    func getValues<T: MMJSONCodable>(bodyClass: T) -> [String: Any] {
+    func getValues<T: MMSqliteProtocol>(bodyClass: T) -> [String: Any] {
         var values: [String: Any] = [:]
         let mir = Mirror(reflecting: bodyClass)
         let children = mir.children
@@ -262,7 +262,13 @@ extension __TableModelMake {
             //变量名
             let name = child.label ?? ""
             let type = "\(childMir.subjectType)"
-//            MMLOG.error("name = \(name), type = \(type), value = \(child.value)")
+            
+            for key in T.needIgnoreKey() {
+                if key == name {
+                    //过滤忽略的key
+                    return
+                }
+            }
             
             var value = child.value
             if type.isOptionType() {
@@ -320,6 +326,15 @@ public extension __TableModelMake {
             let name = child.label ?? ""
             let type = "\(childMir.subjectType)"
             MMLOG.error("name = \(name), type = \(type)")
+            
+            for key in T.needIgnoreKey() {
+                if key == name {
+                    //过滤忽略的key
+                    return
+                }
+            }
+            
+            
             _ = self.property(name: name)
             for key in T.setPrimaryKey() {
                 if key == name {
@@ -396,6 +411,29 @@ public extension __TableModelMake {
                     //变量名
                     let name = child.label ?? ""
                     let type = "\(childMir.subjectType)"
+                    for key in T.needIgnoreKey() {
+                        if key == name {
+                            //给忽略的key添加默认value
+                            switch type {
+                            case "Int", "Optional<Int>":
+                                dic[key] = 0
+                            case "Double", "Optional<Double>":
+                                dic[key] = 0.0
+                            case "Float", "Optional<Float>":
+                                dic[key] = 0.0
+                            case "String", "Optional<String>":
+                                dic[key] = ""
+                            case "Data", "Optional<Data>":
+                                dic[key] = Data()
+                            case "Bool", "Optional<Bool>":
+                                dic[key] = false
+                            default:
+                                dic[key] = nil
+                            }
+                            return
+                        }
+                    }
+                    
                     
                     switch type {
                     case "Int", "Optional<Int>": break
