@@ -263,7 +263,7 @@ extension __TableModelMake {
             let name = child.label ?? ""
             let type = "\(childMir.subjectType)"
             
-            for key in T.needIgnoreKey() {
+            for key in T.mm_ignoreKey() {
                 if key == name {
                     //过滤忽略的key
                     return
@@ -327,7 +327,7 @@ public extension __TableModelMake {
             let type = "\(childMir.subjectType)"
             MMLOG.error("name = \(name), type = \(type)")
             
-            for key in T.needIgnoreKey() {
+            for key in T.mm_ignoreKey() {
                 if key == name {
                     //过滤忽略的key
                     return
@@ -336,7 +336,7 @@ public extension __TableModelMake {
             
             
             _ = self.property(name: name)
-            for key in T.setPrimaryKey() {
+            for key in T.mm_primaryKey() {
                 if key == name {
                     _ = self.primarykey
                 }
@@ -360,7 +360,7 @@ public extension __TableModelMake {
                 MMLOG.debug("未处理类型 => \(type), name = \(name), 强制=>String")
                 _ = self.text
             }
-            for key in T.setAutoincrement() {
+            for key in T.mm_autoincrement() {
                 if key == name {
                     _ = self.autoincrement
                 }
@@ -411,7 +411,7 @@ public extension __TableModelMake {
                     //变量名
                     let name = child.label ?? ""
                     let type = "\(childMir.subjectType)"
-                    for key in T.needIgnoreKey() {
+                    for key in T.mm_ignoreKey() {
                         if key == name {
                             //给忽略的key添加默认value
                             switch type {

@@ -9,11 +9,11 @@
 import UIKit
 import MMLibrary
 struct SubModel: MMSqliteProtocol {
-    static func setPrimaryKey() -> [String] {
+    static func mm_primaryKey() -> [String] {
         return []
     }
     
-    static func setAutoincrement() -> [String] {
+    static func mm_autoincrement() -> [String] {
         return []
     }
     
@@ -23,14 +23,14 @@ struct TestModel: MMSqliteProtocol {
     init() {
     }
     
-    static func setPrimaryKey() -> [String] {
+    static func mm_primaryKey() -> [String] {
         return ["identify"]
     }
     
-    static func setAutoincrement() -> [String] {
+    static func mm_autoincrement() -> [String] {
         return ["identify"]
     }
-    static func needIgnoreKey() -> [String] {
+    static func mm_ignoreKey() -> [String] {
         return ["isOk"]
     }
     
