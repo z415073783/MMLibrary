@@ -98,10 +98,6 @@ public class MMSqliteMake: NSObject {
                     block(isOk, [])
                 })
             case .deleteTable:
-//                guard let model = operation.1 as? MMSqliteOperationCreateModel else {
-//                    block(false, [])
-//                    return
-//                }
                 _sqliteObj.deleteTable(name, queue: queue, block: { (isOk) in
                     MMLOG.info("删除表: \(name), \(isOk)")
                     block(isOk, [])
@@ -287,15 +283,16 @@ extension __TableModelMake {
             case "Int", "Optional<Int>": break
             case "Double", "Optional<Double>": break
             case "Float", "Optional<Float>": break
-            case "String", "Optional<String>": break
+            case "String", "Optional<String>":
+                value = (value as? String ?? "").regularExpressionReplace(pattern: "'", with: "''") ?? value
             case "Data", "Optional<Data>": break
             case "Bool", "Optional<Bool>": break
             default:
-                
                 //强制转换成字符串
                 if let valueCotable = value as? MMJSONCodable {
                     let result = valueCotable.getJSONString() ?? ""
-                    value = result
+                    //对单引号做特殊处理
+                    value = result.regularExpressionReplace(pattern: "'", with: "''") ?? result
                     if result == "" {
                         //类型转换错误
                         MMLOG.error("类型转换错误 => \(valueCotable)")
@@ -304,7 +301,6 @@ extension __TableModelMake {
                     MMLOG.warn("未处理类型 => \(type)")
                 }
             }
-            
             values[name] = value
         }
         return values

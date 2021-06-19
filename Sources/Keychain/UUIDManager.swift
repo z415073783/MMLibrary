@@ -12,9 +12,10 @@ public class UUIDManager: NSObject {
     ///
     /// - Returns: 生成的UUID
     public class func getUUID() -> String {
-        return (UIDevice.current.identifierForVendor?.uuidString)!
+        return "" //需要授权
     }
 }
+
 #endif
 
 

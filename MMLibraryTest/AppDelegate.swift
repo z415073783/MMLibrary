@@ -37,7 +37,8 @@ struct TestModel: MMSqliteProtocol {
     var identify: Int? = 0
     var isOk: Bool = false
     var sub: SubModel?
-
+    var list: [String] = []
+    var dic: [String: String] = [:]
 }
 
 
@@ -58,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             link?.tableName(name: "表名").createTable(bodyClass: TestModel.self) { (finish) in
                 MMLOG.info("finish = \(finish)")
                 var model = TestModel()
+                model.list = ["asd"]
 //                model.sub = SubModel(secondNumber: 123)
                 link?.replace(bodyClass: model) { (finish) in
                     

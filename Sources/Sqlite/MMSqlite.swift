@@ -107,6 +107,7 @@ public class MMSqlite: NSObject {
      - parameter block:   是否成功
      */
     public func createTable(_ sqlName: String, parames: [MMSqliteOperationCreateProperty], queue: OperationQueue? = nil, block:@escaping (_ isSuccess: Bool) -> Void) {
+        
         guard let queue = queue ?? self.queue else {
             let isResult: Bool = self.operation.createTable(sqlName, Parameters: parames)
             if isResult == false {

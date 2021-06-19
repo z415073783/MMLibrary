@@ -211,7 +211,9 @@ public class MMLogger: NSObject {
             let curDate = Date()
             let curTime = "\(curDate.timeIntervalSince1970)"
             let beginIndex = curTime.index(curTime.endIndex, offsetBy: -3)
-            return "\(dateFormatter.string(from: curDate))\(String(curTime[beginIndex..<curTime.endIndex]))"
+            let num = dateFormatter.string(from: curDate)
+            let num2 = curTime[beginIndex..<curTime.endIndex]
+            return "\(num))\(String(num2))"
         }
         return ""
     }

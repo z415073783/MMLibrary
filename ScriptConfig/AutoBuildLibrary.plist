@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>armTypeList</key>
-	<string>iphoneos,iphonesimulator</string>
+	<string>iphoneos</string>
 	<key>buildDir</key>
 	<string>Build</string>
 	<key>configType</key>
@@ -15,6 +15,6 @@
 	<key>targetName</key>
 	<string>MMLibrary</string>
 	<key>validArchs</key>
-	<string>arm64,arm64e,armv7,armv7s,x86_64</string>
+	<string>arm64,armv7</string>
 </dict>
 </plist>

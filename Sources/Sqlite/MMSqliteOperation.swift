@@ -40,6 +40,7 @@ public class MMSqliteOperation: NSObject {
     
     public lazy var sqliteRootPath: String = {
         //获取根路径
+        
         let doc = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         
         guard let docPath = doc.first else {
@@ -179,7 +180,7 @@ public class MMSqliteOperation: NSObject {
                 MMLOG.debug(sql)
         let sqlReturn = sqlite3_prepare_v2(db, sql.cString(using: String.Encoding.utf8)!, -1, &stmt, nil)
         if sqlReturn != SQLITE_OK {
-            MMLOG.error("sqlite操作:\(tableName)创建失败")
+            MMLOG.error("sqlite操作:\(tableName)删除失败")
             return false
         }
         //执行sql

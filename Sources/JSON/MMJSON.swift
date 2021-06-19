@@ -285,6 +285,24 @@ public extension NSDictionary {
         }
     }
 }
+public extension NSArray {
+    /// json转model
+    ///
+    /// - Parameter DataClass: model对象
+    /// - Returns: 返回实例
+    func getJSONModelSync<T: MMJSONCodable> (_ DataClass: T.Type) ->T? {
+        
+        do {
+            let data = try JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.fragmentsAllowed)
+            let decoder = JSONDecoder()
+            let output = try decoder.decode(DataClass, from: data)
+            return output
+        } catch {
+            print("字符串转换错误: OutputClass = \(DataClass)\n value = \(self) error = \(error)")
+            return nil
+        }
+    }
+}
 
 public extension MMJSONEncodable {
     func getJSONString() -> String? {
