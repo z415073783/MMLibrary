@@ -47,19 +47,8 @@
 		04FF6BD4244ECAF50004469B /* MMLogArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF6BD3244ECAF50004469B /* MMLogArchive.swift */; };
 		480CC49125CB83D9008CA19B /* MMLogArchiveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CC49025CB83D9008CA19B /* MMLogArchiveManager.swift */; };
 		480CC49725CB8646008CA19B /* MMLogDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480CC49625CB8646008CA19B /* MMLogDefine.swift */; };
-		482C629224592B4A005F9939 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 482C628724592B4A005F9939 /* unzip.c */; };
-		482C629324592B4A005F9939 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 482C628824592B4A005F9939 /* zip.c */; };
-		482C629424592B4A005F9939 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 482C628924592B4A005F9939 /* ioapi.c */; };
-		482C629524592B4A005F9939 /* Minizip.h in Headers */ = {isa = PBXBuildFile; fileRef = 482C628D24592B4A005F9939 /* Minizip.h */; };
-		482C629624592B4A005F9939 /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 482C628E24592B4A005F9939 /* crypt.h */; };
-		482C629724592B4A005F9939 /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 482C628F24592B4A005F9939 /* zip.h */; };
-		482C629824592B4A005F9939 /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 482C629024592B4A005F9939 /* unzip.h */; };
-		482C629924592B4A005F9939 /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = 482C629124592B4A005F9939 /* ioapi.h */; };
-		482C629B24592DAF005F9939 /* MMZipUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C629A24592DAF005F9939 /* MMZipUtilities.swift */; };
-		482C629F24594CEF005F9939 /* MMQuickZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C629E24594CEF005F9939 /* MMQuickZip.swift */; };
 		482C62A12459A759005F9939 /* MMFileData+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C62A02459A759005F9939 /* MMFileData+Search.swift */; };
 		48355D832543E89E00747B3F /* RuntimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48355D822543E89E00747B3F /* RuntimeManager.swift */; };
-		4839167A245834C800EF6FEF /* MMZip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48391679245834C800EF6FEF /* MMZip.swift */; };
 		483A020A253D74ED005F2EAA /* MMLibraryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483A0209253D74ED005F2EAA /* MMLibraryConfig.swift */; };
 		483A0211253DA8AA005F2EAA /* MMLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483A0210253DA8AA005F2EAA /* MMLogManager.swift */; };
 		484441A725BACA2600BB848F /* UUIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484441A025BACA2600BB848F /* UUIDManager.swift */; };
@@ -152,20 +141,8 @@
 		04FF6BD3244ECAF50004469B /* MMLogArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLogArchive.swift; sourceTree = "<group>"; };
 		480CC49025CB83D9008CA19B /* MMLogArchiveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLogArchiveManager.swift; sourceTree = "<group>"; };
 		480CC49625CB8646008CA19B /* MMLogDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLogDefine.swift; sourceTree = "<group>"; };
-		482C628724592B4A005F9939 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
-		482C628824592B4A005F9939 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
-		482C628924592B4A005F9939 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
-		482C628B24592B4A005F9939 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		482C628D24592B4A005F9939 /* Minizip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Minizip.h; sourceTree = "<group>"; };
-		482C628E24592B4A005F9939 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
-		482C628F24592B4A005F9939 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
-		482C629024592B4A005F9939 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
-		482C629124592B4A005F9939 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
-		482C629A24592DAF005F9939 /* MMZipUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMZipUtilities.swift; sourceTree = "<group>"; };
-		482C629E24594CEF005F9939 /* MMQuickZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMQuickZip.swift; sourceTree = "<group>"; };
 		482C62A02459A759005F9939 /* MMFileData+Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MMFileData+Search.swift"; sourceTree = "<group>"; };
 		48355D822543E89E00747B3F /* RuntimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeManager.swift; sourceTree = "<group>"; };
-		48391679245834C800EF6FEF /* MMZip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMZip.swift; sourceTree = "<group>"; };
 		483A0209253D74ED005F2EAA /* MMLibraryConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLibraryConfig.swift; sourceTree = "<group>"; };
 		483A0210253DA8AA005F2EAA /* MMLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMLogManager.swift; sourceTree = "<group>"; };
 		484441A025BACA2600BB848F /* UUIDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDManager.swift; sourceTree = "<group>"; };
@@ -241,7 +218,6 @@
 				4844419F25BACA2600BB848F /* Keychain */,
 				48355D812543E89E00747B3F /* RunTimeManager */,
 				487C7675247E9AD900A48460 /* XML */,
-				48391661245833B600EF6FEF /* ZipArchive */,
 				04CE2D42241B5B4A00C39743 /* Container */,
 				04E45F362357173F00F9B336 /* DispatchExtension */,
 				04E45F382357173F00F9B336 /* File */,
@@ -450,55 +426,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		482C628624592B4A005F9939 /* minizip */ = {
-			isa = PBXGroup;
-			children = (
-				482C628724592B4A005F9939 /* unzip.c */,
-				482C628824592B4A005F9939 /* zip.c */,
-				482C628924592B4A005F9939 /* ioapi.c */,
-				482C628A24592B4A005F9939 /* module */,
-				482C628C24592B4A005F9939 /* include */,
-			);
-			path = minizip;
-			sourceTree = "<group>";
-		};
-		482C628A24592B4A005F9939 /* module */ = {
-			isa = PBXGroup;
-			children = (
-				482C628B24592B4A005F9939 /* module.modulemap */,
-			);
-			path = module;
-			sourceTree = "<group>";
-		};
-		482C628C24592B4A005F9939 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				482C628D24592B4A005F9939 /* Minizip.h */,
-				482C628E24592B4A005F9939 /* crypt.h */,
-				482C628F24592B4A005F9939 /* zip.h */,
-				482C629024592B4A005F9939 /* unzip.h */,
-				482C629124592B4A005F9939 /* ioapi.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
 		48355D812543E89E00747B3F /* RunTimeManager */ = {
 			isa = PBXGroup;
 			children = (
 				48355D822543E89E00747B3F /* RuntimeManager.swift */,
 			);
 			path = RunTimeManager;
-			sourceTree = "<group>";
-		};
-		48391661245833B600EF6FEF /* ZipArchive */ = {
-			isa = PBXGroup;
-			children = (
-				482C628624592B4A005F9939 /* minizip */,
-				48391679245834C800EF6FEF /* MMZip.swift */,
-				482C629A24592DAF005F9939 /* MMZipUtilities.swift */,
-				482C629E24594CEF005F9939 /* MMQuickZip.swift */,
-			);
-			path = ZipArchive;
 			sourceTree = "<group>";
 		};
 		4844419F25BACA2600BB848F /* Keychain */ = {
@@ -561,14 +494,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				484441AC25BACA2600BB848F /* KeyChainUUID.h in Headers */,
-				482C629624592B4A005F9939 /* crypt.h in Headers */,
-				482C629824592B4A005F9939 /* unzip.h in Headers */,
 				04E7275722884AA900727D44 /* MMLibrary.h in Headers */,
 				484441AB25BACA2600BB848F /* SAMKeychainQuery.h in Headers */,
-				482C629924592B4A005F9939 /* ioapi.h in Headers */,
 				484441AA25BACA2600BB848F /* SAMKeychain.h in Headers */,
-				482C629724592B4A005F9939 /* zip.h in Headers */,
-				482C629524592B4A005F9939 /* Minizip.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,8 +642,6 @@
 				04E45F6D2357173F00F9B336 /* MMTimer.swift in Sources */,
 				04E45F752357173F00F9B336 /* MMAtomicVar.swift in Sources */,
 				04E45F702357173F00F9B336 /* MMSqlite.swift in Sources */,
-				482C629224592B4A005F9939 /* unzip.c in Sources */,
-				482C629F24594CEF005F9939 /* MMQuickZip.swift in Sources */,
 				488158D92624194600035464 /* String+Regular.swift in Sources */,
 				04E45F682357173F00F9B336 /* DispatchSemaphore+Extension.swift in Sources */,
 				480CC49725CB8646008CA19B /* MMLogDefine.swift in Sources */,
@@ -723,7 +649,6 @@
 				04E45F6C2357173F00F9B336 /* MMDateFormatterFactory.swift in Sources */,
 				04E45F652357173F00F9B336 /* MMColor.swift in Sources */,
 				488158DC2624196D00035464 /* String+Encryption.swift in Sources */,
-				482C629424592B4A005F9939 /* ioapi.c in Sources */,
 				484441A725BACA2600BB848F /* UUIDManager.swift in Sources */,
 				487565DB25F20AE90081492A /* UIView+ViewController.swift in Sources */,
 				483A020A253D74ED005F2EAA /* MMLibraryConfig.swift in Sources */,
@@ -741,14 +666,11 @@
 				04E45F732357173F00F9B336 /* MMJSON.swift in Sources */,
 				487565E525F20AE90081492A /* UIImage+Common.swift in Sources */,
 				487565DD25F20AE90081492A /* UIView+Extension.swift in Sources */,
-				4839167A245834C800EF6FEF /* MMZip.swift in Sources */,
 				484441A825BACA2600BB848F /* SAMKeychainQuery.m in Sources */,
 				484441A925BACA2600BB848F /* KeyChainUUID.m in Sources */,
-				482C629324592B4A005F9939 /* zip.c in Sources */,
 				484441AD25BACA2600BB848F /* SAMKeychain.m in Sources */,
 				04E45F662357173F00F9B336 /* MMColor+Extension.swift in Sources */,
 				4875661F25F20DFF0081492A /* MMUIKit.swift in Sources */,
-				482C629B24592DAF005F9939 /* MMZipUtilities.swift in Sources */,
 				487565E425F20AE90081492A /* String+YLUIKit.swift in Sources */,
 				487565DC25F20AE90081492A /* UIButton+Extension.swift in Sources */,
 				04FF6BD4244ECAF50004469B /* MMLogArchive.swift in Sources */,

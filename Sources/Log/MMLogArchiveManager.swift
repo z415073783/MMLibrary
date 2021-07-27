@@ -143,7 +143,7 @@ public class MMLogArchiveManager {
             
             print("goalPaths = \(goalPaths), zipPath = \(zipPath)")
             //压缩
-            try MMZip.zipFiles(paths: goalPaths, zipFilePath: zipPath, password: nil, progress: nil)
+//            try MMZip.zipFiles(paths: goalPaths, zipFilePath: zipPath, password: nil, progress: nil)
         } catch  {
             print("操作失败 error = \(error)")
         }

@@ -36,10 +36,10 @@ Pod::Spec.new do |spec|
 
   spec.source       = { :git => "git@github.com:z415073783/MMLibrary.git", :tag => spec.version }
 
-  spec.vendored_frameworks = "Build/merge/*.framework"
+  # spec.vendored_frameworks = "Build/merge/*.framework"
 
 
-  # spec.source_files  = "Sources", "Sources/**/*"
+  spec.source_files  = "Sources", "Sources/**/*"
   # spec.exclude_files = "MMLibrary/Info.plist"
   # spec.preserve_path = "Sources/ZipArchive/minizip/module/module.modulemap"
   # spec.xcconfig = { "SWIFT_INCLUDE_PATHS" => "$(PODS_ROOT)/MMLibrary/Sources/ZipArchive/minizip/module"}

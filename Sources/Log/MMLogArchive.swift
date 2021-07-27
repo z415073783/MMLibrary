@@ -188,7 +188,7 @@ extension _Private {
                 print("保存日志压缩文件 = \(zipPath)")
                 do {
                     //压缩
-                    try MMZip.zipFiles(paths: [path], zipFilePath: zipPath, password: nil, progress: nil)
+//                    try MMZip.zipFiles(paths: [path], zipFilePath: zipPath, password: nil, progress: nil)
                     
                     //移除原有日志文件
                     try self.filemanager.removeItem(at: path)
