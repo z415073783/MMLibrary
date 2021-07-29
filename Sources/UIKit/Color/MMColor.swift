@@ -16,8 +16,6 @@ public class MMColorManager {
 
 @objc public class MMColor: UIColor {
     //是否允许动态适配颜色
-    
-    
     @objc public convenience init(auto red: Int, green: Int, blue: Int, alpha: CGFloat = 1.0, dynamic: Bool = true) {
         
         if #available(iOS 13.0, *), dynamic, MMColorManager.shared.enableDynamic {

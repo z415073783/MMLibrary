@@ -2,7 +2,7 @@
 //  MMUIKit.swift
 //  MMUIKit
 //
-//  Created by yealink-dev on 2018/7/6.
+//  Created by 曾亮敏 on 2018/7/6.
 //
 #if os(iOS) || os(watchOS) || os(tvOS)
 import Foundation
