@@ -8,13 +8,17 @@
 
 import Foundation
 
-/**
- 获取默认DateFormatter
- 根据线程分配，单个线程内复用一个DateFormatter，避免多线程串用的情况
- */
-public func mm_DateFormatter() -> DateFormatter {
-    return MMDateFormatterFactory.getDefatultDateFormatter()
+extension MMUIKit {
+    /**
+     获取默认DateFormatter
+     根据线程分配，单个线程内复用一个DateFormatter，避免多线程串用的情况
+     */
+    public static func dateFormatter() -> DateFormatter {
+        return MMDateFormatterFactory.getDefatultDateFormatter()
+    }
+    
 }
+
 
 /*
  Creating a date formatter is not a cheap operation. If you are likely to use a formatter frequently,

@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 
+public struct MMUIKit {
+    
+}
 
 
 /** 屏幕宽度  */

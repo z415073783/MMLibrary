@@ -21,7 +21,7 @@ open class MMDate: NSObject {
     ///
     /// - Returns: 标准时间
     public class func standardTime(format: String = "yyyy年MM月dd日") -> String {
-        let dateMatter = mm_DateFormatter()
+        let dateMatter = MMUIKit.dateFormatter()
         dateMatter.dateStyle = DateFormatter.Style.full
         dateMatter.dateFormat = "yyyy年MM月dd日"
         let currentDate = Date()
@@ -36,7 +36,7 @@ open class MMDate: NSObject {
     ///   - initDate: 给定初始日期
     /// - Returns: 当前的时间差(单位:天)
     public class func translateTime(_ time: Double, initDate: Date? = nil) -> Int {
-        let dateMatter = mm_DateFormatter()
+        let dateMatter = MMUIKit.dateFormatter()
         dateMatter.dateStyle = DateFormatter.Style.full
         dateMatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
         //传入时间
@@ -104,7 +104,7 @@ open class MMDate: NSObject {
     ///   - format: 日期格式，默认为yyyy/MM/dd
     /// - Returns: 获取传入时间转换为年月日
     public class func getYearMonthAndDay(_ timeInterval: TimeInterval, format: String = "yyyy/MM/dd") -> String {
-        let dateMatter = mm_DateFormatter()
+        let dateMatter = MMUIKit.dateFormatter()
         dateMatter.dateStyle = DateFormatter.Style.full
         dateMatter.dateFormat = format
         //传入时间
@@ -116,7 +116,7 @@ open class MMDate: NSObject {
     
     //获取传入时间转换为月日
     public class func getMonthAndDay(_ timeInterval: TimeInterval, format: String = "MM/dd") -> String {
-        let dateMatter = mm_DateFormatter()
+        let dateMatter = MMUIKit.dateFormatter()
         dateMatter.dateStyle = DateFormatter.Style.full
         dateMatter.dateFormat = format
         //传入时间
@@ -127,7 +127,7 @@ open class MMDate: NSObject {
     
     //    获取传入时间是哪月
     public class func getMouth(timeInterval: TimeInterval) -> String {
-        let dateMatter = mm_DateFormatter()
+        let dateMatter = MMUIKit.dateFormatter()
         dateMatter.dateStyle = DateFormatter.Style.full
         dateMatter.dateFormat = "yyyy/MM"
         //传入时间
@@ -141,7 +141,7 @@ open class MMDate: NSObject {
     
     //    获取传入时间是哪年
     public class func getYear(timeInterval: TimeInterval) -> String {
-        let dateMatter = mm_DateFormatter()
+        let dateMatter = MMUIKit.dateFormatter()
         dateMatter.dateStyle = DateFormatter.Style.full
         dateMatter.dateFormat = "yyyy"
         //传入时间
