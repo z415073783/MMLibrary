@@ -3,7 +3,6 @@
 //  UME
 //
 //  Created by zlm on 16/7/18.
-//  Copyright © 2016年 yealink. All rights reserved.
 //
 #if os(iOS) || os(tvOS)
 import UIKit

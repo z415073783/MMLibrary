@@ -2,7 +2,6 @@
 //  RuntimeManager.swift
 //
 //  Created by zlm on 2017/11/20.
-//  Copyright © 2017年 Yealink. All rights reserved.
 //
 
 import Foundation

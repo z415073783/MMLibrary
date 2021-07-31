@@ -3,7 +3,6 @@
 //  MMBaseFramework
 //
 //  Created by soft7 on 2018/5/10.
-//  Copyright © 2018年 Yealink. All rights reserved.
 //
 #if os(iOS) || os(tvOS)
 import Foundation

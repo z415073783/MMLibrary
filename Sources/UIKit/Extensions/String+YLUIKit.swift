@@ -2,7 +2,6 @@
 //  String+MMUIKit.swift
 //  MMUIKit
 //
-//  Created by yealink-dev on 2018/7/6.
 //
 #if os(iOS) || os(tvOS)
 import Foundation
