@@ -149,4 +149,28 @@ open class MMDate: NSObject {
         let getTime = dateMatter.string(from: date)
         return getTime
     }
+
+    //显示标准日期格式+时间
+    public class func showStandardDateAndTime(timeInterval: TimeInterval) -> String {
+        let date = Date(timeIntervalSince1970: timeInterval)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.full
+        dateFormatter.dateFormat = "HH:mm"
+        let curDate = Date().timeIntervalSince1970
+    
+        let inYear = getYear(timeInterval: timeInterval)
+        let curYear = getYear(timeInterval: curDate)
+        
+        let days = translateTime(timeInterval)
+        if days == 0 {
+            return dateFormatter.string(from: date)
+        } else if inYear == curYear {
+            dateFormatter.dateFormat = "MM/dd HH:mm"
+            return dateFormatter.string(from: date)
+        } else {
+            dateFormatter.dateFormat = "yyyy/MM/dd"
+            return dateFormatter.string(from: date)
+        }
+    }
 }
