@@ -65,33 +65,37 @@ public extension MMLanguage {
             return key
         }
         var language = ""
+        var isHaveData = false
         if MMLanguage.shared.kCurrentLanguage == nil {
             let languages = Locale.preferredLanguages
-            language = languages[0]
-            let list = language.components(separatedBy: "-") as [String]
-            var isHaveData = false
-            for i in (0 ..< list.count).reversed() {
-                var _lan = ""
-                for j in 0 ... i {
-                    if j == 0 {
-                        _lan = list[j]
-                    }else {
-                        _lan += ("-" + list[j])
+            languages.forEach { obj in
+                if isHaveData {
+                    return
+                }
+                let list = obj.components(separatedBy: "-") as [String]
+                
+                for i in (0 ..< list.count).reversed() {
+                    var _lan = ""
+                    for j in 0 ... i {
+                        if j == 0 {
+                            _lan = list[j]
+                        }else {
+                            _lan += ("-" + list[j])
+                        }
+                    }
+                    MMLOG.debug("系统语言缩写 = \(_lan)")
+                    guard let _isExist = dic[_lan] else {
+                        continue
+                    }
+                    language = _lan
+                    MMLanguage.shared.kCurrentLanguage = language
+                    isHaveData = true
+                    if _isExist.count != 0 {
+                        return
                     }
                 }
-                MMLOG.debug("系统语言缩写 = \(_lan)")
-                guard let _isExist = dic[_lan] else {
-                    continue
-                }
-                language = _lan
-                MMLanguage.shared.kCurrentLanguage = language
-                isHaveData = true
-                if _isExist.count != 0 {
-                    return _isExist
-                } else {
-                    break
-                }
             }
+           
             // 当前系统语种不在软件适配列表中
             if isHaveData == false {
                 MMLOG.info("当前系统语种不在软件适配列表中")
