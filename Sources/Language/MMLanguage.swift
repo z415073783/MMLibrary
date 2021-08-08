@@ -57,11 +57,11 @@ public extension MMLanguage {
         }
         let newIdentifity = identifity ?? shared.identifityStr
         guard let plist = MMLanguage.shared.languagePlistDic[newIdentifity] else {
-            MMLOG.error("未获取到\(String(describing: identifity))对应的plist数据")
+            MMAssert.fire("未获取到\(String(describing: identifity))对应的plist数据")
             return key
         }
         guard let dic = plist[key] else {
-            MMLOG.error("language value获取失败 key: \(key)")
+            MMAssert.fire("language value获取失败 key: \(key)")
             return key
         }
         var language = ""

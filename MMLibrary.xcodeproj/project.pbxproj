@@ -214,6 +214,7 @@
 		04E45F352357173F00F9B336 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				48ACF10126BF92290066F3F1 /* Protocol */,
 				486D362F25E8E1FD00CFF609 /* CheckLeaks */,
 				4844419F25BACA2600BB848F /* Keychain */,
 				48355D812543E89E00747B3F /* RunTimeManager */,
@@ -484,6 +485,13 @@
 				487C7676247E9AF500A48460 /* MMXMLParser.swift */,
 			);
 			path = XML;
+			sourceTree = "<group>";
+		};
+		48ACF10126BF92290066F3F1 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

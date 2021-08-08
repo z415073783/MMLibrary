@@ -33,6 +33,19 @@ public class MMTimer: NSObject {
         timer = nil
     }
 }
+public class MMTimerDefault {
+    static let share = MMTimerDefault()
+    
+    
+    
+    func start() {
+    }
+    func end() {
+    }
+    
+    
+}
+
 
 public extension Timer {
     @discardableResult class func mm_scheduledTimer(withTimeInterval: Double, repeats: Bool, block:@escaping ((_ timer: MMTimer)->Void))->MMTimer {

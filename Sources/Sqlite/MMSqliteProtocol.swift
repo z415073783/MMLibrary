@@ -7,6 +7,12 @@
 //
 
 import Foundation
+/**
+ 继承MMSqliteProtocol的类要写:
+ required init() {
+ }
+ 
+ */
 public protocol MMSqliteProtocol: MMJSONCodable {
     init()
     //返回需要设置的primaryKey

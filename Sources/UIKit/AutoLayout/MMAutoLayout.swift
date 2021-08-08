@@ -183,6 +183,7 @@ extension _Private {
         default:
             assert(false, "垂直比较, 只能传入top,bottom,centerY")
         }
+        return 0
     }
     func compareFirstRectRightPosition(firstRect: CGRect, secondRect: CGRect, secondType: MMAutoLayoutPositionType) -> CGFloat {
         switch secondType {
@@ -204,6 +205,7 @@ extension _Private {
         default:
             assert(false, "垂直比较, 只能传入top,bottom")
         }
+        return 0
     }
     func compareFirstRectCenterPosition(firstRect: CGRect, secondRect: CGRect, secondType: MMAutoLayoutPositionType) -> CGFloat {
         switch secondType {
