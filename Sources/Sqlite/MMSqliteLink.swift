@@ -273,19 +273,19 @@ extension __TableModelMake {
             case "Double", "Optional<Double>": break
             case "Float", "Optional<Float>": break
             case "String", "Optional<String>":
+                //对单引号做特殊处理
+                value = (value as? String ?? "").regularExpressionReplace(pattern: "'", with: "''") ?? value
                 value = (value as? String ?? "").urlEncode ?? value
-//                value = (value as? String ?? "").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? value
-//                value = (value as? String ?? "").regularExpressionReplace(pattern: "'", with: "''") ?? value
             case "Data", "Optional<Data>": break
             case "Bool", "Optional<Bool>": break
             default:
                 //强制转换成字符串
                 if let valueCotable = value as? MMJSONCodable {
-                    let result = valueCotable.getJSONString() ?? ""
-//                    value = result.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? result
-                    value = result.urlEncode ?? result
+                    var result = valueCotable.getJSONString() ?? ""
                     //对单引号做特殊处理
-//                    value = result.regularExpressionReplace(pattern: "'", with: "''") ?? result
+                    result = result.regularExpressionReplace(pattern: "'", with: "''") ?? result
+                    value = result.urlEncode ?? result
+                    
                     if result == "" {
                         //类型转换错误
                         MMLOG.error("类型转换错误 => \(valueCotable)")
@@ -314,7 +314,7 @@ public extension __TableModelMake {
             //变量名
             let name = child.label ?? ""
             let type = "\(childMir.subjectType)"
-            MMLOG.error("name = \(name), type = \(type)")
+            MMLOG.debug("name = \(name), type = \(type)")
             
             for key in T.mm_ignoreKey() {
                 if key == name {
@@ -423,17 +423,16 @@ public extension __TableModelMake {
                         }
                     }
                     
-                    
                     switch type {
                     case "Int", "Optional<Int>": break
                     case "Double", "Optional<Double>": break
                     case "Float", "Optional<Float>": break
                     case "String", "Optional<String>":
                         if let curValue = dic[name] as? String {
-                            let newValue = curValue.urlDecode
+                            let newValue = curValue.urlDecode ?? curValue
                             dic[name] = newValue
+                            return
                         }
-                        break
                     case "Data", "Optional<Data>": break
                     case "Bool", "Optional<Bool>":
                         if let curValue = dic[name] as? Int {
@@ -443,15 +442,14 @@ public extension __TableModelMake {
                     default:
                         //未知类型转换
                         if let curValue = dic[name] as? String {
-                            let newValue = curValue.urlDecode
-                            dic[name] = newValue
-                        }
-
-                        if let curValue = dic[name] as? String, let curData = curValue.data(using: String.Encoding.utf8) {
                             if curValue != "null" {
                                 do {
-                                    let subDic = try JSONSerialization.jsonObject(with: curData, options: JSONSerialization.ReadingOptions.mutableLeaves)
-                                    dic[name] = subDic
+                                    let newValue = curValue.urlDecode ?? curValue
+                                    if let newData = newValue.data(using: String.Encoding.utf8) {
+                                        let subDic = try JSONSerialization.jsonObject(with: newData, options: JSONSerialization.ReadingOptions.mutableLeaves)
+                                        dic[name] = subDic
+                                    }
+
                                 } catch {
                                     MMLOG.error("string转json错误 error = \(error)")
                                 }

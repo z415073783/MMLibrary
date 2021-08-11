@@ -26,7 +26,7 @@ public extension Encryption {
     
     var urlEncode: String? {
         var set = CharacterSet.urlQueryAllowed
-        set.remove(charactersIn: ":#[]@!$&'()*+,;=")
+        set.remove(charactersIn: ":#[]@!$&'()*+,;=/.?")
         return self.addingPercentEncoding(withAllowedCharacters: set)
     }
     
