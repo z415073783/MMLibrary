@@ -82,9 +82,7 @@ public class MMSqliteMake: NSObject {
             block(false, [])
             return
         }
-    
-        
-        
+  
         while operations.count > 0 {
             let operation = operations.removeFirst()
             switch operation.0 {
@@ -156,16 +154,7 @@ public class MMSqliteMake: NSObject {
     
 }
 
-
-
-
 public class MMSqliteLink: MMSqliteMake {
-    //数据库名称
-//    private var sqlName: String?
-    
-//    lazy var _make = MMSqliteMake()
-    
-    
     //打开数据库 数据库名称 路径
 //    String()
     public init(name: String, path: URL? = MMFileData.getDocumentsPath()?.appendingPathComponent("MMSqlite"), isQueue: Bool = false, block: @escaping ((_ isSuccess: Bool, _ link: MMSqliteLink?) -> Void)) {
@@ -284,15 +273,19 @@ extension __TableModelMake {
             case "Double", "Optional<Double>": break
             case "Float", "Optional<Float>": break
             case "String", "Optional<String>":
-                value = (value as? String ?? "").regularExpressionReplace(pattern: "'", with: "''") ?? value
+                value = (value as? String ?? "").urlEncode ?? value
+//                value = (value as? String ?? "").addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? value
+//                value = (value as? String ?? "").regularExpressionReplace(pattern: "'", with: "''") ?? value
             case "Data", "Optional<Data>": break
             case "Bool", "Optional<Bool>": break
             default:
                 //强制转换成字符串
                 if let valueCotable = value as? MMJSONCodable {
                     let result = valueCotable.getJSONString() ?? ""
+//                    value = result.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? result
+                    value = result.urlEncode ?? result
                     //对单引号做特殊处理
-                    value = result.regularExpressionReplace(pattern: "'", with: "''") ?? result
+//                    value = result.regularExpressionReplace(pattern: "'", with: "''") ?? result
                     if result == "" {
                         //类型转换错误
                         MMLOG.error("类型转换错误 => \(valueCotable)")
@@ -435,7 +428,12 @@ public extension __TableModelMake {
                     case "Int", "Optional<Int>": break
                     case "Double", "Optional<Double>": break
                     case "Float", "Optional<Float>": break
-                    case "String", "Optional<String>": break
+                    case "String", "Optional<String>":
+                        if let curValue = dic[name] as? String {
+                            let newValue = curValue.urlDecode
+                            dic[name] = newValue
+                        }
+                        break
                     case "Data", "Optional<Data>": break
                     case "Bool", "Optional<Bool>":
                         if let curValue = dic[name] as? Int {
@@ -444,6 +442,11 @@ public extension __TableModelMake {
                         }
                     default:
                         //未知类型转换
+                        if let curValue = dic[name] as? String {
+                            let newValue = curValue.urlDecode
+                            dic[name] = newValue
+                        }
+
                         if let curValue = dic[name] as? String, let curData = curValue.data(using: String.Encoding.utf8) {
                             if curValue != "null" {
                                 do {
