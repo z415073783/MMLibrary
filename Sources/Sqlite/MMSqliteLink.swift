@@ -285,15 +285,17 @@ extension __TableModelMake {
             case "Float", "Optional<Float>": break
             case "String", "Optional<String>":
                 value = (value as? String ?? "").regularExpressionReplace(pattern: "'", with: "''") ?? value
+//                value = (value as? String ?? "").urlEncode ?? value
             case "Data", "Optional<Data>": break
             case "Bool", "Optional<Bool>": break
             default:
                 //强制转换成字符串
                 if let valueCotable = value as? MMJSONCodable {
-                    let result = valueCotable.getJSONString() ?? ""
+                    value = valueCotable.getJSONString() ?? ""
                     //对单引号做特殊处理
-                    value = result.regularExpressionReplace(pattern: "'", with: "''") ?? result
-                    if result == "" {
+                    value = (value as? String)?.regularExpressionReplace(pattern: "'", with: "''") ?? value
+//                    value = (value as? String ?? "").urlEncode ?? value
+                    if (value as? String) == "" {
                         //类型转换错误
                         MMLOG.error("类型转换错误 => \(valueCotable)")
                     }
@@ -436,6 +438,10 @@ public extension __TableModelMake {
                     case "Double", "Optional<Double>": break
                     case "Float", "Optional<Float>": break
                     case "String", "Optional<String>": break
+//                        if var curValue = dic[name] as? String {
+//                            curValue = curValue.urlDecode ?? curValue
+//                            dic[name] = curValue
+//                        }
                     case "Data", "Optional<Data>": break
                     case "Bool", "Optional<Bool>":
                         if let curValue = dic[name] as? Int {
@@ -444,7 +450,9 @@ public extension __TableModelMake {
                         }
                     default:
                         //未知类型转换
-                        if let curValue = dic[name] as? String, let curData = curValue.data(using: String.Encoding.utf8) {
+                        var curValue = dic[name] as? String
+//                        curValue = curValue?.urlDecode ?? curValue
+                        if let curData = curValue?.data(using: String.Encoding.utf8) {
                             if curValue != "null" {
                                 do {
                                     let subDic = try JSONSerialization.jsonObject(with: curData, options: JSONSerialization.ReadingOptions.mutableLeaves)
