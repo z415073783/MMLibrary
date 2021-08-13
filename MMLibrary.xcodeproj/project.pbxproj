@@ -72,6 +72,8 @@
 		488158DC2624196D00035464 /* String+Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488158DB2624196D00035464 /* String+Encryption.swift */; };
 		489DD03C2464FCB600BD67D7 /* MMCrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */; };
 		48D6051E26268F79002B5115 /* MMSqliteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D6051D26268F78002B5115 /* MMSqliteProtocol.swift */; };
+		5C9D816426C6904200CB640E /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9D816326C6904200CB640E /* FileCache.swift */; };
+		5C9D816626C694C900CB640E /* MMAssert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9D816526C694C900CB640E /* MMAssert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +168,8 @@
 		488158DB2624196D00035464 /* String+Encryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Encryption.swift"; sourceTree = "<group>"; };
 		489DD03B2464FCB600BD67D7 /* MMCrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMCrashManager.swift; sourceTree = "<group>"; };
 		48D6051D26268F78002B5115 /* MMSqliteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSqliteProtocol.swift; sourceTree = "<group>"; };
+		5C9D816326C6904200CB640E /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
+		5C9D816526C694C900CB640E /* MMAssert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMAssert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +218,7 @@
 		04E45F352357173F00F9B336 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5C9D816226C6903600CB640E /* FileCache */,
 				48ACF10126BF92290066F3F1 /* Protocol */,
 				486D362F25E8E1FD00CFF609 /* CheckLeaks */,
 				4844419F25BACA2600BB848F /* Keychain */,
@@ -371,6 +376,7 @@
 		04E45F5A2357173F00F9B336 /* Log */ = {
 			isa = PBXGroup;
 			children = (
+				5C9D816526C694C900CB640E /* MMAssert.swift */,
 				480CC49625CB8646008CA19B /* MMLogDefine.swift */,
 				04E45F5B2357173F00F9B336 /* MMLog.swift */,
 				04FF6BD3244ECAF50004469B /* MMLogArchive.swift */,
@@ -492,6 +498,14 @@
 			children = (
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		5C9D816226C6903600CB640E /* FileCache */ = {
+			isa = PBXGroup;
+			children = (
+				5C9D816326C6904200CB640E /* FileCache.swift */,
+			);
+			path = FileCache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -685,6 +699,8 @@
 				04E45F632357173F00F9B336 /* MMNotification.swift in Sources */,
 				04E45F712357173F00F9B336 /* MMSqliteOperation.swift in Sources */,
 				489DD03C2464FCB600BD67D7 /* MMCrashManager.swift in Sources */,
+				5C9D816626C694C900CB640E /* MMAssert.swift in Sources */,
+				5C9D816426C6904200CB640E /* FileCache.swift in Sources */,
 				480CC49125CB83D9008CA19B /* MMLogArchiveManager.swift in Sources */,
 				04377B20242E224500F4C604 /* MMSqliteLink.swift in Sources */,
 				04E45F612357173F00F9B336 /* NSObject+Extension.swift in Sources */,

@@ -20,7 +20,7 @@ public enum MMFileDataSaveImageType {
 
 open class MMFileData: NSObject {
     // MARK: 创建文件夹
-    open class func createLocalPath(dicName: String, rootURL: URL? = MMFileData.getLocalSupportPath()) -> Bool {
+    open class func createDocumentFolder(dicName: String, rootURL: URL? = MMFileData.getDocumentsPath()) -> Bool {
         guard let localPath = rootURL else {
             MMLOG.error("获取rootURL失败")
             return false
@@ -37,15 +37,15 @@ open class MMFileData: NSObject {
     }
     
     // MARK: 创建文件
-    open class func createLocalSupportFile(dicName: String, file: String) -> Bool {
-        guard let localPath = MMFileData.getLocalSupportPath() else {
+    open class func createDocumentFile(dicName: String, file: String) -> Bool {
+        guard let localPath = MMFileData.getDocumentsPath() else {
             MMLOG.error("获取supportPath失败")
             return false
         }
         let dicPath = localPath.appendingPathComponent(dicName)
         let isExist = FileManager.default.fileExists(atPath: dicPath.path)
         if !isExist {
-            let isSuucess = MMFileData.createLocalPath(dicName: dicName)
+            let isSuucess = MMFileData.createDocumentFolder(dicName: dicName)
             if !isSuucess {
                 MMLOG.error("\(dicPath) create is fail!")
                 return false
@@ -56,8 +56,8 @@ open class MMFileData: NSObject {
     }
     
     // MARK: 读取文件
-    open class func readLocalSupportFile(dicName: String, file: String) -> String? {
-        guard let localPath = MMFileData.getLocalSupportPath() else {
+    open class func readDocumentFile(dicName: String, file: String) -> String? {
+        guard let localPath = MMFileData.getDocumentsPath() else {
             MMLOG.error("获取supportPath失败")
             return nil
         }
@@ -79,15 +79,15 @@ open class MMFileData: NSObject {
     }
     
     // MARK: 写入文件
-    open class func writeLocalSupportFile(dicName: String, file: String, data: String) -> Bool {
-        guard let localPath = MMFileData.getLocalSupportPath() else {
+    open class func writeDocumentFile(dicName: String, file: String, data: String) -> Bool {
+        guard let localPath = MMFileData.getDocumentsPath() else {
             MMLOG.error("获取supportPath失败")
             return false
         }
         let writePath = localPath.appendingPathComponent(dicName).appendingPathComponent(file)
         let isExist = FileManager.default.fileExists(atPath: writePath.path)
         if !isExist {
-            let isSuccess = MMFileData.createLocalSupportFile(dicName: dicName, file: file)
+            let isSuccess = MMFileData.createDocumentFile(dicName: dicName, file: file)
             if !isSuccess {
                 MMLOG.error("\(writePath) create is fail!")
                 return false
@@ -121,6 +121,7 @@ open class MMFileData: NSObject {
         let paths = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
         return paths.first
     }
+    
     //获取group中的共享路径
     open class func getApplicationGroupPath(identifity: String) ->URL? {
 //        MMLOG.debug("identifityURL = \(FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: identifity))")
