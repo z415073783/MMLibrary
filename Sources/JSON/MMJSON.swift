@@ -303,6 +303,18 @@ public extension NSArray {
         }
     }
 }
+public extension Data {
+    func getJSONModelSync<T: MMJSONCodable>(_ DataClass: T.Type) -> T? {
+        do {
+            let decoder = JSONDecoder()
+            let output = try decoder.decode(DataClass, from: self)
+            return output
+        } catch {
+            print("数据转换错误: OutputClass = \(DataClass)\n value = \(self) error = \(error)")
+            return nil
+        }
+    }
+}
 
 public extension MMJSONEncodable {
     func getJSONString() -> String? {
@@ -311,6 +323,9 @@ public extension MMJSONEncodable {
         }
         return String(data: data, encoding: .utf8)
     }
+    
+    /// 转dictionary or array
+    /// - Returns:dictionary or array
     func getJSONObject() -> Any? {
         guard let data = try? JSONEncoder().encode(self) else {
             return nil

@@ -19,6 +19,35 @@ public enum MMFileDataSaveImageType {
 }
 
 open class MMFileData: NSObject {
+    // 递归创建文件夹
+    @discardableResult open class func createRecursionFolder(url: URL) -> Bool {
+        var cachePath = url
+        var isSuccess = true
+        var needAppendList: [String] = []
+        while true {
+            if FileManager.default.fileExists(atPath: cachePath.path) {
+                break
+            }
+            needAppendList.insert(cachePath.lastPathComponent, at: 0)
+            
+            cachePath.deleteLastPathComponent()
+        }
+        
+        
+        needAppendList.forEach { item in
+            cachePath.appendPathComponent(item)
+            do {
+                try FileManager.default.createDirectory(at: cachePath, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                MMLOG.error("创建文件夹失败 => error = \(error)")
+                isSuccess = false
+                return
+            }
+        }
+        return isSuccess
+    }
+    
+    
     // MARK: 创建文件夹
     open class func createDocumentFolder(dicName: String, rootURL: URL? = MMFileData.getDocumentsPath()) -> Bool {
         guard let localPath = rootURL else {
