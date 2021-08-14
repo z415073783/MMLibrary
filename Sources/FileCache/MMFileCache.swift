@@ -17,7 +17,7 @@ public protocol MMFileCacheProtocol: MMJSONCodable {
 open class MMFileCache {
     public static let share = MMFileCache()
     
-    public let rootPath = MMFileData.getDocumentsPath()
+    public let rootPath = MMFileData.getDocumentsPath()?.appendingPathComponent("MMFileCache")
     //检查路径是否存在
     open class func checkPath(path: String, needCreate: Bool = false) -> URL? {
         guard let curPath = share.rootPath?.appendingPathComponent(path) else {
