@@ -42,22 +42,18 @@ open class MMFileCache {
             return false
         }
         curPathUrl.appendPathComponent("\(object.identifity)")
-        // 删除原有数据
-        if FileManager.default.fileExists(atPath: curPathUrl.path) {
-            do {
-                try FileManager.default.removeItem(at: curPathUrl)
-            } catch {
-                MMLOG.error("error = \(error)")
-            }
-        }
+        MMLOG.info("保存数据: \(curPathUrl.path)")
 
         guard let data = try? JSONEncoder().encode(object) else {
             return false
         }
-        
-        let result = FileManager.default.createFile(atPath: curPathUrl.path, contents: data, attributes: nil)
-        
-        return result
+        do {
+            try data.write(to: curPathUrl, options: Data.WritingOptions.noFileProtection)
+        } catch {
+            MMLOG.error("文件写入失败: \(error)")
+            return false
+        }
+        return true
     }
     // 删除文件
     open class func remove(identifity: String, path: String) -> Bool {

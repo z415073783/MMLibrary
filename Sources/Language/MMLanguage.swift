@@ -57,6 +57,7 @@ public extension MMLanguage {
         }
         let newIdentifity = identifity ?? shared.identifityStr
         guard let plist = MMLanguage.shared.languagePlistDic[newIdentifity] else {
+            
             MMAssert.fire("未获取到\(String(describing: identifity))对应的plist数据")
             return key
         }
