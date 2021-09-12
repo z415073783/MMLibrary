@@ -190,7 +190,7 @@ public extension MMLanguage {
                     MMLOG.error("沙盒翻译plist版本号获取失败")
                     return
                 }
-                if MMLibraryConfig.shared.isDebug {
+                if MMLibrary.shared.isDebug {
                 
                 } else {
                     

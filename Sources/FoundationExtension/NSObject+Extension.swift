@@ -55,7 +55,9 @@ public extension NSObject {
         
         var result = [String]()
         let count = UnsafeMutablePointer<UInt32>.allocate(capacity: 0)
-        guard let buff = class_copyPropertyList(object_getClass(self), count) else { return result }
+        guard let buff = class_copyPropertyList(object_getClass(self), count) else {
+            return result
+        }
         
         let countInt = Int(count[0])
         
@@ -66,9 +68,53 @@ public extension NSObject {
                 result.append(proper)
             }
         }
-        
         return result
     }
+    
+    
+    func mm_copy() -> Self {
+        let obj = Self()
+        let newObj = obj as NSObject
+        
+        let mirr = Mirror(reflecting: self)
+        mirr.children.forEach { child in
+            let childMirr = Mirror(reflecting: child)
+            let name = child.label ?? ""
+            let type = "\(childMirr.subjectType)"
+            let value = child.value
+            MMLOG.debug("name = \(name), type = \(type), value = \(value)")
+            if let valueToArr = value as? [Any] {
+                var newArr: [Any] = []
+                valueToArr.forEach { obj in
+                    if let nsObj = obj as? NSObject {
+                        let copyObj = nsObj.mm_copy()
+                        newArr.append(copyObj)
+                    } else {
+                        newArr.append(obj)
+                    }
+                }
+                newObj.setValue(newArr, forKey: name)
+            } else if let valueToDic = value as? [String: Any] {
+                var newDic: [String: Any] = [:]
+                valueToDic.forEach { (key: String, value: Any) in
+                    if let nsObj = value as? NSObject {
+                        newDic[key] = nsObj.mm_copy()
+                    } else {
+                        newDic[key] = value
+                    }
+                }
+                newObj.setValue(newDic, forKey: name)
+            } else if let valueToObj = value as? NSObject {
+                newObj.setValue(valueToObj.mm_copy(), forKey: name)
+            } else {
+                //值类型的数据
+                newObj.setValue(value, forKey: name)
+            }
+        }
+        
+        return obj
+    }
+    
     
     /// 字典转对象
     ///

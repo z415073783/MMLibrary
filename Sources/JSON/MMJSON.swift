@@ -211,12 +211,12 @@ public class MMJSON {
                 return
             }
 
-            if MMLibraryConfig.shared.isDebug {
+            if MMLibrary.shared.isDebug {
                 MMLOG.debug("DEBUG rpc Data: Input = \(String(describing: inputStr))")
             }
             
             let result = rpcBlock(inputStr)
-            if MMLibraryConfig.shared.isDebug {
+            if MMLibrary.shared.isDebug {
                 MMLOG.debug("DEBUG rpc Data: Output = \(String(describing: result))")
             }
             let decoder = JSONDecoder()
@@ -318,19 +318,26 @@ public extension Data {
 
 public extension MMJSONEncodable {
     func getJSONString() -> String? {
-        guard let data = try? JSONEncoder().encode(self) else {
-            return nil
+        do {
+            let data = try JSONEncoder().encode(self)
+            return String(data: data, encoding: .utf8)
+        } catch {
+            MMLOG.info("error = \(error)")
         }
-        return String(data: data, encoding: .utf8)
+        
+        return nil
     }
     
     /// 转dictionary or array
     /// - Returns:dictionary or array
     func getJSONObject() -> Any? {
-        guard let data = try? JSONEncoder().encode(self) else {
+        do {
+            let data = try JSONEncoder().encode(self)
+            return try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+        } catch {
+            MMLOG.error("转json错误 error = \(error)")
             return nil
         }
-        return try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
     }
 }
 

@@ -77,7 +77,7 @@ public class MMLogger: NSObject {
     
     private class func logln(archiveName: String? = nil, _ closure:@autoclosure () -> String?, logLevel: MMLogDefine.LogLevel = .debug, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
 
-        if MMLibraryConfig.shared.isDebug {
+        if MMLibrary.shared.isDebug {
             if let logMessage = closure() {
                 baseLog(logLevel: logLevel, archiveName: archiveName, functionName: functionName, fileName: fileName, lineNumber: lineNumber, logMessage: logMessage)
             }

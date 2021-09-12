@@ -7,8 +7,13 @@
 //
 
 import Foundation
-public class MMLibraryConfig {
-    static public let shared = MMLibraryConfig()
+public class MMLibrary {
+    static public let shared = MMLibrary()
     public var isDebug = true
+    public class func setup() {
+        MMSetup.setup()
+    }
+    
 }
+
 

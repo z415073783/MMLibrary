@@ -45,20 +45,7 @@ public extension UIView {
     func removeFromSuperviewAndClearAutoLayoutSettingsMM() {
         removeFromSuperview()
     }
-    /**
-     添加子视图
-     
-     - parameter view: 子视图
-     */
-    func MMaddSubview(_ view: UIView) {
-        addSubview(view)
-        view.initMM()
-    }
-    /**
-     当添加进父类后回调
-     */
-    func initMM() {
-    }
+
 
     func converToImage() -> UIImage? {
         let size = bounds.size
