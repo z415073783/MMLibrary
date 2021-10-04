@@ -55,19 +55,39 @@ public extension MMSystem {
 }
 
 public class MMSystem: NSObject {
-    
+    public static let share = MMSystem()
     //判断机型
     #if os(iOS) || os(tvOS)
     public let isIphone: Bool =  UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone
     public let isIpad: Bool = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad
     
     //判断横竖屏
-    public let isPortrait: Bool = {
-        return UIDevice.current.orientation.isPortrait
-    }()
-    public let isLandscape: Bool = {
-        return UIDevice.current.orientation.isLandscape
-    }()
+    public var isPortrait: Bool {
+        if #available(iOS 13.0, *) {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+                return UIDevice.current.orientation.isPortrait
+            }
+            if windowScene.interfaceOrientation == .portrait || windowScene.interfaceOrientation == .portraitUpsideDown {
+                return true
+            }
+            return false
+        } else {
+            return UIDevice.current.orientation.isPortrait
+        }
+    }
+    public var isLandscape: Bool {
+        if #available(iOS 13.0, *) {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+                return UIDevice.current.orientation.isLandscape
+            }
+            if windowScene.interfaceOrientation == .landscapeRight || windowScene.interfaceOrientation == .landscapeLeft {
+                return true
+            }
+            return false
+        } else {
+            return UIDevice.current.orientation.isLandscape
+        }
+    }
     #endif
     public class func logVersion() {
         
