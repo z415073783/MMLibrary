@@ -55,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        MMLOG.shared.outputList = []
 //        MMLOG.info("启动程序 \(KeyChainUUID.getUUID())")
 //        MMLOG.info("测试 1")
+        
         sqliteLink = MMSqliteLink(name: "test", isQueue: true) { (isFinish, link) in
             link?.tableName(name: "表名").createTable(bodyClass: TestModel.self) { (finish) in
                 MMLOG.info("finish = \(finish)")

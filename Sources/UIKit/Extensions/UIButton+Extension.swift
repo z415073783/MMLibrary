@@ -1,8 +1,9 @@
 //
-//  UIButton+Extension.swift
-//  UME
+//  UIImage+Common.swift
+//  MMLibrary
 //
-//  Created by zlm on 16/8/9.
+//  Created by mac on 2019/5/13.
+//  Copyright © 2019 zlm. All rights reserved.
 //
 #if os(iOS) || os(tvOS)
 import Foundation

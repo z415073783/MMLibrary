@@ -1,9 +1,9 @@
 //
-//  UILabel+Extension.swift
-//  Odin-UC
+//  UIImage+Common.swift
+//  MMLibrary
 //
-//  Created by zlm on 2017/1/5.
-//  Copyright © 2017年 yealing. All rights reserved.
+//  Created by mac on 2019/5/13.
+//  Copyright © 2019 zlm. All rights reserved.
 //
 #if os(iOS) || os(tvOS)
 import UIKit

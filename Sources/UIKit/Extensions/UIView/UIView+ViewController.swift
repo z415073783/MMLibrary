@@ -8,8 +8,11 @@
 import Foundation
 import UIKit
 extension UIView {
+    public func mm_viewController() -> MMViewController? {
+        return mm_UIViewController() as? MMViewController
+    }
     
-    public func mm_viewController() -> UIViewController? {
+    public func mm_UIViewController() -> UIViewController? {
         var nextResponder: UIResponder? = self
         
         repeat {

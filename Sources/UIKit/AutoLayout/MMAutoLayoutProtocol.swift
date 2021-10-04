@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+
 public protocol AutoLayoutRelatableTarget {
 }
 extension UIView: AutoLayoutRelatableTarget {

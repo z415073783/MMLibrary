@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+
 fileprivate typealias _AutoLayout = UIView
 extension _AutoLayout {
     public var mm: MMAutoLayout { return MMAutoLayout(sourceView: self) }
