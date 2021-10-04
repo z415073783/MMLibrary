@@ -9,6 +9,20 @@ import UIKit
 
 open class MMViewController: UIViewController {
     
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        // 塞进scene
+    }
+    
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        //移出scene
+        
+    }
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,8 +35,8 @@ open class MMViewController: UIViewController {
             if let exist = _router {
                 return exist
             }
-            if let parentController = self.parent as? MMViewController {
-                return parentController.router
+            if let existVC = self.mm_lastViewController() {
+                return existVC.router
             }
             return MMRouterManager.share.router //兜底调用
         }
@@ -37,9 +51,11 @@ open class MMViewController: UIViewController {
             if let exist = _dataSource {
                 return exist
             }
-            if let parentController = self.parent as? MMViewController {
-                return parentController.dataSource
+            
+            if let existVC = self.mm_lastViewController() {
+                return existVC.dataSource
             }
+           
             return MMDataSourceManager.share.dataSource //兜底调用
         }
         set {

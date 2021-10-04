@@ -37,28 +37,28 @@ class CheckLeaks {
 }
 
 extension UIViewController {
-    open func mm_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        self.mm_present(viewControllerToPresent, animated: flag, completion: completion)
-        
-        
-        
-        
-        
-        
-    }
-    func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        MMLOG.info("123123")
-        
-        
-        
-    }
-
-    open func mm_dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        self.mm_dismiss(animated: flag, completion: completion)
-        
-        
-        
-    }
+//    open func mm_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+//        self.mm_present(viewControllerToPresent, animated: flag, completion: completion)
+//        
+//        
+//        
+//        
+//        
+//        
+//    }
+//    func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+//        MMLOG.info("123123")
+//
+//
+//
+//    }
+//
+//    open func mm_dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+//        self.mm_dismiss(animated: flag, completion: completion)
+//
+//
+//
+//    }
     
     
     

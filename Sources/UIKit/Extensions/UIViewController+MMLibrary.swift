@@ -85,4 +85,44 @@ extension UIViewController {
         
         return topestController(withRootViewController: findController)
     }
+    
+    // 找到上一个vc 包括childVC
+    public func mm_lastViewController() -> MMViewController? {
+        if let parentController = self.parent as? MMViewController {
+            return parentController
+        }
+        if let navigationVC = self.navigationController {
+            var lastVC: MMViewController?
+            var isFind: Bool = false
+            for item in navigationVC.viewControllers {
+                guard let vc = item as? MMViewController else {
+                    break
+                }
+                if vc == self {
+                    //找到
+                    isFind = true
+                    break
+                }
+                lastVC = vc
+            }
+            if isFind, let existVC = lastVC {
+                return existVC
+            }
+        }
+        // TODO: 查找presentVC
+        
+        return nil
+    }
+    
+    
+    
+    // 推出当前vc
+    public func mm_popViewController() {
+        if let nc = self.navigationController, nc.viewControllers.count > 1 {
+            nc.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: {
+            })
+        }
+    }
 }

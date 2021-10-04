@@ -18,6 +18,9 @@ struct MMDataSourceModel {
 }
 
 public class MMDataSource {
+    public required init() {
+    }
+    
     private var _data: [String: Any] = [:]
     private var _lock: NSLock = NSLock()
     private var _router: MMRouter = MMRouter()
