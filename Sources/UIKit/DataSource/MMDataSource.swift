@@ -31,8 +31,9 @@ public class MMDataSource {
         _data[key] = value
         // 通知变更
         let model = MMDataSourceModel(oldValue: existValue, newValue: value)
-        _router.call(key: key, params: model)
+        let block = _router.call
         _lock.unlock()
+        _ = block(key, model, nil)
     }
     
     public func value(key: String) -> Any? {

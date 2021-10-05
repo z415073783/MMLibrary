@@ -128,8 +128,8 @@ public extension MMLanguage {
 @objc public class MMLanguage: NSObject {
     public static let shared = MMLanguage()
     public let identifityStr = "default"
-
-    private var kCurrentLanguageType: LanguageType? // = .English
+    
+    public var kCurrentLanguageType: LanguageType? // = .English
     public var kCurrentLanguage: String? {
         set {
             guard let typeStr = newValue else {

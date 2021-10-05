@@ -71,11 +71,11 @@ public struct MMAutoLayout {
         return operation
     }
     
-    public func makeAutoLayout(block: (_ maker: MMAutoLayoutMaker) -> Void) {
-        let make = MMAutoLayoutMaker()
-        make.sourceView = sourceView
-        block(make)
-        make.install()
+    public func makeAutoLayout(block: (_ make: MMAutoLayoutMaker) -> Void) {
+        let maker = MMAutoLayoutMaker()
+        maker.sourceView = sourceView
+        block(maker)
+        maker.install()
     }
     
     func leftTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
