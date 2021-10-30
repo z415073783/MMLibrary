@@ -23,7 +23,8 @@ public extension String {
 //public let kMMLanguageChangeNotification = NSNotification.Name("MMLanguageChangeNotification")
 public extension MMLanguage {
     enum LanguageType: String {
-        case Chinese_Simplified = "zh-Hans", Chinese_Traditional = "zh-Hant", English = "en", Spanish = "es", Japanese = "ja"
+        // 简体中午, 繁体中文, 英语, 西班牙语, 日语, 韩语, 意大利语, 德语
+        case Chinese_Simplified = "zh-Hans", Chinese_Traditional = "zh-Hant", English = "en", Spanish = "es", Japanese = "ja", Korean = "ko", Italian = "it", German = "de"
         static func getType(sender: String) -> LanguageType {
             switch sender {
             case "zh-Hans":
@@ -36,6 +37,12 @@ public extension MMLanguage {
                 return LanguageType.Spanish
             case "ja":
                 return LanguageType.Japanese
+            case "ko":
+                return LanguageType.Korean
+            case "it":
+                return LanguageType.Italian
+            case "de":
+                return LanguageType.German
             default:
                 return LanguageType.English
             }

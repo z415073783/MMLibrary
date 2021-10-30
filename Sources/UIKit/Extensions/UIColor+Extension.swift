@@ -50,7 +50,6 @@ public extension UIColor {
             let channel = components[0] * 255.0
             return [channel, channel, channel, components[1]]
         case 3:
-            
             return [changeInt16(value: components[0]), changeInt16(value: components[1]), changeInt16(value: components[2]), 1]
         case 4:
             return [changeInt16(value: components[0]), changeInt16(value: components[1]), changeInt16(value: components[2]), components[3]]

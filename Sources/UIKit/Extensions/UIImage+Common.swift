@@ -24,7 +24,17 @@ public extension UIImage {
         image = image?.resizableImage(withCapInsets: insets, resizingMode: .stretch)
         return image
     }
+    // 裁剪图片
+    func mm_snapshot(rect: CGRect) -> UIImage? {
+        let scale = self.scale
+        let scaledRect = CGRect(x: rect.origin.x * scale,y: rect.origin.y * scale,width: rect.size.width * scale,height: rect.size.height * scale)
+        guard let newCGImage = self.cgImage?.cropping(to: scaledRect) else {
+            return nil
+        }
+        return UIImage(cgImage: newCGImage,scale: scale,orientation: .up)
+    }
     
+    // 重设尺寸
     func mm_resizeImage(reSize: CGSize) -> UIImage {
         //UIGraphicsBeginImageContext(reSize);
         UIGraphicsBeginImageContextWithOptions(reSize, false, UIScreen.main.scale)
