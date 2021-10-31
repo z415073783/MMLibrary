@@ -74,7 +74,11 @@ public extension MMLanguage {
         }
         var language = ""
         if MMLanguage.shared.kCurrentLanguage == nil {
-            let languages = Locale.preferredLanguages
+            var languages = Locale.preferredLanguages
+            // 获取到当前首个支持的语言
+            let defaultLanguage = Bundle.preferredLocalizations(from: languages)
+            languages.insert(contentsOf: defaultLanguage, at: 0)
+            MMLOG.info("系统语言优先级列表 = \(languages)") // TODO: 需要按优先级获取
             language = languages[0]
             let list = language.components(separatedBy: "-") as [String]
             var isHaveData = false
@@ -87,10 +91,12 @@ public extension MMLanguage {
                         _lan += ("-" + list[j])
                     }
                 }
-                MMLOG.debug("系统语言缩写 = \(_lan)")
+                MMLOG.info("系统语言缩写 = \(_lan)")
                 guard let _isExist = dic[_lan] else {
+                    MMLOG.info("未匹配到\(_lan)语言资源")
                     continue
                 }
+                MMLOG.info("确定显示语言 = \(_lan)")
                 language = _lan
                 MMLanguage.shared.kCurrentLanguage = language
                 isHaveData = true
