@@ -43,6 +43,7 @@ Pod::Spec.new do |spec|
   # spec.exclude_files = "MMLibrary/Info.plist"
   # spec.preserve_path = "Sources/ZipArchive/minizip/module/module.modulemap"
   # spec.xcconfig = { "SWIFT_INCLUDE_PATHS" => "$(PODS_ROOT)/MMLibrary/Sources/ZipArchive/minizip/module"}
+  # , "OTHER_CODE_SIGN_FLAGS" => "--generate-entitlement-der"
   spec.xcconfig = {"APPLICATION_EXTENSION_API_ONLY" => "NO"}
 
   spec.libraries = "z"
