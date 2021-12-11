@@ -27,16 +27,9 @@ import Foundation
  调用方式: 需要传入name,inputmodel和 outputmodel.self, 统一使用MMJSON调用
  MMJSON.getDataOnce(name: UserDataMyIDModel.interfaceName, input: UserDataMyIDModel.Input(), bodyClass: UserDataMyIDModel.Output.self) { (output, result) in
  }
- 
- 
- 
- 
+
  
  */
-
-
-
-
 
 import Foundation
 public typealias MMJSONCodable = Codable
