@@ -15,10 +15,32 @@ public class MMSetup {
         UIView.changeMethod()
         
     }
-    
-    
-    
-    
+
+    private var _zipBlock: ((_ fileName: String,_ fileData: Data,_ zipFilePath: URL,_ password: String) -> (Void))?
+    public var zipBlock: ((_ fileName: String,_ fileData: Data,_ zipFilePath: URL,_ password: String) -> (Void))? {
+        get {
+            _zipBlock
+        }
+        set {
+            _zipBlock = newValue
+        }
+    }
+    public func setZip(zipBlock: ((_ fileName: String,_ fileData: Data,_ zipFilePath: URL,_ password: String) -> (Void))?) {
+        self.zipBlock = zipBlock
+    }
+    private var _unZipBlock: ((_ zipUrl: URL,_ destination: URL,_ overwrite: Bool,_ password: String) -> URL?)?
+    public var unZipBlock: ((_ zipUrl: URL,_ destination: URL,_ overwrite: Bool,_ password: String) -> URL?)? {
+        get {
+            return _unZipBlock
+        }
+        set {
+            _unZipBlock = newValue
+        }
+    }
+    public func setUnZip(unZipBlock: ((_ zipUrl: URL,_ destination: URL,_ overwrite: Bool,_ password: String) -> URL?)?) {
+        self.unZipBlock = unZipBlock
+    }
+
 }
 extension UIView {
     class func changeMethod() {

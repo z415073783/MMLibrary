@@ -47,7 +47,7 @@ Pod::Spec.new do |spec|
   spec.xcconfig = {"APPLICATION_EXTENSION_API_ONLY" => "NO"}
 
   spec.libraries = "z"
-  spec.dependency 'MMZipArchive'
+  # spec.dependency 'MMZipArchive'
 
 
 end
