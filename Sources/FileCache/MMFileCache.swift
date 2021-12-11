@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MMZipArchive
 
 public protocol MMFileCacheProtocol: MMJSONCodable {
     init()
@@ -44,11 +45,21 @@ open class MMFileCache {
         curPathUrl.appendPathComponent("\(object.identifity)")
         MMLOG.info("保存数据: \(curPathUrl.path)")
 
-        guard let data = try? JSONEncoder().encode(object) else {
+        guard let data = try? JSONEncoder().encode(object), let zipUrl = URL(string: curPathUrl.path + ".zip") else {
             return false
         }
         do {
             try data.write(to: curPathUrl, options: Data.WritingOptions.noFileProtection)
+            do {
+                if (FileManager.default.fileExists(atPath: zipUrl.path)) {
+                    try FileManager.default.removeItem(at: zipUrl) //删除已有
+                }
+                try MMZip.zipFiles(paths: [curPathUrl], zipFilePath: zipUrl, password: "900827") { progress in
+                }
+                try FileManager.default.removeItem(at: curPathUrl)
+            } catch {
+                MMLOG.error("压缩失败");
+            }
         } catch {
             MMLOG.error("文件写入失败: \(error)")
             return false
@@ -61,14 +72,22 @@ open class MMFileCache {
             return false
         }
         curPathUrl.appendPathComponent(identifity)
-        if FileManager.default.fileExists(atPath: curPathUrl.path) {
-            do {
-                try FileManager.default.removeItem(at: curPathUrl)
-                return true
-            } catch {
-                MMLOG.error("删除失败 error = \(error)")
-            }
+        guard let zipUrl = URL(string: curPathUrl.path + ".zip") else {
+            return false
         }
+        do {
+            if FileManager.default.fileExists(atPath: curPathUrl.path) {
+                try FileManager.default.removeItem(at: curPathUrl)
+            }
+            if FileManager.default.fileExists(atPath: zipUrl.path) {
+                try FileManager.default.removeItem(at: zipUrl)
+            }
+            
+            return true
+        } catch {
+            MMLOG.error("删除失败 error = \(error)")
+        }
+        
         return false
     }
     // 删除文件夹
@@ -96,7 +115,21 @@ open class MMFileCache {
             return nil
         }
         curPathUrl.appendPathComponent("\(identifity)")
-        if FileManager.default.fileExists(atPath: curPathUrl.path) {
+        guard let zipUrl = URL(string: curPathUrl.path + ".zip") else {
+            return nil
+        }
+        
+        if FileManager.default.fileExists(atPath: zipUrl.path) {
+            do {
+                try MMZip.unzipFile(zipUrl, destination: curPathUrl, overwrite: true, password: "900827") { progress in
+                    
+                } fileOutputHandler: { unzippedFile in
+                    
+                }
+            } catch {
+                MMLOG.error("解压失败 => \(zipUrl.path)");
+            }
+
             let data = FileManager.default.contents(atPath: curPathUrl.path)
             return data?.getJSONModelSync(Class)
         }

@@ -30,8 +30,8 @@ Pod::Spec.new do |spec|
 
   spec.author             = { "zengliangmin" => "415073783@qq.com" }
 
-  spec.platform     = :ios, "8.0"
-  spec.ios.deployment_target = '8.0'
+  spec.platform     = :ios, "9.0"
+  spec.ios.deployment_target = '9.0'
 
 
   spec.source       = { :git => "git@github.com:z415073783/MMLibrary.git", :tag => spec.version }
@@ -47,6 +47,7 @@ Pod::Spec.new do |spec|
   spec.xcconfig = {"APPLICATION_EXTENSION_API_ONLY" => "NO"}
 
   spec.libraries = "z"
+  spec.dependency 'MMZipArchive'
 
 
 end
