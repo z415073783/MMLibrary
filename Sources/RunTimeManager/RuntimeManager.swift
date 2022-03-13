@@ -5,6 +5,7 @@
 //
 
 import Foundation
+
 //实例方法
 public func mm_changeInstanceMethod(className: AnyClass, method1: Selector, method2: Selector) {
     let selector = method1

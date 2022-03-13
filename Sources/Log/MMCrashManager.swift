@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 //fileprivate var _uncaughtExceptionMaximum = 10
 var _getSignDic: [Int32: Bool] = [:]
 

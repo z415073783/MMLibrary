@@ -7,26 +7,16 @@
 
 import UIKit
 
-open class MMViewController: UIViewController {
+open class MMViewController: UIViewController, MMViewControllerProtocol {
     
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        // 塞进scene
-    }
-    
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    public convenience init(key: String) {
+        self.init()
+        register(key: key)
     }
     
     deinit {
         //移出scene
-        
-    }
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        unregister()
     }
     
     var _router: MMRouter?
@@ -62,5 +52,4 @@ open class MMViewController: UIViewController {
             _dataSource = newValue
         }
     }
-
 }

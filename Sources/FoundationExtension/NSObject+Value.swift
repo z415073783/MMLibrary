@@ -7,8 +7,7 @@
 //
 
 import Foundation
-private var mm_keys_NSObject: [NSObject: [String: UnsafeRawPointer]] = [:]
-private var mm_keys_lock = NSLock()
+
 public extension NSObject {
     // 懒加载方法
     func mm_lazyObject<T: NSObject>(key: String = #function, Class: T.Type, _ block:(() ->T)) -> T {
@@ -21,31 +20,11 @@ public extension NSObject {
     }
     
     func mm_setValue(key: String, value: NSObject?, policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_COPY_NONATOMIC) {
-        let pointKey: UnsafeRawPointer = UnsafeRawPointer(key)
-        mm_keys_lock.lock()
-        let keys = mm_keys_NSObject[self]
-        if keys == nil {
-            mm_keys_NSObject[self] = [:]
-        }
-        
-        let existKey = mm_keys_NSObject[self]?[key] ?? pointKey
-        if value == nil {
-            mm_keys_NSObject[self]?[key] = nil
-        } else {
-            mm_keys_NSObject[self]?[key] = pointKey
-        }
-        mm_keys_lock.unlock()
-        objc_setAssociatedObject(self, existKey, value, policy)
+        objc_setAssociatedObject(self, key, value, policy)
     }
     
     func mm_value(key: String) -> NSObject? {
-        mm_keys_lock.lock()
-        guard let existKey = mm_keys_NSObject[self]?[key] else {
-            mm_keys_lock.unlock()
-            return nil
-        }
-        mm_keys_lock.unlock()
-        if let value = objc_getAssociatedObject(self, existKey) as? NSObject {
+        if let value = objc_getAssociatedObject(self, key) as? NSObject {
             return value
         }
         return nil
