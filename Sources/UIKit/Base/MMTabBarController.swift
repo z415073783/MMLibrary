@@ -18,5 +18,19 @@ open class MMTabBarController: UITabBarController, MMViewControllerProtocol {
         //移出scene
         unregister()
     }
-
+    var _router: MMRouter?
+    open var router: MMRouter {
+        get {
+            if let exist = _router {
+                return exist
+            }
+            if let existVC = self.mm_lastViewController() {
+                return existVC.router
+            }
+            return MMRouterManager.share.router //兜底调用
+        }
+        set {
+            _router = newValue
+        }
+    }
 }

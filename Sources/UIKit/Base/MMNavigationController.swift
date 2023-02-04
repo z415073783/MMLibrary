@@ -23,14 +23,20 @@ open class MMNavigationController: UINavigationController, MMViewControllerProto
         //移出scene
         unregister()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    var _router: MMRouter?
+    open var router: MMRouter {
+        get {
+            if let exist = _router {
+                return exist
+            }
+            if let existVC = self.mm_lastViewController() {
+                return existVC.router
+            }
+            return MMRouterManager.share.router //兜底调用
+        }
+        set {
+            _router = newValue
+        }
     }
-    */
 
 }

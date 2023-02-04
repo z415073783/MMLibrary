@@ -7,26 +7,27 @@
 
 import Foundation
 
-public class MMProtocol<T: NSObject> {
-    var protocolList: [T] = []
+public class MMProtocol<T: NSObject>: NSObject {
+    
+    var protocolList: [MMWeakObject<T>] = []
     var lock: NSLock = NSLock()
     
-    func addProtocol(target: T) {
+    public func addProtocol(target: T) {
         lock.lock()
         var isExist = false
         protocolList.forEach { item in
-            if item == target {
+            if item.value == target {
                 isExist = true
                 return
             }
         }
         if isExist == false {
-            protocolList.append(target)
+            protocolList.append(MMWeakObject(value: target))
         }
         lock.unlock()
     }
     
-    func removeProtocol(target: T) {
+    public func removeProtocol(target: T) {
         if isPerforming {
             MMAssert.fire("当前正在执行perform命令, 不能执行remove")
             return
@@ -34,29 +35,27 @@ public class MMProtocol<T: NSObject> {
         lock.lock()
         for i in (0 ..< protocolList.count).reversed() {
             let item = protocolList[i]
-            if item == target {
+            if item.value == target {
                 protocolList.remove(at: i)
             }
         }
         lock.unlock()
     }
     var isPerforming = false
-    func perform(selector: Selector, object: Any? = nil) {
+    // perform调用的方法需要添加 @objc 标识才能被识别
+    public func perform(selectorName: String, object: Any? = nil) {
         isPerforming = true
         protocolList.forEach { item in
-            if item.responds(to: selector) {
+            let selector = NSSelectorFromString(selectorName)
+            if ((item.value?.responds(to: selector)) != nil) {
                 if let object = object {
-                    item.perform(selector, with: object)
+                    item.value?.perform(selector, with: object)
                 } else {
-                    item.perform(selector)
+                    item.value?.perform(selector)
                 }
             }
         }
         isPerforming = false
     }
-    
-    
-    
-    
     
 }
