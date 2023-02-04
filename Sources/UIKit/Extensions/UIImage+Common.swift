@@ -126,7 +126,7 @@ public extension UIImage {
         }
         //已有的值不变, 其他设为默认
         filter.setDefaults()
-        EAGLContext.setCurrent(nil)
+//        EAGLContext.setCurrent(nil) 弃用
         //获取上下文
         let context = CIContext(options: nil)
         //渲染并输出ciimage
