@@ -18,6 +18,8 @@ let bundleID = Bundle.main.bundleIdentifier
 open class MMFileCache {
     public static let share = MMFileCache()
     
+    var needZip: Bool = false
+    
     public let rootPath = MMFileData.getDocumentsPath()?.appendingPathComponent("MMFileCache")
     //检查路径是否存在
     open class func checkPath(path: String, needCreate: Bool = false) -> URL? {
@@ -49,16 +51,24 @@ open class MMFileCache {
             return false
         }
         let zipUrl = curPathUrl.appendingPathExtension("zip")
-        do {
-            if (FileManager.default.fileExists(atPath: zipUrl.path)) {
-                try FileManager.default.removeItem(at: zipUrl) //删除已有
+        
+        if MMFileCache.share.needZip, let block = MMSetup.shared.zipBlock {
+            do {
+                if (FileManager.default.fileExists(atPath: zipUrl.path)) {
+                    try FileManager.default.removeItem(at: zipUrl) //删除已有
+                }
+            } catch {
+                MMLOG.error("删除已有失败")
             }
-        } catch {
-            MMLOG.error("删除已有失败")
+            block(object.identifity, data, zipUrl, bundleID ?? "")
+        } else {
+            do {
+                try data.write(to: curPathUrl)
+            } catch {
+                MMLOG.error("写入失败 = \(error)")
+            }
         }
         
-        MMSetup.shared.zipBlock?(object.identifity, data, zipUrl, bundleID ?? "")
-
         return true
     }
     // 删除文件
@@ -69,6 +79,9 @@ open class MMFileCache {
         curPathUrl.appendPathComponent(identifity)
         let zipUrl = curPathUrl.appendingPathExtension("zip")
         do {
+            if FileManager.default.fileExists(atPath: curPathUrl.path) {
+                try FileManager.default.removeItem(at: curPathUrl)
+            }
             if FileManager.default.fileExists(atPath: zipUrl.path) {
                 try FileManager.default.removeItem(at: zipUrl)
             }
@@ -105,10 +118,13 @@ open class MMFileCache {
             return nil
         }
         curPathUrl.appendPathComponent("\(identifity)")
+        if FileManager.default.fileExists(atPath: curPathUrl.path) {
+            let data = FileManager.default.contents(atPath: curPathUrl.path)
+            return data?.getJSONModelSync(Class)
+        }
+        
         let zipUrl = curPathUrl.appendingPathExtension("zip")
-        
         if FileManager.default.fileExists(atPath: zipUrl.path) {
-        
             let lastFilePath = String(curPathUrl.path.dropLast(1 + curPathUrl.lastPathComponent.count))
             guard let lastFileUrl = URL(string: lastFilePath) else {
                 return nil
@@ -133,14 +149,19 @@ open class MMFileCache {
             itemPathList.forEach { itemUrl in
                 if FileManager.default.fileExists(atPath: itemUrl.path) {
                     
-                    let lastFilePath = String(itemUrl.path.dropLast(itemUrl.pathExtension.count + 1 + itemUrl.lastPathComponent.count))
-                    guard let lastFileUrl = URL(string: lastFilePath) else {
+                    let lastFileUrl = itemUrl.deletingLastPathComponent()
+                    let targeUrl = itemUrl.deletingPathExtension()
+                    var fileUrl: URL?
+                    if (FileManager.default.fileExists(atPath: targeUrl.path)) {
+                        fileUrl = targeUrl
+                    } else {
+                        fileUrl = MMSetup.shared.unZipBlock?(itemUrl, lastFileUrl, true, bundleID ?? "")
+                    }
+                    
+                    guard let _fileUrl = fileUrl else {
                         return
                     }
-                    guard let fileUrl = MMSetup.shared.unZipBlock?(itemUrl, lastFileUrl, true, bundleID ?? "") else {
-                        return
-                    }
-                    if let data = FileManager.default.contents(atPath: fileUrl.path), let model = data.getJSONModelSync(Class) {
+                    if let data = FileManager.default.contents(atPath: _fileUrl.path), let model = data.getJSONModelSync(Class) {
                         resultList.append(model)
                     } else {
                         MMLOG.error("数据解析错误")

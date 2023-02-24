@@ -114,15 +114,24 @@ extension UIViewController {
         return nil
     }
     
-    
-    
     // 推出当前vc
-    public func mm_popViewController() {
+    public func mm_popViewController(animated: Bool = true) {
         if let nc = self.navigationController, nc.viewControllers.count > 1 {
-            nc.popViewController(animated: true)
+            nc.popViewController(animated: animated)
         } else {
-            self.dismiss(animated: true, completion: {
+            self.dismiss(animated: animated, completion: {
             })
         }
     }
+    
+    public func dismissAllVC() {
+        var vc = self
+        while let existVC = vc.presentingViewController {
+            vc = existVC
+        }
+        vc.dismiss(animated: true) {
+            
+        }
+    }
+    
 }

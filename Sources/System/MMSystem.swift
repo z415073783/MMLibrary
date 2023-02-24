@@ -97,7 +97,7 @@ public class MMSystem: NSObject {
     
     public class func getAppName() -> String {
 //        print("Bundle.main = \(Bundle.main.infoDictionary)")
-        if let name = Bundle.main.infoDictionary?["CFBundleName"] as? String {
+        if let name = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String {
             return name
         }
         return "default"
