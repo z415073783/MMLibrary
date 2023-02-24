@@ -19,6 +19,8 @@ framework生成路径: Build->MMLibrary.framework
 
 # 功能:
 
+## 对象存储
+
 ## 数据库使用方式
 ```
 sqliteLink = MMSqliteLink(name: "test", isQueue: true) { (isFinish, link) in
