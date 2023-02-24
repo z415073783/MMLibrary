@@ -20,6 +20,28 @@ framework生成路径: Build->MMLibrary.framework
 # 功能:
 
 ## 对象存储
+MMFileCache
+```
+class ZLMUserInfo: NSObject, MMFileCacheProtocol {
+    var identifity: String = "" // 文件唯一标识符
+    var ss: String = ""
+    required override init() {
+    }
+
+}
+
+
+
+        let ss = ZLMUserInfo()
+        ss.identifity = "2"
+        ss.ss = "1224453333"
+        MMFileCache.save(object: ss, path: "1234")
+        let dd = MMFileCache.select(identifity: "2", Class: ZLMUserInfo.self, path: "1234")
+        let dd2 = MMFileCache.selectAllItem(Class: ZLMUserInfo.self, path: "1234")
+        MMFileCache.remove(identifity: "2", path: "1234")删除文件下1234下的唯一标识符=2的文件
+        MMFileCache.remove(path: "1234") // 删除叫1234的文件夹
+```
+
 
 ## 数据库使用方式
 ```
