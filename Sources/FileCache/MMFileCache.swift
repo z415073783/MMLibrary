@@ -11,7 +11,26 @@ import Foundation
 public protocol MMFileCacheProtocol: MMJSONCodable {
     init()
     var identifity: String { get }
+    
+    func save(path: String) -> Bool
+    func remove(path: String) -> Bool
+    static func select<T: MMFileCacheProtocol>(identifity: String, path: String) -> T?
 }
+
+public extension MMFileCacheProtocol {
+    @discardableResult func save(path: String) -> Bool {
+        return MMFileCache.save(object: self, path: path)
+    }
+    
+    @discardableResult func remove(path: String) -> Bool {
+        return MMFileCache.remove(identifity: identifity, path: path)
+    }
+    
+    static func select<T: MMFileCacheProtocol>(identifity: String, path: String) -> T? {
+        return MMFileCache.select(identifity: identifity, Class: self, path: path) as? T
+    }
+}
+
 
 let bundleID = Bundle.main.bundleIdentifier
 
@@ -50,9 +69,9 @@ open class MMFileCache {
         guard let data = try? JSONEncoder().encode(object) else {
             return false
         }
-        let zipUrl = curPathUrl.appendingPathExtension("zip")
         
         if MMFileCache.share.needZip, let block = MMSetup.shared.zipBlock {
+            let zipUrl = curPathUrl.appendingPathExtension("zip")
             do {
                 if (FileManager.default.fileExists(atPath: zipUrl.path)) {
                     try FileManager.default.removeItem(at: zipUrl) //删除已有
