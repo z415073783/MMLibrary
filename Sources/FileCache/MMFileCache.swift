@@ -137,6 +137,7 @@ open class MMFileCache {
             return nil
         }
         curPathUrl.appendPathComponent("\(identifity)")
+        MMLOG.debug("读取文件目录: \(curPathUrl)")
         if FileManager.default.fileExists(atPath: curPathUrl.path) {
             let data = FileManager.default.contents(atPath: curPathUrl.path)
             return data?.getJSONModelSync(Class)
