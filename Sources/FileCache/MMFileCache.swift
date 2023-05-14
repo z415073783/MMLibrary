@@ -15,9 +15,13 @@ public protocol MMFileCacheProtocol: MMJSONCodable {
     func save(path: String) -> Bool
     func remove(path: String) -> Bool
     static func select<T: MMFileCacheProtocol>(identifity: String, path: String) -> T?
+    
+    func zlm_copy<T: MMFileCacheProtocol>(Class: T.Type) -> T?
+    
 }
 
 public extension MMFileCacheProtocol {
+    
     @discardableResult func save(path: String) -> Bool {
         return MMFileCache.save(object: self, path: path)
     }
@@ -28,6 +32,13 @@ public extension MMFileCacheProtocol {
     
     static func select<T: MMFileCacheProtocol>(identifity: String, path: String) -> T? {
         return MMFileCache.select(identifity: identifity, Class: self, path: path) as? T
+    }
+    
+    func zlm_copy<T: MMFileCacheProtocol>(Class: T.Type) -> T? {
+        guard let data = try? JSONEncoder().encode(self) else {
+            return nil
+        }
+        return  data.getJSONModelSync(Class)
     }
 }
 

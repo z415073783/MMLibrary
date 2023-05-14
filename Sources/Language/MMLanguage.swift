@@ -69,7 +69,8 @@ public extension MMLanguage {
             return key
         }
         guard let dic = plist[key] else {
-            MMAssert.fire("language value获取失败 key: \(key)")
+            MMLOG.error("language value获取失败 key: \(key)")
+//            MMAssert.fire("language value获取失败 key: \(key)")
             return key
         }
         var language = ""

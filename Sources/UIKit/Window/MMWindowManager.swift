@@ -19,10 +19,11 @@ public var kAppWindow: UIWindow? {
             return nil
         }
         
-        if let delegate = winScene.delegate as? MMSceneDelegate, let window = delegate.window {
+        if let window = winScene.windows.first {
             return window
         }
     } else {
+        MMAssert.fire("没有找到window")
         // Fallback on earlier versions
     }
 

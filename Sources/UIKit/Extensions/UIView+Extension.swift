@@ -9,6 +9,7 @@
 import UIKit
 
 public extension UIView {
+
     /**
      *  设置部分圆角(相对布局) 有用到bounds方法, 所以需要在约束设置之后调用
      *
@@ -33,6 +34,9 @@ public extension UIView {
         self.layer.cornerRadius = radius
         self.layer.masksToBounds = true
     }
+    
+
+    
 //    weak var weakSelf: UIView? {
 //        return self
 //    }
@@ -177,11 +181,11 @@ public extension UIView {
     func fadeOutAction(isRemove: Bool = true, time: TimeInterval = mm_kActionDuration,completionBlock:(()->Void)? = nil) -> Void{
         UIView.animate(withDuration: mm_kActionDuration, animations: { [weak self] in
             self?.alpha = 0
-            }, completion: { [weak self](final) in
-                if isRemove {
-                    self?.removeFromSuperviewMM()
-                }
-                completionBlock?()
+        }, completion: { [weak self] _ in
+            completionBlock?()
+            if isRemove {
+                self?.removeFromSuperviewMM()
+            }
         })
     }
     

@@ -1,6 +1,5 @@
 //
 //  KeyChainUUID.m
-//  iOSClient
 //
 //  Created by zlm on 16/7/6.
 //

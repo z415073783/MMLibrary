@@ -1,6 +1,5 @@
 //
 //  UUIDManager.swift
-//  Odin-YMS
 //
 //  Created by zlm on 2017/10/12.
 //

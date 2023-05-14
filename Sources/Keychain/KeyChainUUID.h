@@ -1,6 +1,5 @@
 //
 //  KeyChainUUID.h
-//  iOSClient
 //
 //  Created by zlm on 16/7/6.
 //使用前需要引入Security.framework

@@ -17,6 +17,22 @@ public extension UIColor {
         self.init(MMRed: components[0], MMGreen: components[1], MMBlue: components[2], MMAlpha: components[3])
     }
     
+    convenience init(mmHexColor: String, alpha: CGFloat) {
+        var hex = mmHexColor
+        if hex.hasPrefix("#") {
+            hex = hex.filter {$0 != "#"}
+        }
+        if let hexVal = Int(hex, radix: 16) {
+            let red = ((CGFloat)((hexVal & 0xFF0000) >> 16))/255.0
+            let green = ((CGFloat)((hexVal & 0xFF00) >> 8))/255.0
+            let blue = ((CGFloat)((hexVal & 0xFF))/255.0)
+            self.init(red: red, green: green, blue: blue, alpha: alpha)
+        }
+        else {
+            self.init(white: 0, alpha: 0)
+        }
+    }
+    
     class func colorWithHex(hexColor: String, alpha: Float) -> UIColor {
         var hex = hexColor
         if hex.hasPrefix("#") {

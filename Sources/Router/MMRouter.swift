@@ -9,6 +9,10 @@
 import Foundation
 let kMMRouterDefaultTimeOut = 1000
 
+public protocol MMRouterEventProtocol {
+    static var key: String { get }
+}
+
 public class MMRouterManager {
     static let share = MMRouterManager()
     var router: MMRouter = MMRouter()
@@ -177,7 +181,27 @@ public class MMRouterManager {
         register(model: MMRouterModel(target: self, key: key, handler: block))
     }
     
-//    MARK: CallMethod
+    /// 监听消息
+    public func listen(eventClass: MMRouterEventProtocol.Type, block: ((_ params: Any?, _ finishBlock: ((_ params: Any?) -> Void)?) ->Void)?) {
+        register(model: MMRouterModel(target: self, key: eventClass.key, handler: block))
+    }
+    
+    //    MARK: CallMethod
+    // push消息
+    @discardableResult public func push(event: MMRouterEventProtocol) -> Bool {
+        guard let modelList = getRegisterValue(key: type(of: event).key) else {
+            return false
+        }
+        for model in modelList {
+            if let block = model.handler {
+                if model.target == nil {
+                }
+                block(event, nil)
+            }
+        }
+        return true
+    }
+
     /// 打开action
     ///
     /// - Parameters:
@@ -201,7 +225,7 @@ public class MMRouterManager {
         }
         return true
     }
-    
+
     /// 使用url方式传参
     ///
     /// - Parameters:

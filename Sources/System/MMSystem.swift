@@ -104,11 +104,18 @@ public class MMSystem: NSObject {
     }
     
     //软件build版本
-    public class func getSoftwareVersion() -> String {
+    public class func getSoftwareBuildVersion() -> String {
         if let version = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             return version
         }
         
+        return ""
+    }
+    // short版本
+    public class func getSoftwareShortVersion() -> String {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return version
+        }
         return ""
     }
     

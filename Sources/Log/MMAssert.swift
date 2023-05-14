@@ -9,7 +9,7 @@ import Foundation
 public class MMAssert {
     public class func check(_ condition: Bool, _ closure: @autoclosure () -> String?) {
         #if DEBUG
-//        assert(condition, closure() ?? "")
+        assert(condition, closure() ?? "")
         #endif
         if condition == false {
             MMLOG.error(closure())

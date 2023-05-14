@@ -28,6 +28,41 @@ public extension UIButton {
     func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
         setBackgroundImage(UIImage.mm_imageWithColor(color: color), for: state)
     }
-
+    
+    func zlm_setImage(image: UIImage?) {
+        if #available(iOS 15.0, *) {
+            zlm_configuration { config in
+                config.image = image
+            }
+            
+        } else {
+            setImage(image, for: .normal)
+        }
+    }
+    func zlm_setImageTrailingPadding(padding: CGFloat) {
+        if #available(iOS 15.0, *) {
+            zlm_configuration { config in
+                config.imagePadding = padding
+                config.imagePlacement = .trailing
+            }
+        } else {
+            self.imageEdgeInsets = UIEdgeInsets(top: 0, left: padding, bottom: 0, right: 0)
+        }
+    }
 }
+
+@available(iOS 15.0, *)
+public extension UIButton {
+    func zlm_configuration(execute:((_ config: inout UIButton.Configuration) -> Void)) {
+        if var existConfig = self.configuration  {
+            execute(&existConfig)
+            self.configuration = existConfig
+        } else {
+            var config = UIButton.Configuration.plain()
+            execute(&config)
+            self.configuration = config
+        }
+    }
+}
+
 #endif
