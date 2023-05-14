@@ -113,6 +113,7 @@ public class MMSystem: NSObject {
     }
     // short版本
     public class func getSoftwareShortVersion() -> String {
+        MMLOG.debug("Bundle.main.infoDictionary = \(Bundle.main.infoDictionary)")
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             return version
         }
