@@ -8,8 +8,8 @@
 import Foundation
 
 public class MMDataSourceManager {
-    static let share = MMDataSourceManager()
-    var dataSource = MMDataSource()
+    public static let share = MMDataSourceManager()
+    public var dataSource = MMDataSource()
 }
 
 struct MMDataSourceModel {
@@ -17,38 +17,44 @@ struct MMDataSourceModel {
     var newValue: Any?
 }
 
-public class MMDataSource {
-    public required init() {
-    }
+public class MMDataSource: NSObject {
     
-    private var _data: [String: Any] = [:]
-    private var _lock: NSLock = NSLock()
+    private var data: [String: MMRouterEventProtocol] = [:]
+    lazy var queue: DispatchQueue = {
+        let _queue = DispatchQueue(label: self.mm_getAddressIdentifity())
+        return _queue
+    }()
     private var _router: MMRouter = MMRouter()
     
-    public func setValue(value: Any, key: String) {
-        _lock.lock(before: Date(timeIntervalSinceNow: 5))
-        let existValue = _data[key]
-        _data[key] = value
-        // 通知变更
-        let model = MMDataSourceModel(oldValue: existValue, newValue: value)
-        let block = _router.call
-        _lock.unlock()
-        _ = block(key, model, nil)
+    public func setValue(_ value: MMRouterEventProtocol) {
+        let key = type(of: value).zlm_key
+        queue.sync { [weak self] in
+            self?.data[key] = value
+        }
+        _router.push(event: value)
+    }
+    public func value<T: MMRouterEventProtocol>(_ eventClass: T.Type) -> T? {
+        let key = eventClass.zlm_key
+        var existValue: MMRouterEventProtocol?
+        queue.sync { [weak self] in
+            existValue = self?.data[key]
+        }
+        return existValue as? T
     }
     
-    public func value(key: String) -> Any? {
-        _lock.lock(before: Date(timeIntervalSinceNow: 5))
-        let value = _data[key]
-        _lock.unlock()
-        return value
-    }
-    
-    public func listen(key: String, block:((_ oldValue: Any?, _ value: Any?)->Void)?) {
-        _router.register(key: key) { params in
-            guard let model = params as? MMDataSourceModel else {
-                return
+    public func listen<T: MMRouterEventProtocol>(_ eventClass: T.Type, fire: Bool = false, block:((_ value: T?)->Void)?) {
+        _router.listen(eventClass: eventClass) { params in
+            block?(params as? T)
+        }
+        if fire == true {
+            let key = eventClass.zlm_key
+            var existValue: MMRouterEventProtocol?
+            queue.sync {
+                existValue = self.data[key]
             }
-            block?(model.oldValue, model.newValue)
+            if let value = existValue {
+                block?(value as? T)
+            }
         }
     }
     

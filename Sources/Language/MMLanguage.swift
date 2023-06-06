@@ -49,6 +49,13 @@ public extension MMLanguage {
         }
     }
 
+    func systemLanguages() -> [String] {
+        var languages = Locale.preferredLanguages
+        // 获取到当前首个支持的语言
+        let defaultLanguage = Bundle.preferredLocalizations(from: languages)
+        languages.insert(contentsOf: defaultLanguage, at: 0)
+        return languages
+    }
 
     /// 转换语言
     ///

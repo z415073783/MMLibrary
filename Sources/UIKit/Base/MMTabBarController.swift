@@ -33,4 +33,22 @@ open class MMTabBarController: UITabBarController, MMViewControllerProtocol {
             _router = newValue
         }
     }
+    
+    var _dataSource: MMDataSource?
+    open var dataSource: MMDataSource {
+        get {
+            if let exist = _dataSource {
+                return exist
+            }
+            
+            if let existVC = self.mm_lastViewController() {
+                return existVC.dataSource
+            }
+           
+            return MMDataSourceManager.share.dataSource //兜底调用
+        }
+        set {
+            _dataSource = newValue
+        }
+    }
 }

@@ -35,12 +35,12 @@ open class MMDate: NSObject {
     ///   - time: 需要判断的时间
     ///   - initDate: 给定初始日期
     /// - Returns: 当前的时间差(单位:天)
-    public class func translateTime(_ time: Double, initDate: Date? = nil) -> Int {
+    public class func translateTime(date: Date, initDate: Date? = nil) -> Int {
         let dateMatter = MMUIKit.dateFormatter()
         dateMatter.dateStyle = DateFormatter.Style.full
         dateMatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
         //传入时间
-        let date = Date(timeIntervalSince1970: time)
+//        let date = Date(timeIntervalSince1970: time)
         let getTime = dateMatter.string(from: date)
         let getArr = getTime.components(separatedBy: "-")
         
@@ -50,7 +50,7 @@ open class MMDate: NSObject {
         let currentArr = currentTime.components(separatedBy: "-")
         
         //间隔时间
-        var dis = currentDate.timeIntervalSince1970 - time
+        var dis = currentDate.timeIntervalSince1970 - date.timeIntervalSince1970
         
         //计算是否是今天
         var isToday: Bool = true
@@ -162,7 +162,7 @@ open class MMDate: NSObject {
         let inYear = getYear(timeInterval: timeInterval)
         let curYear = getYear(timeInterval: curDate)
         
-        let days = translateTime(timeInterval)
+        let days = translateTime(date: Date(timeIntervalSince1970: timeInterval))
         if days == 0 {
             return dateFormatter.string(from: date)
         } else if inYear == curYear {
