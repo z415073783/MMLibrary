@@ -213,7 +213,7 @@ public class MMLogger: NSObject {
             let beginIndex = curTime.index(curTime.endIndex, offsetBy: -3)
             let num = dateFormatter.string(from: curDate)
             let num2 = curTime[beginIndex..<curTime.endIndex]
-            return "\(num))\(String(num2))"
+            return "\(num)\(String(num2))"
         }
         return ""
     }
