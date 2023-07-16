@@ -30,10 +30,10 @@ public class MMSceneManager {
         register(key: key, vc: nil)
     }
     
-    func value(key: String) -> UIViewController? {
+    func value<T: UIViewController>(key: String, ClassType: T.Type) -> T? {
         _lock.lock(before: Date(timeIntervalSinceNow: 5))
         let value = data[key]
-        guard let existVC = value?.value else {
+        guard let existVC = value?.value as? T else {
             data[key] = nil
             _lock.unlock()
             return nil

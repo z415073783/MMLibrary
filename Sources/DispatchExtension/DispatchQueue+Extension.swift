@@ -17,6 +17,15 @@ public extension DispatchQueue {
             block()
         }
     }
+    
+    static func zlm_executeOnMainThread(execute block: @escaping () -> Swift.Void) {
+        if Thread.isMainThread {
+            block()
+        } else {
+            DispatchQueue.main.async(execute: block)
+        }
+    }
+    
 }
 
 /// 去掉重复执行操作

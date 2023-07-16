@@ -15,11 +15,13 @@ public protocol MMViewControllerProtocol {
     
     func unregister()
     
+    func takeScene<T: UIViewController>(key: String, ClassType: T.Type) -> T?
+    
 }
 
-extension MMViewControllerProtocol where Self: UIViewController {
+public extension MMViewControllerProtocol where Self: UIViewController {
     
-    public var sceneKey: String? {
+    var sceneKey: String? {
         get {
             guard let existKey = mm_value(key: "mm_sceneKey") as? String else {
                 return nil
@@ -35,16 +37,20 @@ extension MMViewControllerProtocol where Self: UIViewController {
         }
     }
     // 注册
-    public func register(key: String) {
+    func register(key: String) {
         // 指定key进行注册
         sceneKey = key
         guard let existKey = sceneKey else { return }
         MMSceneManager.share.register(key: existKey, vc: self)
     }
     
-    public func unregister() {
+    func unregister() {
         guard let existKey = sceneKey else { return }
         MMSceneManager.share.register(key: existKey, vc: nil)
+    }
+    
+    func takeScene<T: UIViewController>(key: String, ClassType: T.Type) -> T? {
+        return MMSceneManager.share.value(key: key, ClassType: ClassType)
     }
     
 }

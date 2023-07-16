@@ -49,6 +49,18 @@ public extension UIButton {
             self.imageEdgeInsets = UIEdgeInsets(top: 0, left: padding, bottom: 0, right: 0)
         }
     }
+    
+    func zlm_setTitleConfig(title: String, color: UIColor, font: UIFont) {
+        if #available(iOS 15.0, *) {
+            zlm_configuration { config in
+                config.attributedTitle = AttributedString(title, attributes: AttributeContainer([.font: font, .foregroundColor: color]))
+//                config.titleLineBreakMode = .byClipping
+//                config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+            }
+        } else {
+            MMAssert.fire("未实现")
+        }
+    }
 }
 
 @available(iOS 15.0, *)

@@ -9,7 +9,7 @@
 import UIKit
 public extension UIColor {
 
-    convenience init(MMRed: CGFloat, MMGreen: CGFloat, MMBlue: CGFloat, MMAlpha: CGFloat) {
+    convenience init(MMRed: CGFloat, MMGreen: CGFloat, MMBlue: CGFloat, MMAlpha: CGFloat = 1.0) {
         self.init(red: MMRed/255.0, green: MMGreen/255.0, blue: MMBlue/255.0, alpha: MMAlpha)
     }
 //    16进制的RGBA数组
@@ -17,7 +17,7 @@ public extension UIColor {
         self.init(MMRed: components[0], MMGreen: components[1], MMBlue: components[2], MMAlpha: components[3])
     }
     
-    convenience init(mmHexColor: String, alpha: CGFloat) {
+    convenience init(mmHexColor: String, alpha: CGFloat = 1.0) {
         var hex = mmHexColor
         if hex.hasPrefix("#") {
             hex = hex.filter {$0 != "#"}
@@ -33,7 +33,7 @@ public extension UIColor {
         }
     }
     
-    class func colorWithHex(hexColor: String, alpha: Float) -> UIColor {
+    class func colorWithHex(hexColor: String, alpha: Float = 1.0) -> UIColor {
         var hex = hexColor
         if hex.hasPrefix("#") {
             hex = hex.filter {$0 != "#"}
@@ -46,7 +46,7 @@ public extension UIColor {
         }
     }
 
-    class func _colorWithHex(hexColor: CLong, alpha: CGFloat) -> UIColor {
+    class func _colorWithHex(hexColor: CLong, alpha: CGFloat = 1.0) -> UIColor {
         let red = ((CGFloat)((hexColor & 0xFF0000) >> 16))/255.0
         let green = ((CGFloat)((hexColor & 0xFF00) >> 8))/255.0
         let blue = ((CGFloat)((hexColor & 0xFF))/255.0)

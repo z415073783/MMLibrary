@@ -326,6 +326,29 @@ public extension Data {
             return nil
         }
     }
+    func getJSONObjectSync() -> Any? {
+        do {
+            let json = try JSONSerialization.jsonObject(with: self, options: .mutableContainers)
+            return json
+        } catch {
+            print("数据转换错误: error = \(error)")
+            return nil
+        }
+    }
+    
+    func toDictionary() -> NSDictionary? {
+        guard let dic = getJSONObjectSync() as? NSDictionary else {
+            return nil
+        }
+        return dic
+    }
+    
+    func toArray() -> NSArray? {
+        guard let arr = getJSONObjectSync() as? NSArray else {
+            return nil
+        }
+        return arr
+    }
 }
 
 public extension MMJSONEncodable {

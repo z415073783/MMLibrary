@@ -11,8 +11,8 @@ import Foundation
 public class MMRouterModel: NSObject  {
     public var key: String = ""
     public weak var target: NSObject?
-    public var handler: ((_ params: MMRouterEventProtocol?)->Void)?
-    public init(target: NSObject? = nil, key: String, handler: ((_ params: MMRouterEventProtocol?)->Void)?) {
+    public var handler: ((_ params: MMRouterDataProtocol?)->Void)?
+    public init(target: NSObject? = nil, key: String, handler: ((_ params: MMRouterDataProtocol?)->Void)?) {
         self.key = key
         self.target = target
         self.handler = handler

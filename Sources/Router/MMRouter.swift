@@ -9,10 +9,10 @@
 import Foundation
 let kMMRouterDefaultTimeOut = 1000
 
-public protocol MMRouterEventProtocol {
+public protocol MMRouterDataProtocol {
 }
 
-extension MMRouterEventProtocol {
+extension MMRouterDataProtocol {
     static var zlm_key: String {
         return NSStringFromClass(self as! AnyClass)
     }
@@ -111,6 +111,43 @@ public class MMRouterManager {
         }
     }
 
+    public func unregister(routerModel: MMRouterModel, finishBlock: (() ->Void)? = nil) {
+        let semaphore = DispatchSemaphore(value: 0)
+        queue.addOperation { [weak self] in
+            
+            let targetAddress = self?.mm_getAddressIdentifity()
+            if var modelList = self?.registerMap[routerModel.key] {
+                var isChange = false
+                
+                for i in (0 ..< modelList.count).reversed() {
+                    let model = modelList[i]
+                    if model == routerModel {
+                        modelList.remove(at: i)
+                        isChange = true
+                        break
+                    }
+                }
+                if isChange {
+                    if modelList.count == 0 {
+                        self?.registerMap[routerModel.key] = nil
+                    } else {
+                        self?.registerMap[routerModel.key] = modelList
+                    }
+                }
+            }
+            
+            semaphore.signal()
+        }
+        
+        let result = semaphore.mm_wait(kMMRouterDefaultTimeOut)
+        if result == .timedOut {
+            print("获取连接超时 key = \(routerModel.key)")
+        }
+        if let block = finishBlock {
+            block()
+        }
+    }
+    
     /// 移除指定target的所有注册数据
     ///
     /// - Parameters:
@@ -150,12 +187,14 @@ public class MMRouterManager {
     }
     
     /// 监听消息
-    public func listen(eventClass: MMRouterEventProtocol.Type, block: ((_ value: MMRouterEventProtocol?) ->Void)?) {
-        register(model: MMRouterModel(target: self, key: eventClass.zlm_key, handler: block))
+    @discardableResult public func listen(eventClass: MMRouterDataProtocol.Type, block: ((_ value: MMRouterDataProtocol?) ->Void)?) -> MMRouterModel {
+        let model = MMRouterModel(target: self, key: eventClass.zlm_key, handler: block)
+        register(model: model)
+        return model
     }
 
     // push消息
-    @discardableResult public func push(event: MMRouterEventProtocol) -> Bool {
+    @discardableResult public func push(event: MMRouterDataProtocol) -> Bool {
         if !Thread.isMainThread {
             MMLOG.debug("")
         }

@@ -16,7 +16,7 @@ public class MMColorManager {
 
 public class MMColor: UIColor {
     
-    public convenience init(hexColor: String, alpha: CGFloat, dynamic: Bool = true) {
+    public convenience init(hexColor: String, alpha: CGFloat = 1.0, dynamic: Bool = true) {
         var hex = hexColor
         if hex.hasPrefix("#") {
             hex = hex.filter {$0 != "#"}
@@ -72,7 +72,7 @@ public class MMColor: UIColor {
         return MMColor(auto: Int(red), green: Int(green), blue: Int(blue), alpha: alpha, dynamic: dynamic)
     }
 
-    public class func colorWithHex(hexColor: String, alpha: CGFloat, dynamic: Bool = true) -> UIColor {
+    public class func colorWithHex(hexColor: String, alpha: CGFloat = 1.0, dynamic: Bool = true) -> UIColor {
         var hex = hexColor
         if hex.hasPrefix("#") {
             hex = hex.filter {$0 != "#"}

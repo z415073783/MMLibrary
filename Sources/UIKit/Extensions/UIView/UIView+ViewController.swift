@@ -26,5 +26,13 @@ extension UIView {
         
         return nil
     }
+    
+    public func mm_viewControllerByClass<T: UIViewController>(ClassName: T.Type) -> T? {
+        guard let vc = mm_UIViewController() as? T else {
+            return nil
+        }
+        return vc
+    }
+    
 }
 #endif
