@@ -20,6 +20,8 @@ open class MMViewController: UIViewController, MMViewControllerProtocol {
     }
     
     var _router: MMRouter?
+    
+    /// 事件转发
     open var router: MMRouter {
         get {
             if let exist = _router {
@@ -34,7 +36,8 @@ open class MMViewController: UIViewController, MMViewControllerProtocol {
             _router = newValue
         }
     }
-
+    
+    /// 数据存储&转发
     var _dataSource: MMDataSource?
     open var dataSource: MMDataSource {
         get {
