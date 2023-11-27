@@ -27,16 +27,14 @@ public var kAppWindow: UIWindow? {
         // Fallback on earlier versions
     }
 
-//    if let window = UIApplication.shared.delegate?.window {
-//        return window
-//    }
-    
-    return nil
+    return MMWindowManager.shared.initWindow
 }
 
 /// 所有应用内部生成的window管理，必须在主线程调用
 public class MMWindowManager: NSObject {
     public static let shared = MMWindowManager()
+    
+    public var initWindow: UIWindow?
     
     var windowHolderArray: [WindowHolder] = []
     

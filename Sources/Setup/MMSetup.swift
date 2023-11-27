@@ -43,17 +43,20 @@ public class MMSetup {
 
 }
 extension UIView {
+    /// 配置接口
     class func changeMethod() {
-        mm_changeInstanceMethod(className: UIView.self, method1: #selector(addSubview(_:)), method2: #selector(_replaceAddSubview(_:)))
+        mm_changeInstanceMethod(className: UIView.self, method1: #selector(addSubview(_:)), method2: #selector(mm_replaceAddSubview(_:)))
     }
-    @objc func _replaceAddSubview(_ view: UIView) {
-        _replaceAddSubview(view)
-        view.mm_loadView()
+    
+    // MARK: addSubView之后调用
+    @objc func mm_replaceAddSubview(_ view: UIView) {
+        mm_replaceAddSubview(view)
+        view.mm_addToSuperViewFinish()
     }
-    /**
-     当添加进父类后回调
-     */
-    @objc open func mm_loadView() {
+    
+    // MARK: 默认回调
+    @objc open func mm_addToSuperViewFinish() {
     }
+    
 }
 

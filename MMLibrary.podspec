@@ -30,8 +30,8 @@ Pod::Spec.new do |spec|
 
   spec.author             = { "zengliangmin" => "415073783@qq.com" }
 
-  spec.platform     = :ios, "9.0"
-  spec.ios.deployment_target = '9.0'
+  spec.platform     = :ios, "16.0"
+  spec.ios.deployment_target = '16.0'
 
 
   spec.source       = { :git => "git@github.com:z415073783/MMLibrary.git", :tag => spec.version }
