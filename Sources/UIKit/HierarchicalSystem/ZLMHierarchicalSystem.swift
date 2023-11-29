@@ -11,8 +11,6 @@ import UIKit
 open class ZLMHierarchicalSystem: NSObject {
     public weak var relateVC: MMViewController?
     
-    public weak var rootVC: MMViewController?
-    
     public init(relateVC: MMViewController) {
         self.relateVC = relateVC
     }
@@ -37,8 +35,6 @@ public extension ZLMHierarchicalSystem {
         childController.willMove(toParent: _relateVC)
         
         addChildController(childController: childController)
-        // 绑定父vc
-        childController.uiSystem.rootVC = _relateVC
 
         childController.didMove(toParent: _relateVC)
     }
