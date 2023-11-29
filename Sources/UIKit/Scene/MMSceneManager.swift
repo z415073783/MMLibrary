@@ -19,6 +19,11 @@ public class MMSceneManager {
     func register(key: String, vc: UIViewController?) {
         _lock.lock(before: Date(timeIntervalSinceNow: 5))
         if let existVC = vc {
+            if data[key] != nil {
+                _lock.unlock()
+                MMAssert.fire("identifier已存在, 请修改")
+                return
+            }
             data[key] = MMWeakObject(value: existVC)
         } else {
             data[key] = nil

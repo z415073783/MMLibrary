@@ -9,10 +9,22 @@ import UIKit
 
 open class MMViewController: UIViewController, MMViewControllerProtocol {
     
-    public convenience init(key: String) {
-        self.init()
-        register(key: key)
+//    public convenience init(identifier: String? = nil) {
+//        self.init()
+//        self.identifier = identifier
+//    }
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        if let identifier = identifier {
+            register(key: identifier)
+        }
     }
+    /// 唯一标识符 需要在初始化时设置
+    open var identifier: String? {
+        return nil
+    }
+//    open var identifier: String?
     
     deinit {
         //移出scene
@@ -22,7 +34,7 @@ open class MMViewController: UIViewController, MMViewControllerProtocol {
     var _router: MMRouter?
     
     /// 事件转发
-    open var router: MMRouter {
+    public var router: MMRouter {
         get {
             if let exist = _router {
                 return exist
@@ -39,7 +51,7 @@ open class MMViewController: UIViewController, MMViewControllerProtocol {
     
     /// 数据存储&转发
     var _dataSource: MMDataSource?
-    open var dataSource: MMDataSource {
+    public var dataSource: MMDataSource {
         get {
             if let exist = _dataSource {
                 return exist
@@ -55,4 +67,15 @@ open class MMViewController: UIViewController, MMViewControllerProtocol {
             _dataSource = newValue
         }
     }
+    
+    var _uiSystem: ZLMHierarchicalSystem?
+    /// 该框架主要 用于childVC管理
+    public var uiSystem: ZLMHierarchicalSystem {
+        get {
+            let system = _uiSystem ?? ZLMHierarchicalSystem(relateVC: self)
+            _uiSystem = system
+            return system
+        }
+    }
+    
 }

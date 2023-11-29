@@ -36,7 +36,7 @@ public extension MMViewControllerProtocol where Self: UIViewController {
             mm_setValue(key: "mm_sceneKey", value: newKey)
         }
     }
-    // 注册
+    // 注册 该框架主要用于push或者pop出的vc管理
     func register(key: String) {
         // 指定key进行注册
         sceneKey = key
