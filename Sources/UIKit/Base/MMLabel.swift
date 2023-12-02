@@ -26,7 +26,7 @@ open class MMLabel: UILabel {
         }
 //        font = UIFont.fontWithHelvetica(14)
 //        textColor = UIColor.black
-        textColor = MMColor(auto: 0, green: 0, blue: 0)
+        textColor = MMColor(red: 0, green: 0, blue: 0)
     }
     
     deinit {
@@ -49,4 +49,5 @@ open class MMLabel: UILabel {
             }
         }
     }
+
 }

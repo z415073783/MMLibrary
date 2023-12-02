@@ -25,7 +25,7 @@ public class MMColor: UIColor {
             let red = ((CGFloat)((hexVal & 0xFF0000) >> 16))
             let green = ((CGFloat)((hexVal & 0xFF00) >> 8))
             let blue = (CGFloat)((hexVal & 0xFF))
-            self.init(auto: Int(red), green: Int(green), blue: Int(blue), alpha: alpha, dynamic: dynamic)
+            self.init(red: Int(red), green: Int(green), blue: Int(blue), alpha: alpha, dynamic: dynamic)
         }
         else {
             self.init(white: 0, alpha: 0)
@@ -33,7 +33,7 @@ public class MMColor: UIColor {
     }
     
     //是否允许动态适配颜色
-    public convenience init(auto red: Int, green: Int, blue: Int, alpha: CGFloat = 1.0, dynamic: Bool = true) {
+    public convenience init(red: Int, green: Int, blue: Int, alpha: CGFloat = 1.0, dynamic: Bool = true) {
         
         if #available(iOS 13.0, *), dynamic, MMColorManager.shared.enableDynamic {
             self.init { (trait) -> UIColor in
@@ -69,7 +69,7 @@ public class MMColor: UIColor {
         let green = ((CGFloat)((hexColor & 0xFF00) >> 8))
         let blue = (CGFloat)((hexColor & 0xFF))
         
-        return MMColor(auto: Int(red), green: Int(green), blue: Int(blue), alpha: alpha, dynamic: dynamic)
+        return MMColor(red: Int(red), green: Int(green), blue: Int(blue), alpha: alpha, dynamic: dynamic)
     }
 
     public class func colorWithHex(hexColor: String, alpha: CGFloat = 1.0, dynamic: Bool = true) -> UIColor {

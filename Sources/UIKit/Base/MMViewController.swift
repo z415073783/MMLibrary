@@ -14,6 +14,15 @@ open class MMViewController: UIViewController, MMViewControllerProtocol {
 //        self.identifier = identifier
 //    }
     
+    open override func loadView() {
+        self.view = mmView
+    }
+    
+    open lazy var mmView: MMView = {
+        let view = MMView()
+        return view
+    }()
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         if let identifier = identifier {
