@@ -43,6 +43,19 @@ public class MMProtocol<T: NSObject>: NSObject {
     }
     var isPerforming = false
     // perform调用的方法需要添加 @objc 标识才能被识别
+    public func perform(_ selector: Selector, object: Any? = nil) {
+        isPerforming = true
+        protocolList.forEach { item in
+            if ((item.value?.responds(to: selector)) != nil) {
+                if let object = object {
+                    item.value?.perform(selector, with: object)
+                } else {
+                    item.value?.perform(selector)
+                }
+            }
+        }
+    }
+    // perform调用的方法需要添加 @objc 标识才能被识别
     public func perform(selectorName: String, object: Any? = nil) {
         isPerforming = true
         protocolList.forEach { item in

@@ -7,13 +7,12 @@
 
 import UIKit
 
-open class MMViewController: UIViewController, MMViewControllerProtocol {
-    
-//    public convenience init(identifier: String? = nil) {
-//        self.init()
-//        self.identifier = identifier
-//    }
-    
+@objc public protocol MMViewControllerInterfaceProtocol where Self: NSObject {
+    @objc func viewWillTransition(targetVC: MMViewController)
+}
+
+open class MMViewController: UIViewController, MMViewControllerProtocol, MMViewControllerInterfaceProtocol {
+
     open override func loadView() {
         self.view = mmView
     }
@@ -28,6 +27,7 @@ open class MMViewController: UIViewController, MMViewControllerProtocol {
         if let identifier = identifier {
             register(key: identifier)
         }
+        self.delegateHandler.addProtocol(target: self)
     }
     /// 唯一标识符 需要在初始化时设置
     open var identifier: String? {
@@ -85,6 +85,17 @@ open class MMViewController: UIViewController, MMViewControllerProtocol {
             _uiSystem = system
             return system
         }
+    }
+    
+    public var delegateHandler: MMProtocol = MMProtocol()
+    
+    @objc public func viewWillTransition(targetVC: MMViewController) {
+        
+    }
+    
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        delegateHandler.perform(#selector(viewWillTransition(targetVC:)), object: self)
     }
     
 }
