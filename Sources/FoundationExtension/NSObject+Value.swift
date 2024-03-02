@@ -9,6 +9,15 @@
 import Foundation
 
 public extension NSObject {
+//    fileprivate var autoArrangeLayoutKey: UInt8 = 0
+//    if let handler = objc_getAssociatedObject(self, &autoArrangeLayoutKey) as? MMAutoArrangeLayoutHandler {
+//        return handler
+//    }
+//    let handler = MMAutoArrangeLayoutHandler()
+//    handler.sourceView = self
+//    objc_setAssociatedObject(self, &autoArrangeLayoutKey, handler, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+//    return handler
+    
     // 懒加载方法
     func mm_lazyObject<T: NSObject>(key: String = #function, Class: T.Type, _ block:(() ->T)) -> T {
         if let existView = self.mm_value(key: key) as? T {

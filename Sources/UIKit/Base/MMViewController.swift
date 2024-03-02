@@ -87,6 +87,18 @@ open class MMViewController: UIViewController, MMViewControllerProtocol, MMViewC
         }
     }
     
+    open override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        _ = initFinish
+    }
+    lazy var initFinish: Bool = {
+        zlm_initFinish()
+        return true
+    }()
+    
+    open func zlm_initFinish() {
+    }
+    
     public var delegateHandler: MMProtocol = MMProtocol()
     
     @objc public func viewWillTransition(targetVC: MMViewController) {

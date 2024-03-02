@@ -11,9 +11,11 @@ import UIKit
 public class MMSetup {
     static public let shared = MMSetup()
     class func setup() {
-      
-        UIView.changeMethod()
         
+        // 收集启动信息
+        MMLOG.info("start App")
+        
+        UIView.changeMethod()
     }
 
     private var _zipBlock: ((_ fileName: String,_ fileData: Data,_ zipFilePath: URL,_ password: String) -> (Void))?
