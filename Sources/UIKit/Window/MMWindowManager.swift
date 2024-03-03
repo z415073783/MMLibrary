@@ -3,7 +3,7 @@
 //  MMBaseFramework
 //
 //  Created by soft7 on 2018/4/1.
-//  Copyright © 2018年 Yealink. All rights reserved.
+//  Copyright © 2024 zengliangmin. All rights reserved.
 //
 
 import UIKit
