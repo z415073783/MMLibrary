@@ -49,7 +49,7 @@ public extension MMViewControllerProtocol where Self: UIViewController {
         MMSceneManager.share.register(key: existKey, vc: nil)
     }
     
-    func takeScene<T: UIViewController>(key: String, ClassType: T.Type) -> T? {
+    func takeScene<T: UIViewController>(key: String = T.mm_className(), ClassType: T.Type) -> T? {
         return MMSceneManager.share.value(key: key, ClassType: ClassType)
     }
     
