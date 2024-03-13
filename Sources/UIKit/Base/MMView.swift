@@ -11,16 +11,14 @@ import UIKit
 enum BasicViewGradientType {
     case none, line, radius
 }
+fileprivate var zlm_visualEffectViewKey: UInt8 = 0
 open class MMView: UIView {
     // 毛玻璃 参数只在第一次配置中生效
     @discardableResult func zlm_visualEffectView(style: UIBlurEffect.Style) -> UIVisualEffectView {
-       return mm_lazyObject(Class: UIVisualEffectView.self) {
+        return mm_lazyObject(key:&zlm_visualEffectViewKey, Class: UIVisualEffectView.self) {
             let blurEffect = UIBlurEffect(style: style)
             let effectView = UIVisualEffectView(effect: blurEffect)
             self.addSubview(effectView)
-//            effectView.snp.makeConstraints { make in
-//                make.edges.equalToSuperview()
-//            }
             return effectView
         }
     }

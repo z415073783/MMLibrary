@@ -9,6 +9,7 @@ import UIKit
 
 @objc public protocol MMViewControllerInterfaceProtocol where Self: NSObject {
     @objc func viewWillTransition(targetVC: MMViewController)
+    @objc func viewDidTransition(targetVC: MMViewController)
 }
 
 open class MMViewController: UIViewController, MMViewControllerProtocol, MMViewControllerInterfaceProtocol {
@@ -98,16 +99,23 @@ open class MMViewController: UIViewController, MMViewControllerProtocol, MMViewC
     
     open func zlm_initFinish() {
     }
-    
+    /// MMViewControllerProtocol
     public var delegateHandler: MMProtocol = MMProtocol()
     
     @objc public func viewWillTransition(targetVC: MMViewController) {
         
     }
     
+    @objc public func viewDidTransition(targetVC: MMViewController) {
+        
+    }
+    
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         delegateHandler.perform(#selector(viewWillTransition(targetVC:)), object: self)
+        DispatchQueue.main.async { [weak self] in
+            self?.delegateHandler.perform(#selector(self?.viewDidTransition(targetVC:)), object: self)
+        }
     }
     
 }

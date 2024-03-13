@@ -19,7 +19,7 @@ public extension NSObject {
 //    return handler
     
     // 懒加载方法
-    func mm_lazyObject<T: NSObject>(key: String = #function, Class: T.Type, _ block:(() ->T)) -> T {
+    func mm_lazyObject<T: NSObject>(key: UnsafeRawPointer, Class: T.Type, _ block:(() ->T)) -> T {
         if let existView = self.mm_value(key: key) as? T {
             return existView
         }
@@ -28,11 +28,11 @@ public extension NSObject {
         return newView
     }
     
-    func mm_setValue(key: String, value: NSObject?, policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_COPY_NONATOMIC) {
+    func mm_setValue(key: UnsafeRawPointer, value: NSObject?, policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_COPY_NONATOMIC) {
         objc_setAssociatedObject(self, key, value, policy)
     }
     
-    func mm_value(key: String) -> NSObject? {
+    func mm_value(key: UnsafeRawPointer) -> NSObject? {
         if let value = objc_getAssociatedObject(self, key) as? NSObject {
             return value
         }

@@ -18,12 +18,12 @@ public protocol MMViewControllerProtocol {
     func takeScene<T: UIViewController>(key: String, ClassType: T.Type) -> T?
     
 }
-
+fileprivate var MMViewControllerProtocolDefaultSceneKey: UInt8 = 0
 public extension MMViewControllerProtocol where Self: UIViewController {
     
     var sceneKey: String? {
         get {
-            guard let existKey = mm_value(key: "mm_sceneKey") as? String else {
+            guard let existKey = mm_value(key: &MMViewControllerProtocolDefaultSceneKey) as? String else {
                 return nil
             }
             return existKey
@@ -33,7 +33,7 @@ public extension MMViewControllerProtocol where Self: UIViewController {
                 assert(false, "转换NSString失败 -> \(newValue ?? "")")
                 return
             }
-            mm_setValue(key: "mm_sceneKey", value: newKey)
+            mm_setValue(key: &MMViewControllerProtocolDefaultSceneKey, value: newKey)
         }
     }
     // 注册 该框架主要用于push或者pop出的vc管理

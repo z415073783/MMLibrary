@@ -17,7 +17,7 @@ public class MMSceneManager {
     }()
     
     func register(key: String, vc: UIViewController?) {
-        _lock.lock(before: Date(timeIntervalSinceNow: 5))
+        _lock.lock()
         if let existVC = vc {
             if data[key] != nil {
                 _lock.unlock()
@@ -25,6 +25,7 @@ public class MMSceneManager {
                 return
             }
             data[key] = MMWeakObject(value: existVC)
+            MMLOG.info("vc注册成功: key = \(key), vc = \(existVC)")
         } else {
             data[key] = nil
         }
@@ -36,7 +37,7 @@ public class MMSceneManager {
     }
     
     func value<T: UIViewController>(key: String, ClassType: T.Type) -> T? {
-        _lock.lock(before: Date(timeIntervalSinceNow: 5))
+        _lock.lock()
         let value = data[key]
         guard let existVC = value?.value as? T else {
             data[key] = nil
