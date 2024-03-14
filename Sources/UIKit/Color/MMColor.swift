@@ -10,7 +10,7 @@ import Foundation
 #if os(iOS) || os(tvOS)
 import UIKit
 public class MMColorManager {
-    public static let shared = MMColorManager()
+    public static let share = MMColorManager()
     public var enableDynamic: Bool = false
 }
 
@@ -35,7 +35,7 @@ public class MMColor: UIColor {
     //是否允许动态适配颜色
     public convenience init(red: Int, green: Int, blue: Int, alpha: CGFloat = 1.0, dynamic: Bool = true) {
         
-        if #available(iOS 13.0, *), dynamic, MMColorManager.shared.enableDynamic {
+        if #available(iOS 13.0, *), dynamic, MMColorManager.share.enableDynamic {
             self.init { (trait) -> UIColor in
                 var list: [Int] = [red, green, blue]
                 
