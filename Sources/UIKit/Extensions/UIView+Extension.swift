@@ -35,7 +35,15 @@ public extension UIView {
         self.layer.masksToBounds = true
     }
     
+    func addShadowAndCorner(radius: CGFloat, shadowColor: UIColor = MMColor(hexColor: "#000000"), shadowOffset: CGSize = .zero, shadowOpacity: Float = 0.1, shadowRadius: CGFloat = 3) {
+        layer.cornerRadius = radius
+        layer.masksToBounds = false
 
+        layer.shadowColor = shadowColor.cgColor
+        layer.shadowOffset = shadowOffset
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowRadius = shadowRadius
+    }
     
 //    weak var weakSelf: UIView? {
 //        return self

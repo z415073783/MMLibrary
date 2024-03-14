@@ -92,6 +92,11 @@ open class MMViewController: UIViewController, MMViewControllerProtocol, MMViewC
         super.didMove(toParent: parent)
         _ = initFinish
     }
+    
+    open func didMoveFinish(toParent parent: UIViewController?) {
+        
+    }
+    
     lazy var initFinish: Bool = {
         zlm_initFinish()
         return true

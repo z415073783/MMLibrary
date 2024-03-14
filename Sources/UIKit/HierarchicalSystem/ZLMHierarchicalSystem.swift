@@ -37,6 +37,10 @@ public extension ZLMHierarchicalSystem {
         addChildController(childController: childController)
 
         childController.didMove(toParent: _relateVC)
+        
+        DispatchQueue.main.async { [weak childController, weak _relateVC] in
+            childController?.didMoveFinish(toParent: _relateVC)
+        }
     }
     
     /// 下屏
