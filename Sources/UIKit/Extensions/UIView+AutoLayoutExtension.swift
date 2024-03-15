@@ -58,6 +58,9 @@ public class MMAutoArrangeLayoutHandler: NSObject {
         var lastItem: UIView?
         var rightItem: UIView?
         arrangeList.forEach { itemView in
+            if itemView.frame.isEmpty {
+                itemView.sizeToFit()
+            }
             itemView.mm.makeAutoLayout { make in
                 make.centerY.equalToSuperview()
                 if itemView.zlm_layoutHandler.directionType == .left {
