@@ -125,7 +125,7 @@ open class MMViewController: UIViewController, MMViewControllerProtocol, MMViewC
     
     open func zlm_initFinish() {
     }
-    /// MMViewControllerProtocol
+    /// MMViewControllerInterfaceProtocol
     public var delegateHandler: MMProtocol = MMProtocol()
     
     @objc open func viewWillTransition(targetVC: MMViewController) {
