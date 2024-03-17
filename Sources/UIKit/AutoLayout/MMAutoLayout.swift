@@ -78,26 +78,26 @@ public struct MMAutoLayout {
         maker.install()
     }
     
-    func leftTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
+    public func leftTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
         return positionTo(myPositionType: .left, view: view, positionType: positionType)
     }
-    func topTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
+    public func topTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
         return positionTo(myPositionType: .top, view: view, positionType: positionType)
     }
-    func rightTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
+    public func rightTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
         return positionTo(myPositionType: .right, view: view, positionType: positionType)
     }
-    func bottomTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
+    public func bottomTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
         return positionTo(myPositionType: .bottom, view: view, positionType: positionType)
     }
-    func centerXTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
+    public func centerXTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
         return positionTo(myPositionType: .centerX, view: view, positionType: positionType)
     }
-    func centerYTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
+    public func centerYTo(view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
         return positionTo(myPositionType: .centerY, view: view, positionType: positionType)
     }
  
-    func positionTo(myPositionType: MMAutoLayoutPositionType, view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
+    public func positionTo(myPositionType: MMAutoLayoutPositionType, view: UIView, positionType: MMAutoLayoutPositionType) -> CGFloat {
         guard let sourceView = sourceView, let commonSuperView = sourceView.findCommonSuperView(view: view) else {
             assert(false, "没有共同的父视图, 无法计算距离 -> 报这个错的原因是: 对比视图双方至少其中一方最终没有添加到同一个window上(window是所有view的最底层视图)")
             return 0

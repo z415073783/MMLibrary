@@ -43,7 +43,6 @@ public class MMProtocol<T: NSObject>: NSObject {
                 item.perform(selector)
             }
         })
-      
     }
     // perform调用的方法需要添加 @objc 标识才能被识别
     public func perform(selectorName: String, object: Any? = nil) {

@@ -36,10 +36,11 @@ open class MMLabel: UILabel {
         NotificationCenter.default.removeObserver(self)
     }
     
-    private var _touchUpInsideCallback:((_ info:MMLabel?) -> Void)?
+    private var _touchUpInsideCallback:((_ label:MMLabel?) -> Void)?
     //添加touch手势 block调用
-    public func setTouchUpInsideCallBack(block: @escaping (_ info:MMLabel?) -> Void) {
+    public func setTouchUpInsideCallBack(block: @escaping (_ label:MMLabel?) -> Void) {
         _touchUpInsideCallback = block
+        self.isUserInteractionEnabled = true
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchUpInSide(sender:))))
     }
     @objc private func touchUpInSide(sender: UITapGestureRecognizer) {

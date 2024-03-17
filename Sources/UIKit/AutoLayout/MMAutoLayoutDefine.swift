@@ -6,6 +6,6 @@
 //
 
 import Foundation
-enum MMAutoLayoutPositionType {
+public enum MMAutoLayoutPositionType {
     case none, width, height, centerX, centerY, left, top, right, bottom
 }
