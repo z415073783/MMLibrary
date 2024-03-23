@@ -29,6 +29,7 @@ open class MMViewController: UIViewController, MMViewControllerProtocol, MMViewC
     
     open lazy var mmView: MMView = {
         let view = MMView()
+        view.autoresizesSubviews = true
         return view
     }()
     

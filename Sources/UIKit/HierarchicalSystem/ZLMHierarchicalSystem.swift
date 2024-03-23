@@ -65,7 +65,7 @@ fileprivate extension ZLMHierarchicalSystem {
                 return
             }
         }
-        relateVC?.view.addSubview(childController.view)
         relateVC?.addChild(childController)
+        relateVC?.view.addSubview(childController.view)
     }
 }
