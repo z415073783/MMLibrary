@@ -39,7 +39,11 @@ open class MMViewController: UIViewController, MMViewControllerProtocol, MMViewC
             register(key: identifier)
         }
         self.delegateHandler.addProtocol(target: self)
-        
+        if MMColorManager.share.enableDynamic == false {
+            self.overrideUserInterfaceStyle = .light
+        } else {
+            self.overrideUserInterfaceStyle = .unspecified
+        }
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -165,5 +169,4 @@ open class MMViewController: UIViewController, MMViewControllerProtocol, MMViewC
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
     }
-    
 }
