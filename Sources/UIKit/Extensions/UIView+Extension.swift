@@ -35,7 +35,7 @@ public extension UIView {
         self.layer.masksToBounds = true
     }
     
-    func addShadowAndCorner(radius: CGFloat, shadowColor: UIColor = MMColor(hexColor: "#000000"), shadowOffset: CGSize = .zero, shadowOpacity: Float = 0.1, shadowRadius: CGFloat = 3) {
+    func addShadowAndCorner(radius: CGFloat, shadowColor: UIColor = MMColor(hexColor: "#000000"), shadowOffset: CGSize = .zero, shadowOpacity: Float = 0.1, shadowRadius: CGFloat = 2) {
         layer.cornerRadius = radius
         layer.masksToBounds = false
 

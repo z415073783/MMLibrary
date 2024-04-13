@@ -18,9 +18,19 @@ public protocol MMFileCacheProtocol: MMJSONCodable {
     
     func zlm_copy<T: MMFileCacheProtocol>(Class: T.Type) -> T?
     
+    var crypto: Bool { get }
+//    func needCrypto() -> Bool
 }
 
 public extension MMFileCacheProtocol {
+    // 是否加密
+    var crypto: Bool {
+        return true
+    }
+    
+//    func needCrypto() -> Bool {
+//        return true
+//    }
     
     @discardableResult func save(path: String) -> Bool {
         return MMFileCache.save(object: self, path: path)
@@ -69,6 +79,8 @@ open class MMFileCache {
         return curPath
     }
     
+    open var aesCustomKey: String = ""
+    
     // 保存文件 会覆盖
     @discardableResult open class func save<T: MMFileCacheProtocol>(object: T, path: String) -> Bool {
         guard var curPathUrl = checkPath(path: path, needCreate: true) else {
@@ -77,8 +89,12 @@ open class MMFileCache {
         curPathUrl.appendPathComponent("\(object.identifity)")
         MMLOG.info("保存数据: \(curPathUrl.path)")
         
-        guard let data = try? JSONEncoder().encode(object) else {
+        guard var data = try? JSONEncoder().encode(object) else {
             return false
+        }
+        if object.crypto == true {
+            // 需要加密
+            data = data.aesEncryptData(customKey: share.aesCustomKey) ?? data
         }
         
         if MMFileCache.share.needZip, let block = MMSetup.shared.zipBlock {
@@ -164,11 +180,29 @@ open class MMFileCache {
                 return nil
             }
 
-            let data = FileManager.default.contents(atPath: fileUrl.path)
-            return data?.getJSONModelSync(Class)
+            guard let data = FileManager.default.contents(atPath: fileUrl.path) else {
+                return nil
+            }
+            let decryptData = aesDecryptData(data: data)
+            return decryptData?.getJSONModelSync(Class)
         }
         return nil
     }
+    
+    open class func selectItemFileInfo(identifity: String, path: String) -> [FileAttributeKey : Any] {
+        guard var curPathUrl = checkPath(path: path) else {
+            return [:]
+        }
+        curPathUrl.appendPathComponent("\(identifity)")
+        do {
+            let info = try FileManager.default.attributesOfItem(atPath: curPathUrl.path)
+            return info
+        } catch {
+            MMLOG.error("error = \(error)")
+            return [:]
+        }
+    }
+    
 //    读取指定路径下的所有文件
     open class func selectAllItem<T: MMFileCacheProtocol>(Class: T.Type, path: String) ->[T] {
         guard let curPathUrl = checkPath(path: path) else {
@@ -192,7 +226,7 @@ open class MMFileCache {
                     guard let _fileUrl = fileUrl else {
                         return
                     }
-                    if let data = FileManager.default.contents(atPath: _fileUrl.path), let model = data.getJSONModelSync(Class) {
+                    if let data = FileManager.default.contents(atPath: _fileUrl.path), let decryptData = aesDecryptData(data: data), let model = decryptData.getJSONModelSync(Class) {
                         resultList.append(model)
                     } else {
                         MMLOG.error("数据解析错误")
@@ -206,5 +240,10 @@ open class MMFileCache {
         return []
     }
 
+    open class func aesDecryptData(data: Data) -> Data? {
+        let decryptData = data.aesDecryptData(customKey: share.aesCustomKey)
+        return decryptData
+    }
+    
 }
 

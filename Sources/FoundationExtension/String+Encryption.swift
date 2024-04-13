@@ -24,12 +24,12 @@ public extension Encryption {
         return md5String;
     }
     var urlEncode: String? {
-         var set = CharacterSet.urlQueryAllowed
-         set.remove(charactersIn: ":#[]@!$&'()*+,;=")
-         return self.addingPercentEncoding(withAllowedCharacters: set)
-     }
-     
-     var urlDecode: String? {
-         return self.removingPercentEncoding
-     }
+        var set = CharacterSet.urlQueryAllowed
+        set.remove(charactersIn: ":#[]@!$&'()*+,;=")
+        return self.addingPercentEncoding(withAllowedCharacters: set)
+    }
+
+    var urlDecode: String? {
+        return self.removingPercentEncoding
+    }
 }
