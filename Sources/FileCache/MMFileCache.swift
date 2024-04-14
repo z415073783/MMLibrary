@@ -62,8 +62,8 @@ open class MMFileCache {
     
     public let rootPath = MMFileData.getDocumentsPath()?.appendingPathComponent("MMFileCache")
     //检查路径是否存在
-    open class func checkPath(path: String, needCreate: Bool = false) -> URL? {
-        guard let curPath = share.rootPath?.appendingPathComponent(path) else {
+    open class func checkPath(path: String, rootPath: URL? = share.rootPath, needCreate: Bool = false) -> URL? {
+        guard let curPath = rootPath?.appendingPathComponent(path) else {
             return nil
         }
         if needCreate == true {
@@ -79,11 +79,13 @@ open class MMFileCache {
         return curPath
     }
     
+    
+    
 //    open var aesCustomKey: String = ""
     
     // 保存文件 会覆盖
-    @discardableResult open class func save<T: MMFileCacheProtocol>(object: T, path: String) -> Bool {
-        guard var curPathUrl = checkPath(path: path, needCreate: true) else {
+    @discardableResult open class func save<T: MMFileCacheProtocol>(object: T, path: String, rootPath: URL? = share.rootPath) -> Bool {
+        guard var curPathUrl = checkPath(path: path, rootPath: rootPath, needCreate: true) else {
             return false
         }
         curPathUrl.appendPathComponent("\(object.identifity)")
@@ -117,8 +119,8 @@ open class MMFileCache {
         return true
     }
     // 更新指定文件的修改时间
-    open class func changeDodificationDate(identifity: String, path: String, goalDate: Date) {
-        guard var curPathUrl = checkPath(path: path) else {
+    open class func changeDodificationDate(identifity: String, path: String, rootPath: URL? = share.rootPath, goalDate: Date) {
+        guard var curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             return
         }
         curPathUrl.appendPathComponent(identifity)
@@ -134,8 +136,8 @@ open class MMFileCache {
     }
     
     // 删除文件
-    open class func remove(identifity: String, path: String) -> Bool {
-        guard var curPathUrl = checkPath(path: path) else {
+    open class func remove(identifity: String, path: String, rootPath: URL? = share.rootPath) -> Bool {
+        guard var curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             return false
         }
         curPathUrl.appendPathComponent(identifity)
@@ -156,8 +158,8 @@ open class MMFileCache {
         return false
     }
     // 删除文件夹
-    open class func remove(path: String) -> Bool {
-        guard let curPathUrl = checkPath(path: path) else {
+    @discardableResult open class func remove(path: String, rootPath: URL? = share.rootPath) -> Bool {
+        guard let curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             MMLOG.error("文件夹不存在")
             return false
         }
@@ -175,15 +177,20 @@ open class MMFileCache {
     
     
     // 读取文件
-    open class func select<T: MMFileCacheProtocol>(identifity: String, Class: T.Type, path: String, crypto: MMFileCacheCrypto?) ->T? {
-        guard var curPathUrl = checkPath(path: path) else {
+    open class func select<T: MMFileCacheProtocol>(identifity: String, Class: T.Type, path: String, rootPath: URL? = share.rootPath, crypto: MMFileCacheCrypto?) ->T? {
+        guard var curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             return nil
         }
         curPathUrl.appendPathComponent("\(identifity)")
         MMLOG.debug("读取文件目录: \(curPathUrl)")
         if FileManager.default.fileExists(atPath: curPathUrl.path) {
-            let data = FileManager.default.contents(atPath: curPathUrl.path)
-            return data?.getJSONModelSync(Class)
+            guard var data = FileManager.default.contents(atPath: curPathUrl.path) else {
+                return nil
+            }
+            if let crypto = crypto, crypto.crypto == true {
+                data = aesDecryptData(data: data, crypto: crypto) ?? data
+            }
+            return data.getJSONModelSync(Class)
         }
         
         let zipUrl = curPathUrl.appendingPathExtension("zip")
@@ -199,7 +206,7 @@ open class MMFileCache {
             guard var data = FileManager.default.contents(atPath: fileUrl.path) else {
                 return nil
             }
-            if var crypto = crypto, crypto.crypto == true {
+            if let crypto = crypto, crypto.crypto == true {
                 data = aesDecryptData(data: data, crypto: crypto) ?? data
             }
             
@@ -208,8 +215,8 @@ open class MMFileCache {
         return nil
     }
     
-    open class func selectItemFileInfo(identifity: String, path: String) -> [FileAttributeKey : Any] {
-        guard var curPathUrl = checkPath(path: path) else {
+    open class func selectItemFileInfo(identifity: String, path: String, rootPath: URL? = share.rootPath) -> [FileAttributeKey : Any] {
+        guard var curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             return [:]
         }
         curPathUrl.appendPathComponent("\(identifity)")
@@ -223,8 +230,8 @@ open class MMFileCache {
     }
     
 //    读取指定路径下的所有文件
-    open class func selectAllItem<T: MMFileCacheProtocol>(Class: T.Type, path: String, crypto: MMFileCacheCrypto?) ->[T] {
-        guard let curPathUrl = checkPath(path: path) else {
+    open class func selectAllItem<T: MMFileCacheProtocol>(Class: T.Type, path: String, rootPath: URL? = share.rootPath, crypto: MMFileCacheCrypto?) ->[T] {
+        guard let curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             return []
         }
         do {
@@ -248,7 +255,7 @@ open class MMFileCache {
                     guard var data = FileManager.default.contents(atPath: _fileUrl.path) else {
                         return
                     }
-                    if var crypto = crypto, crypto.crypto == true {
+                    if let crypto = crypto, crypto.crypto == true {
                         data = aesDecryptData(data: data, crypto: crypto) ?? data
                     }
                     if let model = data.getJSONModelSync(Class) {
