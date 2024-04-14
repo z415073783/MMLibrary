@@ -9,7 +9,7 @@
 import Foundation
 
 public class MMFileCacheCrypto: NSObject, MMJSONCodable {
-    public var crypto: Bool = false
+    public var crypto: Bool = false //默认不加密
     public var cryptoKey: String = ""
 }
 
@@ -22,7 +22,7 @@ public protocol MMFileCacheProtocol: MMJSONCodable {
     static func select<T: MMFileCacheProtocol>(identifity: String, path: String, crypto: MMFileCacheCrypto?) -> T?
     
     func zlm_copy<T: MMFileCacheProtocol>(Class: T.Type) -> T?
-
+    
     var crypto: MMFileCacheCrypto { get }
 }
 
@@ -114,9 +114,25 @@ open class MMFileCache {
                 MMLOG.error("写入失败 = \(error)")
             }
         }
-        
         return true
     }
+    // 更新指定文件的修改时间
+    open class func changeDodificationDate(identifity: String, path: String, goalDate: Date) {
+        guard var curPathUrl = checkPath(path: path) else {
+            return
+        }
+        curPathUrl.appendPathComponent(identifity)
+        do {
+            let attributes = try FileManager.default.attributesOfItem(atPath: curPathUrl.path)
+            if var modificationDate = attributes[.modificationDate] as? Date {
+                modificationDate = goalDate
+                try FileManager.default.setAttributes([.modificationDate: modificationDate], ofItemAtPath: curPathUrl.path)
+            }
+        } catch {
+            MMLOG.error("文件修改时间失败 = \(error)")
+        }
+    }
+    
     // 删除文件
     open class func remove(identifity: String, path: String) -> Bool {
         guard var curPathUrl = checkPath(path: path) else {

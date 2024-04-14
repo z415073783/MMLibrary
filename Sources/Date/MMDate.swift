@@ -173,4 +173,15 @@ open class MMDate: NSObject {
             return dateFormatter.string(from: date)
         }
     }
+    
+    //显示完整的标准日期格式+时间
+    public class func showFullStandardDateAndTime(timeInterval: TimeInterval) -> String {
+        let date = Date(timeIntervalSince1970: timeInterval)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.full
+        dateFormatter.dateFormat = "MM d, y 'at' HH:mm:ss"
+        return dateFormatter.string(from: date)
+        
+    }
 }
