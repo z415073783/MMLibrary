@@ -62,8 +62,14 @@ open class MMFileCache {
     
     public let rootPath = MMFileData.getDocumentsPath()?.appendingPathComponent("MMFileCache")
     //检查路径是否存在
-    open class func checkPath(path: String, rootPath: URL? = share.rootPath, needCreate: Bool = false) -> URL? {
-        guard let curPath = rootPath?.appendingPathComponent(path) else {
+    open class func checkPath(path: String?, rootPath: URL? = share.rootPath, needCreate: Bool = false) -> URL? {
+        let curPath: URL?
+        if let path = path {
+            curPath = rootPath?.appendingPathComponent(path)
+        } else {
+            curPath = rootPath
+        }
+        guard let curPath = curPath else {
             return nil
         }
         if needCreate == true {
@@ -84,7 +90,7 @@ open class MMFileCache {
 //    open var aesCustomKey: String = ""
     
     // 保存文件 会覆盖
-    @discardableResult open class func save<T: MMFileCacheProtocol>(object: T, path: String, rootPath: URL? = share.rootPath) -> Bool {
+    @discardableResult open class func save<T: MMFileCacheProtocol>(object: T, path: String?, rootPath: URL? = share.rootPath) -> Bool {
         guard var curPathUrl = checkPath(path: path, rootPath: rootPath, needCreate: true) else {
             return false
         }
@@ -119,7 +125,7 @@ open class MMFileCache {
         return true
     }
     // 更新指定文件的修改时间
-    open class func changeDodificationDate(identifity: String, path: String, rootPath: URL? = share.rootPath, goalDate: Date) {
+    open class func changeDodificationDate(identifity: String, path: String?, rootPath: URL? = share.rootPath, goalDate: Date) {
         guard var curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             return
         }
@@ -136,7 +142,7 @@ open class MMFileCache {
     }
     
     // 删除文件
-    open class func remove(identifity: String, path: String, rootPath: URL? = share.rootPath) -> Bool {
+    open class func remove(identifity: String, path: String?, rootPath: URL? = share.rootPath) -> Bool {
         guard var curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             return false
         }
@@ -158,7 +164,7 @@ open class MMFileCache {
         return false
     }
     // 删除文件夹
-    @discardableResult open class func remove(path: String, rootPath: URL? = share.rootPath) -> Bool {
+    @discardableResult open class func remove(path: String?, rootPath: URL? = share.rootPath) -> Bool {
         guard let curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             MMLOG.error("文件夹不存在")
             return false
@@ -177,7 +183,7 @@ open class MMFileCache {
     
     
     // 读取文件
-    open class func select<T: MMFileCacheProtocol>(identifity: String, Class: T.Type, path: String, rootPath: URL? = share.rootPath, crypto: MMFileCacheCrypto?) ->T? {
+    open class func select<T: MMFileCacheProtocol>(identifity: String, Class: T.Type, path: String?, rootPath: URL? = share.rootPath, crypto: MMFileCacheCrypto?) ->T? {
         guard var curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             return nil
         }
@@ -215,7 +221,7 @@ open class MMFileCache {
         return nil
     }
     
-    open class func selectItemFileInfo(identifity: String, path: String, rootPath: URL? = share.rootPath) -> [FileAttributeKey : Any] {
+    open class func selectItemFileInfo(identifity: String, path: String?, rootPath: URL? = share.rootPath) -> [FileAttributeKey : Any] {
         guard var curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             return [:]
         }
@@ -230,7 +236,7 @@ open class MMFileCache {
     }
     
 //    读取指定路径下的所有文件
-    open class func selectAllItem<T: MMFileCacheProtocol>(Class: T.Type, path: String, rootPath: URL? = share.rootPath, crypto: MMFileCacheCrypto?) ->[T] {
+    open class func selectAllItem<T: MMFileCacheProtocol>(Class: T.Type, path: String?, rootPath: URL? = share.rootPath, crypto: MMFileCacheCrypto?) ->[T] {
         guard let curPathUrl = checkPath(path: path, rootPath: rootPath) else {
             return []
         }
