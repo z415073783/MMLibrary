@@ -11,7 +11,7 @@ import CryptoKit
 fileprivate typealias Encryption = Data
 extension Encryption {
     // aes加密
-    func aesEncryptData(key: SymmetricKey) -> Data? {
+    public func aesEncryptData(key: SymmetricKey) -> Data? {
         do {
             let sealedBox = try AES.GCM.seal(self, using: key)
             return sealedBox.combined
@@ -21,7 +21,7 @@ extension Encryption {
         }
     }
     // aes解密
-    func aesDecryptData(key: SymmetricKey) -> Data? {
+    public func aesDecryptData(key: SymmetricKey) -> Data? {
         do {
             // 解密数据
             let sealedBox = try AES.GCM.SealedBox(combined: self)
@@ -36,10 +36,10 @@ extension Encryption {
         }
     }
     
-    func aesEncryptData(customKey: String) -> Data? {
+    public func aesEncryptData(customKey: String) -> Data? {
         return aesEncryptData(key: createSymmetricKey(customKey: customKey))
     }
-    func aesDecryptData(customKey: String) -> Data? {
+    public func aesDecryptData(customKey: String) -> Data? {
         return aesDecryptData(key: createSymmetricKey(customKey: customKey))
     }
     

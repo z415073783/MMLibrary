@@ -114,7 +114,7 @@ open class MMFileCache {
             } catch {
                 MMLOG.error("删除已有失败")
             }
-            block(object.identifity, data, zipUrl, bundleID ?? "")
+            block([MMZipFileModel(fileName: object.identifity, fileData: data)], zipUrl, bundleID ?? "")
         } else {
             do {
                 try data.write(to: curPathUrl)
