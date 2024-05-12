@@ -35,8 +35,6 @@ import Foundation
         }
     }
     
-    
-    
     //是否异步(缓存)
     @objc public var isAsync = true
     //异步缓存日志数量上限

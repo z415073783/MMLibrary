@@ -28,8 +28,8 @@ public class MMSetup {
         UIView.changeMethod()
     }
 
-    private var _zipBlock: ((_ fileModelList: [MMZipFileModel], _ zipFilePath: URL,_ password: String) -> (Void))?
-    public var zipBlock: ((_ fileModelList: [MMZipFileModel],_ zipFilePath: URL,_ password: String) -> (Void))? {
+    private var _zipBlock: ((_ fileModelList: [MMZipFileModel], _ zipFilePath: URL,_ password: String?) -> (Void))?
+    public var zipBlock: ((_ fileModelList: [MMZipFileModel],_ zipFilePath: URL,_ password: String?) -> (Void))? {
         get {
             _zipBlock
         }
@@ -38,11 +38,11 @@ public class MMSetup {
         }
     }
     
-    public func setZip(zipBlock: ((_ fileModelList: [MMZipFileModel],_ zipFilePath: URL,_ password: String) -> (Void))?) {
+    public func setZip(zipBlock: ((_ fileModelList: [MMZipFileModel],_ zipFilePath: URL,_ password: String?) -> (Void))?) {
         self.zipBlock = zipBlock
     }
-    private var _unZipBlock: ((_ zipUrl: URL,_ destination: URL,_ overwrite: Bool,_ password: String) -> URL?)?
-    public var unZipBlock: ((_ zipUrl: URL,_ destination: URL,_ overwrite: Bool,_ password: String) -> URL?)? {
+    private var _unZipBlock: ((_ zipUrl: URL,_ destination: URL,_ overwrite: Bool,_ password: String?) -> [URL])?
+    public var unZipBlock: ((_ zipUrl: URL,_ destination: URL,_ overwrite: Bool,_ password: String?) -> [URL])? {
         get {
             return _unZipBlock
         }
@@ -50,7 +50,7 @@ public class MMSetup {
             _unZipBlock = newValue
         }
     }
-    public func setUnZip(unZipBlock: ((_ zipUrl: URL,_ destination: URL,_ overwrite: Bool,_ password: String) -> URL?)?) {
+    public func setUnZip(unZipBlock: ((_ zipUrl: URL,_ destination: URL,_ overwrite: Bool,_ password: String?) -> [URL])?) {
         self.unZipBlock = unZipBlock
     }
 

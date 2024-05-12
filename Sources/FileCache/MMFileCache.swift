@@ -205,7 +205,7 @@ open class MMFileCache {
             guard let lastFileUrl = URL(string: lastFilePath) else {
                 return nil
             }
-            guard let fileUrl = MMSetup.shared.unZipBlock?(zipUrl, lastFileUrl, true, bundleID ?? "") else {
+            guard let fileUrl = MMSetup.shared.unZipBlock?(zipUrl, lastFileUrl, true, bundleID ?? "").first else {
                 return nil
             }
 
@@ -252,7 +252,7 @@ open class MMFileCache {
                     if (FileManager.default.fileExists(atPath: targeUrl.path)) {
                         fileUrl = targeUrl
                     } else {
-                        fileUrl = MMSetup.shared.unZipBlock?(itemUrl, lastFileUrl, true, bundleID ?? "")
+                        fileUrl = MMSetup.shared.unZipBlock?(itemUrl, lastFileUrl, true, bundleID ?? "").first
                     }
                     
                     guard let _fileUrl = fileUrl else {
